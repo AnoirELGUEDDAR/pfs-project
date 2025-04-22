@@ -1,0 +1,8 @@
+2025-04-21 02:05:43,200 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250421_020543.log
+2025-04-21 02:05:43,201 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-21 02:05:43,201 - main - INFO - Application started by user: pc
+2025-04-21 02:05:43,203 - main - INFO - Start time: 2025-04-21 01:05:43 UTC
+2025-04-21 02:05:43,203 - config.settings - INFO - Settings loaded successfully
+2025-04-21 02:05:43,454 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-21 02:05:43,467 - gui.main_window - INFO - Main window initialized
+2025-04-21 02:05:47,974 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s

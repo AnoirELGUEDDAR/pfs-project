@@ -1,0 +1,5 @@
+2025-04-21 01:20:26,466 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250421_012026.log
+2025-04-21 01:20:26,467 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-21 01:20:26,467 - main - INFO - Application started by user: pc
+2025-04-21 01:20:26,470 - main - INFO - Start time: 2025-04-21 00:20:26 UTC
+2025-04-21 01:20:26,470 - config.settings - INFO - Settings loaded successfully

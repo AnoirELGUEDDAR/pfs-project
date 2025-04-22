@@ -1,0 +1,102 @@
+{
+    "192.168.1.1": {
+        "ip": "192.168.1.1",
+        "hostname": "",
+        "mac": "84-06-fa-db-5a-60",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-21 23:51:31",
+        "online": true
+    },
+    "192.168.1.4": {
+        "ip": "192.168.1.4",
+        "hostname": "",
+        "mac": "",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-21 02:55:11",
+        "online": true
+    },
+    "192.168.1.5": {
+        "ip": "192.168.1.5",
+        "hostname": "DESKTOP-NKODBR4",
+        "mac": "",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-21 23:51:54",
+        "online": true
+    },
+    "192.168.1.7": {
+        "ip": "192.168.1.7",
+        "hostname": "",
+        "mac": "76-0d-be-77-b0-d3",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-21 23:09:32",
+        "online": true
+    },
+    "192.168.1.9": {
+        "ip": "192.168.1.9",
+        "hostname": "",
+        "mac": "",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-21 02:55:59",
+        "online": true
+    },
+    "192.168.1.14": {
+        "ip": "192.168.1.14",
+        "hostname": "",
+        "mac": "",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-21 02:56:44",
+        "online": true
+    },
+    "192.168.45.4": {
+        "ip": "192.168.45.4",
+        "hostname": "",
+        "mac": "",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-23 13:42:12",
+        "online": true
+    },
+    "192.168.45.2": {
+        "ip": "192.168.45.2",
+        "hostname": "",
+        "mac": "",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-23 13:45:23",
+        "online": true
+    },
+    "192.168.45.5": {
+        "ip": "192.168.45.5",
+        "hostname": "",
+        "mac": "",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-23 13:45:54",
+        "online": true
+    },
+    "192.168.45.7": {
+        "ip": "192.168.45.7",
+        "hostname": "",
+        "mac": "",
+        "vendor": "",
+        "open_ports": [],
+        "status": "online",
+        "last_seen": "2025-04-23 13:46:17",
+        "online": true
+    }
+}

@@ -1,0 +1,9 @@
+PyQt5>=5.15.0
+scapy>=2.4.5
+netifaces>=0.11.0
+python-nmap>=0.7.1
+psutil>=5.9.0
+pysmb>=1.2.8
+pywin32>=303; platform_system=="Windows"
+netaddr>=0.8.0
+pyzmq>=22.3.0

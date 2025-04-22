@@ -1,0 +1,18 @@
+{
+    "192.168.1.36:9877": {
+        "name": "WIN8",
+        "ip": "192.168.1.36",
+        "port": 9877,
+        "token": "change_this_token_immediately",
+        "status": "offline",
+        "last_connected": "2025-04-22 21:10:34"
+    },
+    "192.168.45.253:9877": {
+        "name": "NEW",
+        "ip": "192.168.45.253",
+        "port": 9877,
+        "token": "change_this_token_immediately",
+        "status": "offline",
+        "last_connected": "2025-04-23 14:03:38"
+    }
+}

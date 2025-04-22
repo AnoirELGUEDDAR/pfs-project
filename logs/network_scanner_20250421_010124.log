@@ -1,0 +1,15 @@
+2025-04-21 01:01:24,146 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250421_010124.log
+2025-04-21 01:01:24,146 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-21 01:01:24,146 - main - INFO - Application started by user: pc
+2025-04-21 01:01:24,148 - main - INFO - Start time: 2025-04-21 00:01:24 UTC
+2025-04-21 01:01:24,149 - config.settings - INFO - Settings loaded successfully
+2025-04-21 01:01:24,461 - gui.main_window - INFO - Main window initialized
+2025-04-21 01:01:27,724 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-21 01:01:27,725 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-21 01:01:31,473 - core.scanner.network_scanner - INFO - Scan completed in 3.75 seconds. Found 2 devices
+2025-04-21 01:01:31,475 - gui.scanner_tab - INFO - Scan completed. Found 2 devices
+2025-04-21 01:01:50,844 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-21 01:01:50,844 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-21 01:01:57,972 - core.scanner.network_scanner - INFO - Scan completed in 7.13 seconds. Found 4 devices
+2025-04-21 01:01:57,974 - gui.scanner_tab - INFO - Scan completed. Found 4 devices
+2025-04-21 01:05:58,226 - gui.main_window - INFO - Application closing

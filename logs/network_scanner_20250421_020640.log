@@ -1,0 +1,49 @@
+2025-04-21 02:06:40,413 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250421_020640.log
+2025-04-21 02:06:40,413 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-21 02:06:40,413 - main - INFO - Application started by user: pc
+2025-04-21 02:06:40,415 - main - INFO - Start time: 2025-04-21 01:06:40 UTC
+2025-04-21 02:06:40,415 - config.settings - INFO - Settings loaded successfully
+2025-04-21 02:06:40,656 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-21 02:06:40,669 - gui.main_window - INFO - Main window initialized
+2025-04-21 02:06:47,509 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-04-21 02:06:51,836 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-04-21 02:06:56,114 - gui.devices_tab - INFO - Sauvegarde de 1 appareils dans devices.json
+2025-04-21 02:06:58,504 - gui.devices_tab - INFO - Sauvegarde de 1 appareils dans devices.json
+2025-04-21 02:07:03,905 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-04-21 02:07:06,526 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-04-21 02:07:18,930 - gui.devices_tab - INFO - Sauvegarde de 3 appareils dans devices.json
+2025-04-21 02:07:21,519 - gui.devices_tab - INFO - Sauvegarde de 3 appareils dans devices.json
+2025-04-21 02:07:23,013 - gui.devices_tab - INFO - Sauvegarde de 4 appareils dans devices.json
+2025-04-21 02:07:25,626 - gui.devices_tab - INFO - Sauvegarde de 4 appareils dans devices.json
+2025-04-21 02:07:33,959 - gui.devices_tab - INFO - Sauvegarde de 5 appareils dans devices.json
+2025-04-21 02:07:40,660 - gui.devices_tab - INFO - Sauvegarde de 5 appareils dans devices.json
+2025-04-21 02:07:50,476 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-04-21 02:07:57,502 - gui.devices_tab - INFO - Sauvegarde de 7 appareils dans devices.json
+2025-04-21 02:08:12,445 - gui.devices_tab - INFO - Sauvegarde de 8 appareils dans devices.json
+2025-04-21 02:08:15,441 - gui.devices_tab - INFO - Sauvegarde de 8 appareils dans devices.json
+2025-04-21 02:08:18,913 - gui.devices_tab - INFO - Sauvegarde de 9 appareils dans devices.json
+2025-04-21 02:08:24,506 - gui.devices_tab - INFO - Sauvegarde de 9 appareils dans devices.json
+2025-04-21 02:08:31,258 - core.remote.device_manager - WARNING - Appareil WIN8 (192.168.1.36:9877) ajouté mais non connecté
+2025-04-21 02:08:36,958 - gui.devices_tab - INFO - Sauvegarde de 10 appareils dans devices.json
+2025-04-21 02:08:40,668 - gui.devices_tab - INFO - Sauvegarde de 10 appareils dans devices.json
+2025-04-21 02:08:48,030 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-21 02:09:03,464 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-21 02:09:12,931 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-04-21 02:09:20,004 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-21 02:09:26,397 - gui.devices_tab - INFO - Sauvegarde de 15 appareils dans devices.json
+2025-04-21 02:09:27,907 - gui.devices_tab - INFO - Sauvegarde de 15 appareils dans devices.json
+2025-04-21 02:09:40,670 - gui.devices_tab - INFO - Sauvegarde de 15 appareils dans devices.json
+2025-04-21 02:09:44,453 - gui.devices_tab - INFO - Sauvegarde de 16 appareils dans devices.json
+2025-04-21 02:09:48,425 - gui.devices_tab - INFO - Sauvegarde de 17 appareils dans devices.json
+2025-04-21 02:09:53,998 - gui.devices_tab - INFO - Sauvegarde de 17 appareils dans devices.json
+2025-04-21 02:10:06,451 - gui.devices_tab - INFO - Sauvegarde de 18 appareils dans devices.json
+2025-04-21 02:10:17,453 - gui.devices_tab - INFO - Sauvegarde de 19 appareils dans devices.json
+2025-04-21 02:10:24,439 - gui.devices_tab - INFO - Sauvegarde de 20 appareils dans devices.json
+2025-04-21 02:10:37,937 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-04-21 02:10:39,769 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-04-21 02:10:40,667 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-04-21 02:10:55,979 - gui.devices_tab - INFO - Sauvegarde de 22 appareils dans devices.json
+2025-04-21 02:11:08,429 - gui.devices_tab - INFO - Sauvegarde de 23 appareils dans devices.json
+2025-04-21 02:11:10,973 - gui.devices_tab - INFO - Sauvegarde de 23 appareils dans devices.json
+2025-04-21 02:11:17,930 - gui.devices_tab - INFO - Sauvegarde de 24 appareils dans devices.json
+2025-04-21 02:11:30,463 - gui.devices_tab - INFO - Sauvegarde de 25 appareils dans devices.json
