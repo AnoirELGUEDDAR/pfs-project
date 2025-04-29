@@ -9,14 +9,25 @@ from typing import Dict
 from PyQt5.QtWidgets import (
     QMainWindow, QTabWidget, QVBoxLayout, QHBoxLayout,
     QWidget, QPushButton, QStatusBar, QAction, QMenu,
-    QToolBar, QLabel, QMessageBox, QFileDialog
+    QToolBar, QLabel, QMessageBox, QFileDialog, QInputDialog
 )
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt, QSize, QTimer
 from PyQt5.QtGui import QIcon
 
+# Use your actual file names as they exist in the project
 from gui.scanner_tab import ScannerTab
 from gui.devices_tab import DevicesTab
 from gui.remote_tab import RemoteTab
+from gui.messaging_tab import MessagingTab, NewMessageDialog, ClientMessagingMode
+from gui.files_tab import FilesTab
+
+from core.messaging.message_service import MessageService
+from core.messaging.message import Message, MessageType
+from core.messaging.message_server import MessageServer
+from core.file_transfer.file_service import FileTransferService
+
+# Import the DeviceManager for remote device management
+from core.remote.device_manager import DeviceManager
 
 logger = logging.getLogger(__name__)
 
@@ -30,11 +41,42 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Network Scanner & Management Tool")
         self.setMinimumSize(1000, 700)
         
+        # Initialize MessageService
+        self.message_service = MessageService()
+        
+        # Set administrator username
+        self.message_service.set_username("AnoirELGUEDDAR")
+        
+        # Initialize MessageServer (for client-admin communication)
+        self.message_server = MessageServer(
+            port=9876,
+            message_service=self.message_service,
+            auth_token="change_this_token_immediately"  # Use same token in clients
+        )
+        
+        # Initialize FileTransferService
+        self.file_service = FileTransferService(storage_dir="file_storage")
+        
+        # Initialize DeviceManager for remote device management
+        self.device_manager = DeviceManager()
+        
+        # Start the services
+        self.message_service.start()
+        self.message_server.start()
+        
         # Setup UI
         self._setup_ui()
         
         logger.info("Main window initialized")
         self.status_bar.showMessage(f"Ready - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        
+        # Send welcome message
+        welcome_msg = Message(
+            content=f"Application started successfully at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+            msg_type=MessageType.INFO,
+            sender="System"
+        )
+        self.message_service.send_message(welcome_msg)
         
     def _setup_ui(self):
         """Setup the user interface"""
@@ -54,34 +96,32 @@ class MainWindow(QMainWindow):
         self.scanner_tab = ScannerTab()
         self.devices_tab = DevicesTab()
         self.remote_tab = RemoteTab()
+        self.messaging_tab = MessagingTab(self.message_service)
         
         # Add tabs to widget
         self.tab_widget.addTab(self.scanner_tab, "Network Scanner")
         self.tab_widget.addTab(self.devices_tab, "Devices")
         self.tab_widget.addTab(self.remote_tab, "Remote Management")
+        self.tab_widget.addTab(self.messaging_tab, "Messaging")
         
-        # Create placeholder tabs for future implementation
-        self.message_tab = QWidget()
-        message_layout = QVBoxLayout(self.message_tab)
-        message_layout.addWidget(QLabel("Messaging functionality will be implemented here"))
+        # Initialize Files Tab with our implementation - Use DeviceManager
+        self.files_tab = FilesTab(
+            self.device_manager,  # Pass the device_manager instead of None
+            self.file_service,
+            self.message_service
+        )
+        self.tab_widget.addTab(self.files_tab, "Files")
         
-        self.files_tab = QWidget()
-        files_layout = QVBoxLayout(self.files_tab)
-        files_layout.addWidget(QLabel("File search functionality will be implemented here"))
-        
+        # Keep the placeholder for monitoring tab
         self.monitoring_tab = QWidget()
         monitoring_layout = QVBoxLayout(self.monitoring_tab)
         monitoring_layout.addWidget(QLabel("Network monitoring functionality will be implemented here"))
-        
-        # Add placeholder tabs
-        self.tab_widget.addTab(self.message_tab, "Messaging")
-        self.tab_widget.addTab(self.files_tab, "Files")
         self.tab_widget.addTab(self.monitoring_tab, "Monitoring")
         
         # Connect scanner tab signals to devices tab
         self.scanner_tab.device_discovered.connect(self.devices_tab.add_device_from_scan)
         
-        # Connexion entre les onglets Device et Remote Management
+        # Connect scanner tab signals to send messages
         self.scanner_tab.device_discovered.connect(self._on_device_discovered)
         
         # Setup status bar
@@ -95,10 +135,23 @@ class MainWindow(QMainWindow):
         self._setup_toolbar()
         
     def _on_device_discovered(self, device_info):
-        """Gère un appareil découvert par le scan"""
-        # Vous pourriez vouloir alerter l'utilisateur qu'un nouvel appareil 
-        # peut être ajouté à la gestion à distance
-        pass
+        """Handle a device discovered by the scan"""
+        # Send a notification via the messaging system about the discovered device
+        device_ip = device_info.get('ip', 'unknown')
+        device_mac = device_info.get('mac', 'unknown')
+        device_name = device_info.get('hostname', 'unnamed')
+        
+        # Register device with message service
+        device_id = device_ip  # Use IP address as device ID
+        self.message_service.register_device(device_id, device_info)
+        
+        # Send notification message
+        message = Message(
+            content=f"New device discovered: {device_name} ({device_ip}, {device_mac})",
+            msg_type=MessageType.INFO,
+            sender="Scanner"
+        )
+        self.message_service.send_message(message)
         
     def _setup_menu(self):
         """Setup the application menu"""
@@ -157,6 +210,53 @@ class MainWindow(QMainWindow):
         refresh_action.triggered.connect(lambda: self.remote_tab._refresh_statuses())
         remote_menu.addAction(refresh_action)
         
+        # Messaging menu
+        message_menu = self.menuBar().addMenu("&Messaging")
+        
+        new_msg_action = QAction("&New Message", self)
+        new_msg_action.setStatusTip("Create a new message")
+        new_msg_action.triggered.connect(self._create_new_message)
+        message_menu.addAction(new_msg_action)
+        
+        refresh_msgs_action = QAction("&Refresh Messages", self)
+        refresh_msgs_action.setStatusTip("Refresh message list")
+        refresh_msgs_action.triggered.connect(lambda: self.messaging_tab.refresh_conversations())
+        message_menu.addAction(refresh_msgs_action)
+        
+        message_menu.addSeparator()
+        
+        # Add Client Mode action
+        client_mode_action = QAction("Start &Client Mode", self)
+        client_mode_action.setStatusTip("Start client messaging mode")
+        client_mode_action.triggered.connect(self._start_client_mode)
+        message_menu.addAction(client_mode_action)
+        
+        # Add Broadcast Message action
+        broadcast_action = QAction("&Broadcast Message", self)
+        broadcast_action.setStatusTip("Send a message to all devices")
+        broadcast_action.triggered.connect(self._broadcast_message)
+        message_menu.addAction(broadcast_action)
+        
+        # File menu
+        file_transfer_menu = self.menuBar().addMenu("&Files")
+        
+        upload_action = QAction("&Upload Files", self)
+        upload_action.setStatusTip("Upload files to clients")
+        upload_action.triggered.connect(self._upload_files)
+        file_transfer_menu.addAction(upload_action)
+        
+        download_action = QAction("&Download Files", self)
+        download_action.setStatusTip("Download files from clients")
+        download_action.triggered.connect(self._download_files)
+        file_transfer_menu.addAction(download_action)
+        
+        file_transfer_menu.addSeparator()
+        
+        search_action = QAction("&Search Files", self)
+        search_action.setStatusTip("Search for files on clients")
+        search_action.triggered.connect(self._search_files)
+        file_transfer_menu.addAction(search_action)
+        
         # Tools menu
         tools_menu = self.menuBar().addMenu("&Tools")
         
@@ -191,6 +291,24 @@ class MainWindow(QMainWindow):
         stop_action.triggered.connect(self._stop_scan)
         toolbar.addAction(stop_action)
         
+        # Add message button
+        message_action = QAction(QIcon("icons/message.png") if os.path.exists("icons/message.png") else "Message", self)
+        message_action.setStatusTip("Create a new message")
+        message_action.triggered.connect(self._create_new_message)
+        toolbar.addAction(message_action)
+        
+        # Add client mode button
+        client_action = QAction(QIcon("icons/client.png") if os.path.exists("icons/client.png") else "Client", self)
+        client_action.setStatusTip("Start client messaging mode")
+        client_action.triggered.connect(self._start_client_mode)
+        toolbar.addAction(client_action)
+        
+        # Add file upload button
+        upload_action = QAction(QIcon("icons/upload.png") if os.path.exists("icons/upload.png") else "Upload", self)
+        upload_action.setStatusTip("Upload files to clients")
+        upload_action.triggered.connect(self._upload_files)
+        toolbar.addAction(upload_action)
+        
     def _save_results(self):
         """Save scan results to file"""
         if self.tab_widget.currentWidget() == self.scanner_tab:
@@ -211,9 +329,25 @@ class MainWindow(QMainWindow):
         # Start scanning
         self.scanner_tab.start_scan()
         
+        # Send notification message
+        message = Message(
+            content="Network scan started",
+            msg_type=MessageType.INFO,
+            sender="System"
+        )
+        self.message_service.send_message(message)
+        
     def _stop_scan(self):
         """Stop network scan from menu or toolbar"""
         self.scanner_tab.stop_scan()
+        
+        # Send notification message
+        message = Message(
+            content="Network scan stopped",
+            msg_type=MessageType.INFO,
+            sender="System"
+        )
+        self.message_service.send_message(message)
         
     def _port_scan_selected(self):
         """Perform port scan on selected device"""
@@ -227,6 +361,94 @@ class MainWindow(QMainWindow):
                 "Port Scan",
                 "Port scanning is only available from the Network Scanner and Devices tabs."
             )
+            
+    def _create_new_message(self):
+        """Create a new message from menu or toolbar"""
+        # Switch to messaging tab
+        self.tab_widget.setCurrentWidget(self.messaging_tab)
+        
+        # Open the new message dialog
+        dialog = NewMessageDialog(self.message_service, self)
+        if dialog.exec_():
+            # Get message data from dialog
+            msg_data = dialog.get_message_data()
+            if not msg_data["content"]:
+                return
+                
+            # Create and send the message
+            message = Message(
+                content=msg_data["content"],
+                msg_type=msg_data["msg_type"],
+                sender="AnoirELGUEDDAR",
+                recipient=msg_data["recipient"],
+                is_broadcast=msg_data["is_broadcast"]
+            )
+            
+            self.message_service.send_message(message)
+            
+            # Refresh conversations and select the new one
+            self.messaging_tab.refresh_conversations()
+            
+    def _start_client_mode(self):
+        """Start client messaging mode"""
+        # Open the client messaging dialog
+        client_dialog = ClientMessagingMode(self.message_service, self)
+        client_dialog.exec_()
+        
+        # Refresh conversations when done
+        self.messaging_tab.refresh_conversations()
+        
+    def _broadcast_message(self):
+        """Broadcast a message to all clients"""
+        # Create a simple input dialog for the message
+        text, ok = QInputDialog.getText(
+            self, 
+            "Broadcast Message", 
+            "Enter message to broadcast to all devices:"
+        )
+        
+        if ok and text.strip():
+            # Send the broadcast message
+            self.message_service.broadcast_message(
+                content=text.strip(),
+                msg_type=MessageType.INFO
+            )
+            
+            # Refresh conversations
+            self.messaging_tab.refresh_conversations()
+    
+    def _upload_files(self):
+        """Upload files to clients"""
+        # Switch to files tab
+        self.tab_widget.setCurrentWidget(self.files_tab)
+        
+        # Call the upload method
+        self.files_tab._upload_file()
+    
+    def _download_files(self):
+        """Download files from clients"""
+        # Switch to files tab
+        self.tab_widget.setCurrentWidget(self.files_tab)
+        
+        # Call the download method
+        self.files_tab._download_selected()
+    
+    def _search_files(self):
+        """Search for files on clients"""
+        # Switch to files tab
+        self.tab_widget.setCurrentWidget(self.files_tab)
+        
+        # Prompt for search query
+        text, ok = QInputDialog.getText(
+            self, 
+            "Search Files", 
+            "Enter search query:"
+        )
+        
+        if ok and text.strip():
+            # Set the search input and trigger search
+            self.files_tab.search_input.setText(text.strip())
+            self.files_tab.search_files()
             
     def _show_settings(self):
         """Show application settings dialog"""
@@ -247,3 +469,20 @@ class MainWindow(QMainWindow):
             "A comprehensive tool for network scanning, device discovery, remote management, "
             "messaging, file searching and network monitoring on local networks."
         )
+        
+    def closeEvent(self, event):
+        """Handle application close event"""
+        # Clean up the DeviceManager
+        if hasattr(self, 'device_manager'):
+            self.device_manager.cleanup()
+            
+        # Stop the message service
+        if hasattr(self, 'message_service'):
+            self.message_service.stop()
+            
+        # Stop the message server
+        if hasattr(self, 'message_server'):
+            self.message_server.stop()
+        
+        # Call the base class implementation to continue with the close event
+        super().closeEvent(event)
