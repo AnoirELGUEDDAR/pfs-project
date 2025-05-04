@@ -1,0 +1,31 @@
+2025-04-29 00:06:58,351 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250429_000658.log
+2025-04-29 00:06:58,352 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-29 00:06:58,352 - main - INFO - Application started by user: pc
+2025-04-29 00:06:58,354 - main - INFO - Start time: 2025-04-28 23:06:58 UTC
+2025-04-29 00:06:58,355 - config.settings - INFO - Settings loaded successfully
+2025-04-29 00:06:58,373 - core.messaging.message_service - INFO - Message service started
+2025-04-29 00:06:58,373 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-04-29 00:06:58,961 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-04-29 00:06:58,973 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-29 00:06:58,985 - gui.devices_tab - INFO - Chargement de 10 appareils depuis devices.json
+2025-04-29 00:06:58,998 - gui.main_window - INFO - Main window initialized
+2025-04-29 00:07:00,959 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49547
+2025-04-29 00:07:00,960 - core.messaging.message_server - INFO - Received command: register_client from 192.168.1.15
+2025-04-29 00:07:05,858 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49548
+2025-04-29 00:07:05,873 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-29 00:07:10,889 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49549
+2025-04-29 00:07:10,904 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-29 00:07:15,920 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49550
+2025-04-29 00:07:15,935 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-29 00:07:20,940 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49551
+2025-04-29 00:07:20,941 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-29 00:07:25,945 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49552
+2025-04-29 00:07:25,960 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-29 00:07:30,965 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49553
+2025-04-29 00:07:30,982 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-29 00:07:35,988 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49554
+2025-04-29 00:07:36,004 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-29 00:07:41,006 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49555
+2025-04-29 00:07:41,021 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-29 00:07:46,026 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49556
+2025-04-29 00:07:46,041 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15

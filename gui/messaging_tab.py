@@ -91,21 +91,63 @@ class MessagingTab(QWidget):
         """)
         left_layout.addWidget(self.conversations_list)
         
-        # Buttons
+        # Buttons - Updated to blue color
         buttons_layout = QVBoxLayout()
         
         refresh_button = QPushButton("Refresh")
-        refresh_button.setStyleSheet("padding: 5px; background-color: #f0f0f0;")
+        refresh_button.setStyleSheet("""
+            QPushButton {
+                padding: 5px; 
+                background-color: #0078d7; 
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         refresh_button.clicked.connect(self.refresh_conversations)
         buttons_layout.addWidget(refresh_button)
         
         new_message_button = QPushButton("New Message")
-        new_message_button.setStyleSheet("padding: 5px; background-color: #f0f0f0;")
+        new_message_button.setStyleSheet("""
+            QPushButton {
+                padding: 5px; 
+                background-color: #0078d7; 
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         new_message_button.clicked.connect(self._new_message)
         buttons_layout.addWidget(new_message_button)
         
         broadcast_button = QPushButton("Broadcast Message")
-        broadcast_button.setStyleSheet("padding: 5px; background-color: #f0f0f0;")
+        broadcast_button.setStyleSheet("""
+            QPushButton {
+                padding: 5px; 
+                background-color: #0078d7; 
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         broadcast_button.clicked.connect(self._broadcast_message)
         buttons_layout.addWidget(broadcast_button)
         
@@ -118,9 +160,9 @@ class MessagingTab(QWidget):
         right_widget = QWidget()
         right_layout = QVBoxLayout(right_widget)
         
-        # Current conversation info
+        # Current conversation info - Changed from green to blue
         self.conversation_info = QLabel("Select a conversation")
-        self.conversation_info.setStyleSheet("font-weight: bold; font-size: 14px; padding: 5px; background-color: #128C7E; color: white;")
+        self.conversation_info.setStyleSheet("font-weight: bold; font-size: 14px; padding: 5px; background-color: #0078d7; color: white;")
         self.conversation_info.setWordWrap(True)
         right_layout.addWidget(self.conversation_info)
         
@@ -153,9 +195,24 @@ class MessagingTab(QWidget):
         """)
         right_layout.addWidget(self.message_input)
         
-        # Send button
+        # Send button - Changed from green to blue
         send_button = QPushButton("Send")
-        send_button.setStyleSheet("padding: 8px; font-size: 13px; background-color: #128C7E; color: white;")
+        send_button.setStyleSheet("""
+            QPushButton {
+                padding: 8px; 
+                font-size: 13px; 
+                background-color: #0078d7; 
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         send_button.clicked.connect(self._send_message)
         right_layout.addWidget(send_button)
         
@@ -201,21 +258,66 @@ class MessagingTab(QWidget):
         """)
         main_layout.addWidget(self.clients_table)
         
-        # Buttons
+        # Buttons - Updated to blue color
         buttons_layout = QHBoxLayout()
         
         refresh_clients_button = QPushButton("Refresh Clients")
-        refresh_clients_button.setStyleSheet("padding: 8px; font-size: 13px; background-color: #f0f0f0;")
+        refresh_clients_button.setStyleSheet("""
+            QPushButton {
+                padding: 8px; 
+                font-size: 13px; 
+                background-color: #0078d7; 
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         refresh_clients_button.clicked.connect(self.refresh_clients)
         buttons_layout.addWidget(refresh_clients_button)
         
         message_client_button = QPushButton("Message Selected Client")
-        message_client_button.setStyleSheet("padding: 8px; font-size: 13px; background-color: #f0f0f0;")
+        message_client_button.setStyleSheet("""
+            QPushButton {
+                padding: 8px; 
+                font-size: 13px; 
+                background-color: #0078d7; 
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         message_client_button.clicked.connect(self._message_selected_client)
         buttons_layout.addWidget(message_client_button)
         
         broadcast_button = QPushButton("Broadcast to All Clients")
-        broadcast_button.setStyleSheet("padding: 8px; font-size: 13px; background-color: #f0f0f0;")
+        broadcast_button.setStyleSheet("""
+            QPushButton {
+                padding: 8px; 
+                font-size: 13px; 
+                background-color: #0078d7; 
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         broadcast_button.clicked.connect(self._broadcast_message)
         buttons_layout.addWidget(broadcast_button)
         
@@ -365,16 +467,17 @@ class MessagingTab(QWidget):
                         # Normal information message
                         content_style = ""
                     
-                    # Add the message bubble
-                    bg_color = "#e6f2ff" if sender == "AnoirELGUEDDAR" or sender == "Administrator" else "#f5f5f5"
+                    # Add the message bubble - Updated to use blue for user messages
+                    bg_color = "#0078d7" if sender == "AnoirELGUEDDAR" or sender == "Administrator" else "#f5f5f5"
+                    text_color = "white" if sender == "AnoirELGUEDDAR" or sender == "Administrator" else "black"
                     
                     html += f"""
                     <div style="text-align:{align}; margin:15px 5px;">
                         <div style="display:inline-block; max-width:80%;">
-                            <div style="font-weight:bold;">{sender_display}</div>
+                            <div style="font-weight:bold; color:{text_color if align == 'right' else 'black'};">{sender_display}</div>
                             <div style="background-color:{bg_color}; padding:10px; border-radius:10px;">
-                                <div style="{content_style}">{msg.content}</div>
-                                <div style="font-size:10px; color:#888; text-align:right; margin-top:5px;">{time_str}</div>
+                                <div style="{content_style}; color:{text_color};">{msg.content}</div>
+                                <div style="font-size:10px; color:{'#ddd' if align == 'right' else '#888'}; text-align:right; margin-top:5px;">{time_str}</div>
                             </div>
                         </div>
                     </div>
@@ -605,10 +708,42 @@ class NewMessageDialog(QDialog):
         self.message_edit.setStyleSheet("font-size: 13px;")
         layout.addWidget(self.message_edit)
         
-        # Buttons
+        # Buttons with blue style
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)
         button_box.rejected.connect(self.reject)
+        
+        # Apply blue styling to the buttons
+        for button in button_box.buttons():
+            if button_box.buttonRole(button) == QDialogButtonBox.AcceptRole:
+                button.setStyleSheet("""
+                    QPushButton {
+                        padding: 6px 12px;
+                        background-color: #0078d7;
+                        color: white;
+                        border: none;
+                        border-radius: 3px;
+                    }
+                    QPushButton:hover {
+                        background-color: #0086f0;
+                    }
+                    QPushButton:pressed {
+                        background-color: #0066b8;
+                    }
+                """)
+            else:
+                button.setStyleSheet("""
+                    QPushButton {
+                        padding: 6px 12px;
+                        background-color: #f0f0f0;
+                        border: 1px solid #ddd;
+                        border-radius: 3px;
+                    }
+                    QPushButton:hover {
+                        background-color: #e5e5e5;
+                    }
+                """)
+        
         layout.addWidget(button_box)
         
     def populate_recipients(self):
@@ -677,18 +812,59 @@ class ClientMessagingMode(QDialog):
         self.message_edit.setMaximumHeight(100)
         layout.addWidget(self.message_edit)
         
-        # Buttons
+        # Buttons with blue styling
         buttons_layout = QHBoxLayout()
         
         send_button = QPushButton("Send Message")
+        send_button.setStyleSheet("""
+            QPushButton {
+                padding: 6px 12px;
+                background-color: #0078d7;
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         send_button.clicked.connect(self._send_message)
         buttons_layout.addWidget(send_button)
         
         refresh_button = QPushButton("Refresh Messages")
+        refresh_button.setStyleSheet("""
+            QPushButton {
+                padding: 6px 12px;
+                background-color: #0078d7;
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
         refresh_button.clicked.connect(self._refresh_messages)
         buttons_layout.addWidget(refresh_button)
         
         close_button = QPushButton("Close")
+        close_button.setStyleSheet("""
+            QPushButton {
+                padding: 6px 12px;
+                background-color: #f0f0f0;
+                border: 1px solid #ddd;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #e5e5e5;
+            }
+        """)
         close_button.clicked.connect(self.close)
         buttons_layout.addWidget(close_button)
         
@@ -753,20 +929,22 @@ class ClientMessagingMode(QDialog):
                 
                 if sender == client_id:
                     sender_display = "Me"
-                    color = "#e6f2ff"  # Light blue background
+                    color = "#0078d7"  # Blue background (was #e6f2ff)
+                    text_color = "white"  # White text for better contrast
                     align = "right"
                 else:
                     sender_display = sender
                     color = "#f5f5f5"  # Light gray background
+                    text_color = "black"
                     align = "left"
                 
                 html += f"""
                 <div style="text-align:{align}; margin:15px 5px;">
                     <div style="display:inline-block; max-width:80%;">
-                        <div style="font-weight:bold;">{sender_display}</div>
+                        <div style="font-weight:bold; color:{text_color if align == 'right' else 'black'};">{sender_display}</div>
                         <div style="background-color:{color}; padding:10px; border-radius:10px;">
-                            <div style="{content_style}">{msg.content}</div>
-                            <div style="font-size:10px; color:#888; text-align:right; margin-top:5px;">{time_str}</div>
+                            <div style="{content_style}; color:{text_color};">{msg.content}</div>
+                            <div style="font-size:10px; color:{'#ddd' if align == 'right' else '#888'}; text-align:right; margin-top:5px;">{time_str}</div>
                         </div>
                     </div>
                 </div>

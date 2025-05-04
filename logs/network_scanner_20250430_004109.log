@@ -1,0 +1,14 @@
+2025-04-30 00:41:09,722 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250430_004109.log
+2025-04-30 00:41:09,722 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-30 00:41:09,722 - main - INFO - Application started by user: pc
+2025-04-30 00:41:09,724 - main - INFO - Start time: 2025-04-29 23:41:09 UTC
+2025-04-30 00:41:09,724 - config.settings - INFO - Settings loaded successfully
+2025-04-30 00:41:09,738 - core.messaging.message_service - INFO - Message service started
+2025-04-30 00:41:09,739 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-04-30 00:41:10,535 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-04-30 00:41:10,550 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-30 00:41:10,566 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-04-30 00:41:10,586 - gui.main_window - INFO - Main window initialized
+2025-04-30 00:41:14,270 - gui.remote_tab - INFO - Starting direct performance check for 192.168.1.15:9877
+2025-04-30 00:41:14,374 - gui.remote_tab - INFO - Performance data collection complete, showing results
+2025-04-30 00:42:10,587 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json

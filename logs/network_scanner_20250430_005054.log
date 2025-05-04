@@ -1,0 +1,22 @@
+2025-04-30 00:50:54,789 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250430_005054.log
+2025-04-30 00:50:54,789 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-30 00:50:54,789 - main - INFO - Application started by user: pc
+2025-04-30 00:50:54,791 - main - INFO - Start time: 2025-04-29 23:50:54 UTC
+2025-04-30 00:50:54,791 - config.settings - INFO - Settings loaded successfully
+2025-04-30 00:50:54,802 - core.messaging.message_service - INFO - Message service started
+2025-04-30 00:50:54,802 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-04-30 00:50:55,311 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-04-30 00:50:55,320 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-30 00:50:55,336 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-04-30 00:50:55,362 - gui.main_window - INFO - Main window initialized
+2025-04-30 00:51:55,341 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 00:52:55,362 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 00:53:55,385 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 00:54:55,401 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 00:55:54,817 - core.remote.device_manager - INFO - Device 192.168.1.15:9877 is online (ping response)
+2025-04-30 00:55:55,345 - core.remote.device_manager - INFO - Device 192.168.1.15:9877 is online (ping response)
+2025-04-30 00:55:55,389 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 00:56:55,418 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 00:57:55,411 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 00:58:55,411 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 00:59:55,405 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json

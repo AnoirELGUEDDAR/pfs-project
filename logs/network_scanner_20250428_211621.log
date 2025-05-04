@@ -1,0 +1,67 @@
+2025-04-28 21:16:21,533 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250428_211621.log
+2025-04-28 21:16:21,533 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-28 21:16:21,533 - main - INFO - Application started by user: pc
+2025-04-28 21:16:21,535 - main - INFO - Start time: 2025-04-28 20:16:21 UTC
+2025-04-28 21:16:21,536 - config.settings - INFO - Settings loaded successfully
+2025-04-28 21:16:21,547 - core.messaging.message_service - INFO - Message service started
+2025-04-28 21:16:22,159 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-28 21:16:22,192 - gui.devices_tab - INFO - Chargement de 10 appareils depuis devices.json
+2025-04-28 21:16:22,209 - gui.main_window - INFO - Main window initialized
+2025-04-28 21:16:27,852 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-04-28 21:16:37,547 - gui.devices_tab - INFO - Sauvegarde de 10 appareils dans devices.json
+2025-04-28 21:16:50,895 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:17:22,183 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:18:22,186 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:19:22,193 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:20:22,193 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:21:22,182 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:22:22,198 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:23:22,198 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:24:22,202 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:25:22,198 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:26:22,214 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-04-28 21:26:42,620 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:27:22,230 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:28:22,229 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:29:22,238 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:30:22,232 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:31:22,254 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:32:22,249 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:33:22,243 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:34:22,247 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:35:22,246 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-28 21:35:24,036 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-04-28 21:36:22,252 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-04-28 21:36:58,506 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:37:22,246 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:38:22,244 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:39:22,271 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:40:22,277 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:41:22,302 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:42:22,297 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:43:22,320 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:44:22,319 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:45:22,317 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:46:22,310 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:46:39,395 - gui.scanner_tab - INFO - Scan terminé: 5 appareils trouvés
+2025-04-28 21:47:22,320 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:48:22,307 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:49:22,312 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:50:22,305 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:51:22,313 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:52:22,314 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:53:22,310 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:54:22,310 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:55:22,311 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:56:22,317 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:57:22,318 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:58:22,309 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 21:59:22,308 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:00:22,310 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:01:22,324 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:02:22,322 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:03:22,341 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:04:22,338 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:05:22,356 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:06:22,364 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:07:22,361 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json

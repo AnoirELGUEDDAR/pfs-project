@@ -9,10 +9,14 @@ from typing import Dict
 from PyQt5.QtWidgets import (
     QMainWindow, QTabWidget, QVBoxLayout, QHBoxLayout,
     QWidget, QPushButton, QStatusBar, QAction, QMenu,
-    QToolBar, QLabel, QMessageBox, QFileDialog, QInputDialog
+    QToolBar, QLabel, QMessageBox, QFileDialog, QInputDialog,
+    QStackedWidget, QGraphicsOpacityEffect
 )
-from PyQt5.QtCore import Qt, QSize, QTimer
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import (
+    Qt, QSize, QTimer, QEasingCurve, QPropertyAnimation, 
+    QParallelAnimationGroup, QSequentialAnimationGroup, QPoint
+)
+from PyQt5.QtGui import QIcon, QFont, QPalette, QColor
 
 # Use your actual file names as they exist in the project
 from gui.scanner_tab import ScannerTab
@@ -30,6 +34,48 @@ from core.file_transfer.file_service import FileTransferService
 from core.remote.device_manager import DeviceManager
 
 logger = logging.getLogger(__name__)
+
+class AnimatedButton(QPushButton):
+    """Button with hover animation effect"""
+    
+    def __init__(self, text, parent=None):
+        super().__init__(text, parent)
+        self.setMouseTracking(True)
+        self._hovered = False
+        self._original_stylesheet = ""
+        self._hover_stylesheet = ""
+        
+    def setStyleSheets(self, original, hover):
+        """Set the normal and hover stylesheets"""
+        self._original_stylesheet = original
+        self._hover_stylesheet = hover
+        self.setStyleSheet(self._original_stylesheet)
+        
+    def enterEvent(self, event):
+        """Handle mouse enter event"""
+        if not self._hovered:
+            self._hovered = True
+            # Use QTimer to prevent painting issues
+            QTimer.singleShot(10, self._apply_hover_style)
+        super().enterEvent(event)
+        
+    def leaveEvent(self, event):
+        """Handle mouse leave event"""
+        if self._hovered:
+            self._hovered = False
+            # Use QTimer to prevent painting issues
+            QTimer.singleShot(10, self._apply_normal_style)
+        super().leaveEvent(event)
+        
+    def _apply_hover_style(self):
+        """Apply hover style with scale effect"""
+        if self._hovered and self._hover_stylesheet:
+            self.setStyleSheet(self._hover_stylesheet)
+    
+    def _apply_normal_style(self):
+        """Apply normal style"""
+        if not self._hovered and self._original_stylesheet:
+            self.setStyleSheet(self._original_stylesheet)
 
 class MainWindow(QMainWindow):
     """Main application window"""
@@ -64,8 +110,19 @@ class MainWindow(QMainWindow):
         self.message_service.start()
         self.message_server.start()
         
+        # Set up variables for animations
+        self.pulse_timer = None
+        self.pulse_growing = True
+        self.current_pulse_size = 0
+        
+        # Apply dark theme to the entire application
+        self._apply_dark_theme()
+        
         # Setup UI
         self._setup_ui()
+        
+        # Apply startup animation - using a gentler approach
+        self._setup_startup_animation()
         
         logger.info("Main window initialized")
         self.status_bar.showMessage(f"Ready - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -78,6 +135,189 @@ class MainWindow(QMainWindow):
         )
         self.message_service.send_message(welcome_msg)
         
+    def _setup_startup_animation(self):
+        """Set up a safer, timer-based startup animation"""
+        self.central_widget.setVisible(False)
+        QTimer.singleShot(100, self._fade_in_ui)
+    
+    def _fade_in_ui(self):
+        """Fade in the UI elements safely"""
+        self.central_widget.setVisible(True)
+        # Start pulse timer for the scan button
+        QTimer.singleShot(500, self._start_safe_pulse)
+        
+    def _start_safe_pulse(self):
+        """Start a safer pulsing animation for the scan button"""
+        if hasattr(self, "pulse_timer") and self.pulse_timer is None:
+            self.pulse_timer = QTimer(self)
+            self.pulse_timer.timeout.connect(self._update_scan_button_pulse)
+            self.pulse_timer.start(50)  # 20 fps
+    
+    def _stop_safe_pulse(self):
+        """Stop the pulse animation safely"""
+        if self.pulse_timer is not None:
+            self.pulse_timer.stop()
+            self.pulse_timer = None
+            # Reset the button style
+            if hasattr(self, 'start_scan_btn'):
+                self.start_scan_btn.setStyleSheet("""
+                    QPushButton {
+                        background-color: #0078d7;
+                        color: white;
+                        border-radius: 100px;
+                        font-size: 22px;
+                        font-weight: bold;
+                    }
+                    QPushButton:hover {
+                        background-color: #0086f0;
+                    }
+                    QPushButton:pressed {
+                        background-color: #0066b8;
+                    }
+                """)
+    
+    def _update_scan_button_pulse(self):
+        """Update the pulse effect for the scan button using stylesheet only"""
+        if not hasattr(self, 'start_scan_btn'):
+            return
+            
+        # Use stylesheet-based animation instead of geometry
+        if self.pulse_growing:
+            self.current_pulse_size += 1
+            if self.current_pulse_size >= 10:
+                self.pulse_growing = False
+        else:
+            self.current_pulse_size -= 1
+            if self.current_pulse_size <= 0:
+                self.pulse_growing = True
+                
+        # Apply shadow effect simulating pulse
+        self.start_scan_btn.setStyleSheet(f"""
+            QPushButton {{
+                background-color: #0078d7;
+                color: white;
+                border-radius: 100px;
+                font-size: 22px;
+                font-weight: bold;
+                border: {self.current_pulse_size}px solid rgba(0, 120, 215, 0.{3+self.current_pulse_size});
+            }}
+            QPushButton:hover {{
+                background-color: #0086f0;
+            }}
+            QPushButton:pressed {{
+                background-color: #0066b8;
+            }}
+        """)
+        
+    def _apply_dark_theme(self):
+        """Apply dark theme to the application"""
+        dark_palette = QPalette()
+        dark_color = QColor(26, 38, 51)  # #1a2633
+        dark_palette.setColor(QPalette.Window, dark_color)
+        dark_palette.setColor(QPalette.WindowText, Qt.white)
+        dark_palette.setColor(QPalette.Base, QColor(18, 30, 43))
+        dark_palette.setColor(QPalette.AlternateBase, dark_color)
+        dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
+        dark_palette.setColor(QPalette.ToolTipText, Qt.white)
+        dark_palette.setColor(QPalette.Text, Qt.white)
+        dark_palette.setColor(QPalette.Button, dark_color)
+        dark_palette.setColor(QPalette.ButtonText, Qt.white)
+        dark_palette.setColor(QPalette.BrightText, Qt.red)
+        dark_palette.setColor(QPalette.Link, QColor(0, 120, 215))
+        dark_palette.setColor(QPalette.Highlight, QColor(0, 120, 215))
+        dark_palette.setColor(QPalette.HighlightedText, Qt.white)
+        
+        self.setPalette(dark_palette)
+        
+        # Style sheet for more specific styling
+        self.setStyleSheet("""
+            QMainWindow {
+                background-color: #1a2633;
+            }
+            QMenuBar {
+                background-color: #1a2633;
+                color: white;
+            }
+            QMenuBar::item {
+                background-color: #1a2633;
+                color: white;
+            }
+            QMenuBar::item:selected {
+                background-color: #2c3e50;
+            }
+            QMenu {
+                background-color: #1a2633;
+                color: white;
+            }
+            QMenu::item:selected {
+                background-color: #2c3e50;
+            }
+            QToolBar {
+                background-color: #1a2633;
+                color: white;
+                border: none;
+            }
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                padding: 6px;
+            }
+            QToolButton:hover {
+                background-color: #2c3e50;
+            }
+            QTabWidget::pane {
+                border: 1px solid #2c3e50;
+                background-color: #1a2633;
+            }
+            QTabBar::tab {
+                background-color: #1a2633;
+                color: white;
+                padding: 8px 12px;
+                margin-right: 2px;
+            }
+            QTabBar::tab:selected {
+                background-color: #0078d7;
+            }
+            QTabBar::tab:!selected {
+                background-color: #2c3e50;
+            }
+            QPushButton {
+                background-color: #2c3e50;
+                color: white;
+                border: none;
+                padding: 6px;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #34495e;
+            }
+            QPushButton:pressed {
+                background-color: #1c2e40;
+            }
+            QLineEdit, QTextEdit, QPlainTextEdit, QComboBox {
+                background-color: #2c3e50;
+                color: white;
+                border: 1px solid #34495e;
+                border-radius: 3px;
+                padding: 3px;
+            }
+            QTableView, QTreeView, QListView {
+                background-color: #1a2633;
+                color: white;
+                border: 1px solid #2c3e50;
+            }
+            QHeaderView::section {
+                background-color: #2c3e50;
+                color: white;
+                padding: 4px;
+                border: none;
+            }
+            QStatusBar {
+                background-color: #1a2633;
+                color: white;
+            }
+        """)
+        
     def _setup_ui(self):
         """Setup the user interface"""
         # Central widget
@@ -86,11 +326,28 @@ class MainWindow(QMainWindow):
         
         # Main layout
         self.main_layout = QVBoxLayout(self.central_widget)
-        self.main_layout.setContentsMargins(5, 5, 5, 5) 
+        self.main_layout.setContentsMargins(0, 0, 0, 0)
+        self.main_layout.setSpacing(0)
         
-        # Tab widget
+        # Create stacked widget for different screens
+        self.stacked_widget = QStackedWidget()
+        self.main_layout.addWidget(self.stacked_widget)
+        
+        # Create home screen
+        self.home_screen = self._create_home_screen()
+        
+        # Create tab screen (contains all functionality tabs)
+        self.tab_screen = QWidget()
+        self.tab_layout = QVBoxLayout(self.tab_screen)
+        self.tab_layout.setContentsMargins(5, 5, 5, 5)
+        
+        # Tab widget (for functionality screens)
         self.tab_widget = QTabWidget()
-        self.main_layout.addWidget(self.tab_widget)
+        self.tab_layout.addWidget(self.tab_widget)
+        
+        # Add both screens to stacked widget
+        self.stacked_widget.addWidget(self.home_screen)
+        self.stacked_widget.addWidget(self.tab_screen)
         
         # Create tab instances
         self.scanner_tab = ScannerTab()
@@ -134,6 +391,191 @@ class MainWindow(QMainWindow):
         # Setup toolbar
         self._setup_toolbar()
         
+        # Show home screen by default
+        self.stacked_widget.setCurrentIndex(0)
+        
+    def _create_home_screen(self):
+        """Create the home screen widget as shown in the image"""
+        home_widget = QWidget()
+        home_layout = QVBoxLayout(home_widget)
+        home_layout.setContentsMargins(20, 20, 20, 20)
+        home_layout.setSpacing(20)
+        
+        # Center title layout
+        center_layout = QVBoxLayout()
+        center_layout.setAlignment(Qt.AlignCenter)
+        
+        # Title
+        title_label = QLabel("Network Scanner & Management")
+        title_label.setAlignment(Qt.AlignCenter)
+        title_font = QFont()
+        title_font.setPointSize(36)
+        title_font.setBold(True)
+        title_label.setFont(title_font)
+        
+        # Subtitle
+        subtitle_label = QLabel("Your Network, Under Control.")
+        subtitle_label.setAlignment(Qt.AlignCenter)
+        subtitle_font = QFont()
+        subtitle_font.setPointSize(14)
+        subtitle_label.setFont(subtitle_font)
+        subtitle_label.setStyleSheet("color: #cccccc;")
+        
+        # Add to center layout
+        center_layout.addWidget(title_label)
+        center_layout.addWidget(subtitle_label)
+        
+        # Add center layout to main layout with stretch
+        home_layout.addStretch(1)
+        home_layout.addLayout(center_layout)
+        home_layout.addStretch(1)
+        
+        # Central start scan button - using regular QPushButton instead of custom class
+        self.start_scan_btn = QPushButton("Start Scan")
+        self.start_scan_btn.setFixedSize(200, 200)
+        self.start_scan_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #0078d7;
+                color: white;
+                border-radius: 100px;
+                font-size: 22px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #0086f0;
+            }
+            QPushButton:pressed {
+                background-color: #0066b8;
+            }
+        """)
+        self.start_scan_btn.clicked.connect(self._start_scan_from_home)
+        
+        # Center the button
+        button_layout = QHBoxLayout()
+        button_layout.addStretch(1)
+        button_layout.addWidget(self.start_scan_btn)
+        button_layout.addStretch(1)
+        
+        home_layout.addLayout(button_layout)
+        home_layout.addStretch(1)
+        
+        # Feature buttons layout
+        feature_layout = QHBoxLayout()
+        feature_layout.setSpacing(15)
+        
+        # Create circular feature buttons with CSS-based hover effects
+        self.feature_buttons = []
+        features = [
+            ("Scanner", self._go_to_scanner_tab),
+            ("Devices", self._go_to_devices_tab),
+            ("Remote", self._go_to_remote_tab),
+            ("Messaging", self._go_to_messaging_tab),
+            ("Files", self._go_to_files_tab),
+            ("Monitoring", self._go_to_monitoring_tab)
+        ]
+        
+        for text, callback in features:
+            button = AnimatedButton(text)
+            button.setFixedSize(100, 100)
+            button.setStyleSheets(
+                original="""
+                    background-color: #2c3e50;
+                    color: white;
+                    border-radius: 50px;
+                """,
+                hover="""
+                    background-color: #34495e;
+                    color: white;
+                    border-radius: 50px;
+                    border: 3px solid #0078d7;
+                """
+            )
+            button.clicked.connect(callback)
+            feature_layout.addWidget(button)
+            self.feature_buttons.append(button)
+            
+        # Center the feature buttons
+        feature_container_layout = QHBoxLayout()
+        feature_container_layout.addStretch(1)
+        feature_container_layout.addLayout(feature_layout)
+        feature_container_layout.addStretch(1)
+        
+        home_layout.addLayout(feature_container_layout)
+        home_layout.addStretch(1)
+        
+        return home_widget
+    
+    # Navigation methods with safe transitions
+    def _change_screen(self, index):
+        """Change screen with safer animation approach"""
+        if self.stacked_widget.currentIndex() == index:
+            return
+            
+        # Stop the pulse animation if moving away from home
+        if self.stacked_widget.currentIndex() == 0:
+            self._stop_safe_pulse()
+            
+        # Use a timer to delay the screen change for smoother visual effect
+        self.stacked_widget.setCurrentIndex(index)
+        
+        # If returning to home screen, restart the pulse
+        if index == 0:
+            QTimer.singleShot(300, self._start_safe_pulse)
+    
+    def _start_scan_from_home(self):
+        """Start scan from the home screen button"""
+        # Change appearance briefly to give feedback
+        self.start_scan_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #0066b8;
+                color: white;
+                border-radius: 100px;
+                font-size: 22px;
+                font-weight: bold;
+            }
+        """)
+        
+        # Stop pulsing
+        self._stop_safe_pulse()
+        
+        # Change to scanner tab with a slight delay for visual feedback
+        QTimer.singleShot(150, lambda: self._change_screen(1))
+        QTimer.singleShot(300, lambda: self._start_scan())
+    
+    def _go_to_scanner_tab(self):
+        """Navigate to scanner tab"""
+        self._change_screen(1)
+        QTimer.singleShot(50, lambda: self.tab_widget.setCurrentWidget(self.scanner_tab))
+    
+    def _go_to_devices_tab(self):
+        """Navigate to devices tab"""
+        self._change_screen(1)
+        QTimer.singleShot(50, lambda: self.tab_widget.setCurrentWidget(self.devices_tab))
+    
+    def _go_to_remote_tab(self):
+        """Navigate to remote tab"""
+        self._change_screen(1)
+        QTimer.singleShot(50, lambda: self.tab_widget.setCurrentWidget(self.remote_tab))
+    
+    def _go_to_messaging_tab(self):
+        """Navigate to messaging tab"""
+        self._change_screen(1)
+        QTimer.singleShot(50, lambda: self.tab_widget.setCurrentWidget(self.messaging_tab))
+    
+    def _go_to_files_tab(self):
+        """Navigate to files tab"""
+        self._change_screen(1)
+        QTimer.singleShot(50, lambda: self.tab_widget.setCurrentWidget(self.files_tab))
+    
+    def _go_to_monitoring_tab(self):
+        """Navigate to monitoring tab"""
+        self._change_screen(1)
+        QTimer.singleShot(50, lambda: self.tab_widget.setCurrentWidget(self.monitoring_tab))
+    
+    def _go_to_home(self):
+        """Navigate back to home screen"""
+        self._change_screen(0)
+        
     def _on_device_discovered(self, device_info):
         """Handle a device discovered by the scan"""
         # Send a notification via the messaging system about the discovered device
@@ -157,6 +599,13 @@ class MainWindow(QMainWindow):
         """Setup the application menu"""
         # File menu
         file_menu = self.menuBar().addMenu("&File")
+        
+        home_action = QAction("&Home", self)
+        home_action.setStatusTip("Return to home screen")
+        home_action.triggered.connect(self._go_to_home)
+        file_menu.addAction(home_action)
+        
+        file_menu.addSeparator()
         
         save_action = QAction("&Save Results", self)
         save_action.setStatusTip("Save scan results to file")
@@ -238,7 +687,7 @@ class MainWindow(QMainWindow):
         message_menu.addAction(broadcast_action)
         
         # File menu
-        file_transfer_menu = self.menuBar().addMenu("&Files")
+        file_transfer_menu = self.menuBar().addMenu("F&iles")
         
         upload_action = QAction("&Upload Files", self)
         upload_action.setStatusTip("Upload files to clients")
@@ -278,6 +727,12 @@ class MainWindow(QMainWindow):
         toolbar = QToolBar("Main Toolbar")
         toolbar.setIconSize(QSize(24, 24))
         self.addToolBar(toolbar)
+        
+        # Add home button
+        home_action = QAction(QIcon("icons/home.png") if os.path.exists("icons/home.png") else "Home", self)
+        home_action.setStatusTip("Return to home screen")
+        home_action.triggered.connect(self._go_to_home)
+        toolbar.addAction(home_action)
         
         # Add scan button
         scan_action = QAction(QIcon("icons/scan.png") if os.path.exists("icons/scan.png") else "Scan", self)
@@ -325,9 +780,11 @@ class MainWindow(QMainWindow):
     def _start_scan(self):
         """Start network scan from menu or toolbar"""
         # Make sure scanner tab is shown
+        self._change_screen(1)
         self.tab_widget.setCurrentWidget(self.scanner_tab)
-        # Start scanning
-        self.scanner_tab.start_scan()
+        
+        # Start scanning after a brief delay for UI to update
+        QTimer.singleShot(100, lambda: self.scanner_tab.start_scan())
         
         # Send notification message
         message = Message(
@@ -339,6 +796,10 @@ class MainWindow(QMainWindow):
         
     def _stop_scan(self):
         """Stop network scan from menu or toolbar"""
+        # If we're on the home screen, do nothing
+        if self.stacked_widget.currentIndex() == 0:
+            return
+            
         self.scanner_tab.stop_scan()
         
         # Send notification message
@@ -365,6 +826,7 @@ class MainWindow(QMainWindow):
     def _create_new_message(self):
         """Create a new message from menu or toolbar"""
         # Switch to messaging tab
+        self._change_screen(1)
         self.tab_widget.setCurrentWidget(self.messaging_tab)
         
         # Open the new message dialog
@@ -420,6 +882,7 @@ class MainWindow(QMainWindow):
     def _upload_files(self):
         """Upload files to clients"""
         # Switch to files tab
+        self._change_screen(1)
         self.tab_widget.setCurrentWidget(self.files_tab)
         
         # Call the upload method
@@ -428,6 +891,7 @@ class MainWindow(QMainWindow):
     def _download_files(self):
         """Download files from clients"""
         # Switch to files tab
+        self._change_screen(1)
         self.tab_widget.setCurrentWidget(self.files_tab)
         
         # Call the download method
@@ -436,6 +900,7 @@ class MainWindow(QMainWindow):
     def _search_files(self):
         """Search for files on clients"""
         # Switch to files tab
+        self._change_screen(1)
         self.tab_widget.setCurrentWidget(self.files_tab)
         
         # Prompt for search query
@@ -467,11 +932,15 @@ class MainWindow(QMainWindow):
             "Version: 1.0.0\n"
             "Author: AnoirELGUEDDAR\n\n"
             "A comprehensive tool for network scanning, device discovery, remote management, "
-            "messaging, file searching and network monitoring on local networks."
+            "messaging, file searching and network monitoring on local networks.\n\n"
+            "Last updated: 2025-05-04 14:55:44"
         )
         
     def closeEvent(self, event):
         """Handle application close event"""
+        # Clean up animations before closing
+        self._stop_safe_pulse()
+        
         # Clean up the DeviceManager
         if hasattr(self, 'device_manager'):
             self.device_manager.cleanup()
