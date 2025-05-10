@@ -1,0 +1,260 @@
+2025-05-10 14:28:45,316 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 14:28:45,431 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 14:28:45,453 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 14:28:45,491 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:28:45,492 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:28:45,493 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:28:45,495 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:28:45,496 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:28:45,501 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:28:46,562 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:28:46,575 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:28:46,616 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:28:46,622 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:28:46,622 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:28:57,077 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 14:28:57,214 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 14:28:57,221 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 14:28:57,241 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:28:57,241 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:28:57,242 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:28:57,243 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:28:57,243 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:28:57,247 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:28:58,230 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:28:58,242 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:28:58,286 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:28:58,291 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:28:58,291 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:30:11,105 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 14:30:11,182 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 14:30:11,188 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 14:30:11,204 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:30:11,204 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:30:11,204 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:30:11,205 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:30:11,205 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:30:11,207 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:30:11,758 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:30:11,776 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:30:11,826 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:30:11,832 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:30:11,833 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:31:11,768 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:32:11,783 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:33:11,784 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:34:11,779 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:35:11,792 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:35:14,212 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:35:14,786 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:36:11,780 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:36:32,224 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 14:36:32,225 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 14:36:32,244 - root - INFO - Application exited with code 0
+2025-05-10 14:36:34,658 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 14:36:34,784 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 14:36:34,788 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 14:36:34,807 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:36:34,808 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:36:34,809 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:36:34,812 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:36:34,816 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:36:34,818 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:36:35,334 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:36:35,357 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:36:35,437 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:36:35,451 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:36:35,452 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:37:00,394 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, timeout=2s
+2025-05-10 14:37:10,036 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:37:10,036 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-05-10 14:37:10,036 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 14:37:31,752 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:37:31,752 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-05-10 14:37:31,752 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 14:37:35,369 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:38:07,049 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:38:07,050 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-05-10 14:38:07,050 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 14:38:35,359 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:38:42,534 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 14:38:42,534 - core.messaging.message_service - INFO - Device registered: 192.168.1.6
+2025-05-10 14:38:42,535 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 14:39:04,458 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 14:39:04,458 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-05-10 14:39:04,459 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 14:39:35,366 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 14:39:39,995 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 14:39:39,996 - core.messaging.message_service - INFO - Device registered: 192.168.1.9
+2025-05-10 14:39:39,996 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 14:39:39,997 - gui.scanner_tab - INFO - Scan terminé: 6 appareils trouvés
+2025-05-10 14:40:35,358 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 14:41:35,371 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 14:41:37,822 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:41:38,365 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:42:35,374 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 14:43:35,383 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 14:49:30,461 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 14:49:30,531 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 14:49:30,539 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 14:49:30,565 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:49:30,566 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:49:30,566 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:49:30,568 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:49:30,569 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:49:30,574 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:49:31,375 - gui.devices_tab - INFO - Chargement de 13 appareils depuis devices.json
+2025-05-10 14:49:31,426 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:49:31,439 - root - CRITICAL - Unhandled exception: 'ScannerTab' object has no attribute 'device_discovered'
+Traceback (most recent call last):
+  File "C:\GAMES\PFS\files\network_scanner_project\main.py", line 137, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\GAMES\PFS\files\network_scanner_project\main.py", line 107, in main
+    main_window = MainWindow()
+  File "C:\GAMES\PFS\files\network_scanner_project\gui\main_window.py", line 123, in __init__
+    self._setup_ui()
+    ~~~~~~~~~~~~~~^^
+  File "C:\GAMES\PFS\files\network_scanner_project\gui\main_window.py", line 380, in _setup_ui
+    self.scanner_tab.device_discovered.connect(self.devices_tab.add_device_from_scan)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ScannerTab' object has no attribute 'device_discovered'
+2025-05-10 14:54:34,971 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 14:54:35,098 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 14:54:35,107 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 14:54:35,134 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:54:35,134 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:54:35,135 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:54:35,139 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:54:35,143 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:54:35,145 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:54:35,696 - gui.devices_tab - INFO - Chargement de 13 appareils depuis devices.json
+2025-05-10 14:54:35,741 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:54:35,747 - root - CRITICAL - Unhandled exception: decorated slot has no signature compatible with ScannerTab.device_discovered[str, str, str, str]
+Traceback (most recent call last):
+  File "C:\GAMES\PFS\files\network_scanner_project\main.py", line 137, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\GAMES\PFS\files\network_scanner_project\main.py", line 107, in main
+    main_window = MainWindow()
+  File "C:\GAMES\PFS\files\network_scanner_project\gui\main_window.py", line 123, in __init__
+    self._setup_ui()
+    ~~~~~~~~~~~~~~^^
+  File "C:\GAMES\PFS\files\network_scanner_project\gui\main_window.py", line 380, in _setup_ui
+    self.scanner_tab.device_discovered.connect(self.devices_tab.add_device_from_scan)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: decorated slot has no signature compatible with ScannerTab.device_discovered[str, str, str, str]
+2025-05-10 15:08:06,279 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 15:08:06,403 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 15:08:06,409 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 15:08:06,432 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 15:08:06,433 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 15:08:06,433 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 15:08:06,435 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 15:08:06,436 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 15:08:06,995 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 15:08:07,018 - gui.devices_tab - INFO - Chargement de 13 appareils depuis devices.json
+2025-05-10 15:08:07,065 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 15:08:07,070 - gui.main_window - INFO - Main window initialized
+2025-05-10 15:08:07,070 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 15:13:20,599 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 15:13:20,705 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 15:13:20,711 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 15:13:20,732 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 15:13:20,732 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 15:13:20,733 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 15:13:20,734 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 15:13:20,735 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 15:13:20,740 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 15:13:21,141 - gui.devices_tab - INFO - Chargement de 13 appareils depuis devices.json
+2025-05-10 15:13:21,182 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 15:13:21,187 - gui.main_window - INFO - Main window initialized
+2025-05-10 15:13:21,188 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 15:16:22,644 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-10 15:16:22,733 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-10 15:16:22,742 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-10 15:16:22,767 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 15:16:22,767 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 15:16:22,768 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 15:16:22,769 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 15:16:22,770 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 15:16:22,774 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 15:16:23,204 - gui.devices_tab - INFO - Chargement de 13 appareils depuis devices.json
+2025-05-10 15:16:23,249 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 15:16:23,255 - gui.main_window - INFO - Main window initialized
+2025-05-10 15:16:23,256 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 15:16:42,076 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 15:16:42,077 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-05-10 15:16:42,077 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:16:51,568 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 15:16:51,568 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-05-10 15:16:51,569 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:17:01,098 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 15:17:01,099 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-05-10 15:17:01,099 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:17:10,620 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 15:17:10,621 - core.messaging.message_service - INFO - Device registered: 192.168.1.6
+2025-05-10 15:17:10,622 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:17:20,131 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 15:17:20,133 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-05-10 15:17:20,133 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:17:23,201 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 15:17:28,151 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 15:17:28,152 - core.messaging.message_service - INFO - Device registered: 192.168.1.9
+2025-05-10 15:17:28,153 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:17:37,620 - gui.devices_tab - INFO - Sauvegarde de 13 appareils dans devices.json
+2025-05-10 15:17:37,622 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-05-10 15:17:37,622 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:17:37,627 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:17:37,628 - core.messaging.message_service - INFO - Device registered: 192.168.1.254
+2025-05-10 15:17:37,630 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: dsldevi...
+2025-05-10 15:17:38,001 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:17:38,001 - core.messaging.message_service - INFO - Device registered: 192.168.1.23
+2025-05-10 15:17:38,002 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-05-10 15:18:12,368 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:18:12,369 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-05-10 15:18:12,369 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:18:21,880 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:18:21,880 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-05-10 15:18:21,880 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:18:23,201 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:18:31,406 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:18:31,406 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-05-10 15:18:31,407 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:18:40,933 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:18:40,934 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-05-10 15:18:40,935 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:18:50,456 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:18:50,457 - core.messaging.message_service - INFO - Device registered: 192.168.1.9
+2025-05-10 15:18:50,457 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:18:59,975 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-05-10 15:18:59,976 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-05-10 15:18:59,976 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:19:09,507 - gui.devices_tab - INFO - Sauvegarde de 15 appareils dans devices.json
+2025-05-10 15:19:09,507 - core.messaging.message_service - INFO - Device registered: 192.168.1.32
+2025-05-10 15:19:09,507 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 15:19:09,545 - gui.devices_tab - INFO - Sauvegarde de 15 appareils dans devices.json
+2025-05-10 15:19:09,547 - core.messaging.message_service - INFO - Device registered: 192.168.1.254
+2025-05-10 15:19:09,547 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: dsldevi...
+2025-05-10 15:19:10,369 - gui.devices_tab - INFO - Sauvegarde de 15 appareils dans devices.json
+2025-05-10 15:19:10,370 - core.messaging.message_service - INFO - Device registered: 192.168.1.23
+2025-05-10 15:19:10,370 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-05-10 15:19:23,212 - gui.devices_tab - INFO - Sauvegarde de 15 appareils dans devices.json
+2025-05-10 15:19:48,298 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 15:20:04,938 - gui.files_tab - ERROR - Error loading local files: [WinError 5] Access is denied: 'C:\\Users\\pc\\My Documents'
+2025-05-10 15:20:07,595 - gui.files_tab - ERROR - Error loading local files: [WinError 5] Access is denied: 'C:\\Users\\pc\\My Documents'
+2025-05-10 15:20:23,206 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 15:20:24,723 - core.file_transfer.file_service - INFO - File download initiated: report.pdf from 192.168.1.15:9877
+2025-05-10 15:20:27,939 - core.file_transfer.file_transfer_thread - INFO - Download completed: report.pdf from 192.168.1.15:9877
+2025-05-10 15:20:27,939 - core.messaging.message_service - INFO - Message sent to broadcast: File downloaded successfully: ...
+2025-05-10 15:21:23,201 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 15:21:25,771 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 15:21:26,211 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 15:22:23,204 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 15:23:23,212 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 15:24:23,212 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 15:25:23,200 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 15:26:23,202 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 15:26:28,785 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 15:26:29,218 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 15:27:23,207 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
