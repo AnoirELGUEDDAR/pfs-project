@@ -1,0 +1,80 @@
+2025-05-04 16:16:44,503 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250504_161644.log
+2025-05-04 16:16:44,504 - main - INFO - Starting Network Scanner & Management Tool
+2025-05-04 16:16:44,505 - main - INFO - Application started by user: pc
+2025-05-04 16:16:44,508 - main - INFO - Start time: 2025-05-04 15:16:44 UTC
+2025-05-04 16:16:44,509 - config.settings - INFO - Settings loaded successfully
+2025-05-04 16:16:44,524 - core.messaging.message_service - INFO - Message service started
+2025-05-04 16:16:44,524 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-04 16:16:44,526 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-04 16:16:44,927 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-04 16:16:44,943 - gui.devices_tab - INFO - Chargement de 74 appareils depuis devices.json
+2025-05-04 16:16:44,970 - gui.main_window - INFO - Main window initialized
+2025-05-04 16:16:50,626 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 16:17:01,336 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json
+2025-05-04 16:17:17,631 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json
+2025-05-04 16:17:26,270 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json
+2025-05-04 16:17:44,926 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json
+2025-05-04 16:18:03,067 - gui.devices_tab - INFO - Sauvegarde de 75 appareils dans devices.json
+2025-05-04 16:18:44,920 - gui.devices_tab - INFO - Sauvegarde de 75 appareils dans devices.json
+2025-05-04 16:19:44,923 - gui.devices_tab - INFO - Sauvegarde de 75 appareils dans devices.json
+2025-05-04 16:20:05,061 - gui.devices_tab - INFO - Sauvegarde de 76 appareils dans devices.json
+2025-05-04 16:20:44,932 - gui.devices_tab - INFO - Sauvegarde de 76 appareils dans devices.json
+2025-05-04 16:20:49,066 - gui.devices_tab - INFO - Sauvegarde de 77 appareils dans devices.json
+2025-05-04 16:21:40,073 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:21:44,949 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:21:47,537 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:21:47,951 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:22:44,948 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:23:44,948 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:24:44,961 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:25:44,966 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:26:44,959 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:26:50,552 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:26:50,964 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:27:44,960 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:28:44,965 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:29:44,955 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:30:44,959 - gui.devices_tab - INFO - Sauvegarde de 78 appareils dans devices.json
+2025-05-04 16:31:30,083 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:31:44,953 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:31:53,561 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:31:53,973 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:32:44,960 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:33:44,959 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:34:44,971 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:35:44,962 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:36:17,513 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 16:36:27,846 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:36:44,350 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:36:44,967 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:36:54,639 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:36:56,575 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:36:56,976 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:37:32,173 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:37:44,978 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:38:44,983 - gui.devices_tab - INFO - Sauvegarde de 79 appareils dans devices.json
+2025-05-04 16:39:05,620 - gui.devices_tab - INFO - Sauvegarde de 80 appareils dans devices.json
+2025-05-04 16:39:43,761 - gui.devices_tab - INFO - Sauvegarde de 80 appareils dans devices.json
+2025-05-04 16:39:44,982 - gui.devices_tab - INFO - Sauvegarde de 80 appareils dans devices.json
+2025-05-04 16:40:28,264 - gui.devices_tab - INFO - Sauvegarde de 80 appareils dans devices.json
+2025-05-04 16:40:44,992 - gui.devices_tab - INFO - Sauvegarde de 80 appareils dans devices.json
+2025-05-04 16:41:12,253 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-04 16:41:28,677 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-04 16:41:45,010 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-04 16:41:59,584 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:41:59,993 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:42:45,014 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-04 16:43:45,010 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-04 16:44:45,010 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-04 16:45:45,013 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-04 16:46:45,011 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-04 16:47:02,602 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:47:03,000 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 16:47:25,318 - gui.devices_tab - INFO - Sauvegarde de 82 appareils dans devices.json
+2025-05-04 16:47:25,324 - gui.scanner_tab - INFO - Scan terminé: 11 appareils trouvés
+2025-05-04 16:47:45,011 - gui.devices_tab - INFO - Sauvegarde de 82 appareils dans devices.json
+2025-05-04 16:48:45,010 - gui.devices_tab - INFO - Sauvegarde de 82 appareils dans devices.json
+2025-05-04 16:49:45,011 - gui.devices_tab - INFO - Sauvegarde de 82 appareils dans devices.json
+2025-05-04 16:50:45,012 - gui.devices_tab - INFO - Sauvegarde de 82 appareils dans devices.json
+2025-05-04 16:50:49,428 - core.messaging.message_service - INFO - Message service stopped
+2025-05-04 16:50:49,429 - core.messaging.message_server - INFO - Message server stopped

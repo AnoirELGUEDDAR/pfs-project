@@ -78,7 +78,7 @@ class MessagingTab(QWidget):
         self.conversations_list.setStyleSheet("""
             QListWidget {
                 border: 1px solid #ddd;
-                background-color: white;
+                background-color: #9eb8cf;
             }
             QListWidget::item {
                 padding: 5px;
@@ -171,7 +171,7 @@ class MessagingTab(QWidget):
         self.messages_display.setReadOnly(True)
         self.messages_display.setStyleSheet("""
             QTextEdit {
-                background-color: white;
+                background-color: #9eb8cf;
                 border: 1px solid #ddd;
                 font-size: 13px;
             }
@@ -250,7 +250,7 @@ class MessagingTab(QWidget):
                 font-size: 13px;
             }
             QHeaderView::section {
-                background-color: #f0f0f0;
+                background-color: #0078d7;
                 padding: 5px;
                 border: 1px solid #ddd;
                 font-weight: bold;
@@ -441,7 +441,7 @@ class MessagingTab(QWidget):
                 self.messages_display.clear()
                 
                 # Create simplified HTML for messages
-                html = "<html><body style='background-color:white;'>"
+                html = "<html><body style='background-color:#9eb8cf;'>"
                 
                 for msg in messages:
                     # Format timestamp
@@ -452,7 +452,7 @@ class MessagingTab(QWidget):
                     sender = msg.sender or "System"
                     
                     # Format the message based on type and sender
-                    if sender == "AnoirELGUEDDAR" or sender == "Administrator":
+                    if sender == "ADMIN" or sender == "Administrator":
                         sender_display = "You"
                         align = "right" 
                     else:
@@ -468,8 +468,8 @@ class MessagingTab(QWidget):
                         content_style = ""
                     
                     # Add the message bubble - Updated to use blue for user messages
-                    bg_color = "#0078d7" if sender == "AnoirELGUEDDAR" or sender == "Administrator" else "#f5f5f5"
-                    text_color = "white" if sender == "AnoirELGUEDDAR" or sender == "Administrator" else "black"
+                    bg_color = "#0078d7" if sender == "ADMIN" or sender == "Administrator" else "#f5f5f5"
+                    text_color = "white" if sender == "ADMIN" or sender == "Administrator" else "black"
                     
                     html += f"""
                     <div style="text-align:{align}; margin:15px 5px;">
@@ -520,10 +520,10 @@ class MessagingTab(QWidget):
             # Determine the recipient (first recipient that isn't us)
             recipient = None
             for msg in messages:
-                if msg.sender and msg.sender != "Administrator" and msg.sender != "AnoirELGUEDDAR":
+                if msg.sender and msg.sender != "Administrator" and msg.sender != "ADMIN":
                     recipient = msg.sender
                     break
-                if msg.recipient and msg.recipient != "Administrator" and msg.recipient != "AnoirELGUEDDAR":
+                if msg.recipient and msg.recipient != "Administrator" and msg.recipient != "ADMIN":
                     recipient = msg.recipient
                     break
             
@@ -535,7 +535,7 @@ class MessagingTab(QWidget):
             message = Message(
                 content=content,
                 msg_type=MessageType.INFO,
-                sender="AnoirELGUEDDAR",
+                sender="ADMIN",
                 recipient=recipient,
                 conversation_id=conversation_id
             )
@@ -565,7 +565,7 @@ class MessagingTab(QWidget):
             message = Message(
                 content=msg_data["content"],
                 msg_type=msg_data["msg_type"],
-                sender="AnoirELGUEDDAR",  
+                sender="ADMIN",  
                 recipient=msg_data["recipient"],
                 is_broadcast=msg_data["is_broadcast"]
             )
@@ -645,7 +645,7 @@ class MessagingTab(QWidget):
             message = Message(
                 content=msg_data["content"],
                 msg_type=msg_data["msg_type"],
-                sender="AnoirELGUEDDAR",
+                sender="ADMIN",
                 recipient=client_id,
                 is_broadcast=False
             )
@@ -911,7 +911,7 @@ class ClientMessagingMode(QDialog):
             
             # Format and display messages
             self.messages_display.clear()
-            html = "<html><body style='background-color:white;'>"
+            html = "<html><body style='background-color:#9eb8cf;'>"
             
             for msg in messages:
                 # Format timestamp

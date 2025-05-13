@@ -1,5 +1,7 @@
 """
 Main window for the Network Scanner & Management Tool
+Current Date and Time (UTC): 2025-05-12 23:26:21
+Author: AnoirELGUEDDAR
 """
 import logging
 import os
@@ -14,7 +16,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtCore import (
     Qt, QSize, QTimer, QEasingCurve, QPropertyAnimation, 
-    QParallelAnimationGroup, QSequentialAnimationGroup, QPoint
+    QParallelAnimationGroup, QSequentialAnimationGroup, QPoint, pyqtSlot
 )
 from PyQt5.QtGui import QIcon, QFont, QPalette, QColor
 
@@ -22,6 +24,7 @@ from PyQt5.QtGui import QIcon, QFont, QPalette, QColor
 from gui.scanner_tab import ScannerTab
 from gui.devices_tab import DevicesTab
 from gui.remote_tab import RemoteTab
+from gui.monitoring_tab import MonitoringTab
 from gui.messaging_tab import MessagingTab, NewMessageDialog, ClientMessagingMode
 from gui.files_tab import FilesTab
 
@@ -85,13 +88,13 @@ class MainWindow(QMainWindow):
         
         self.settings = settings or {}
         self.setWindowTitle("Network Scanner & Management Tool")
-        self.setMinimumSize(1000, 700)
+        self.setMinimumSize(1366, 768)
         
         # Initialize MessageService
         self.message_service = MessageService()
         
         # Set administrator username
-        self.message_service.set_username("AnoirELGUEDDAR")
+        self.message_service.set_username("ADMIN")
         
         # Initialize MessageServer (for client-admin communication)
         self.message_server = MessageServer(
@@ -124,6 +127,11 @@ class MainWindow(QMainWindow):
         # Apply startup animation - using a gentler approach
         self._setup_startup_animation()
         
+        # Add debug button for diagnostics
+        self.debug_btn = QPushButton("Debug Integration", self)
+        self.debug_btn.clicked.connect(self._debug_integration)
+        self.statusBar().addPermanentWidget(self.debug_btn)
+        
         logger.info("Main window initialized")
         self.status_bar.showMessage(f"Ready - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
@@ -134,7 +142,42 @@ class MainWindow(QMainWindow):
             sender="System"
         )
         self.message_service.send_message(welcome_msg)
+    
+    def _debug_integration(self):
+        """Debug tab integration"""
+        print("\n--- DEBUG INTEGRATION ---")
+        scanner_devices = len(self.scanner_tab.devices) if hasattr(self.scanner_tab, 'devices') else "devices attribute not found"
+        print(f"Scanner has {scanner_devices} devices")
         
+        # Check if monitoring tab can access devices
+        if hasattr(self, 'monitoring_tab'):
+            print(f"Monitoring tab exists: {self.monitoring_tab is not None}")
+            # Check direct reference
+            if hasattr(self.monitoring_tab, 'scanner_devices'):
+                print(f"scanner_devices attribute exists with {len(self.monitoring_tab.scanner_devices) if isinstance(self.monitoring_tab.scanner_devices, list) else 'not a list'}")
+            else:
+                print("scanner_devices attribute doesn't exist on monitoring_tab")
+            
+            # Check device_manager
+            if hasattr(self.monitoring_tab, 'device_manager'):
+                print(f"device_manager exists: {self.monitoring_tab.device_manager is not None}")
+                
+                if self.monitoring_tab.device_manager is self.scanner_tab:
+                    print("device_manager is correctly set to scanner_tab")
+                else:
+                    print("device_manager is NOT set to scanner_tab")
+                
+                if hasattr(self.monitoring_tab.device_manager, 'devices'):
+                    print(f"device_manager.devices exists with {len(self.monitoring_tab.device_manager.devices) if isinstance(self.monitoring_tab.device_manager.devices, list) else 'not a list'}")
+                else:
+                    print("device_manager.devices doesn't exist")
+        
+        print("--- END DEBUG ---\n")
+        
+        # Update direct reference again
+        self.monitoring_tab.scanner_devices = self.scanner_tab.devices
+        print(f"Direct reference updated. monitoring_tab.scanner_devices now has {len(self.scanner_tab.devices)} devices")
+    
     def _setup_startup_animation(self):
         """Set up a safer, timer-based startup animation"""
         self.central_widget.setVisible(False)
@@ -349,17 +392,22 @@ class MainWindow(QMainWindow):
         self.stacked_widget.addWidget(self.home_screen)
         self.stacked_widget.addWidget(self.tab_screen)
         
-        # Create tab instances
+        # Create scanner tab FIRST (this is crucial)
         self.scanner_tab = ScannerTab()
+        
+        # Create other tabs
         self.devices_tab = DevicesTab()
         self.remote_tab = RemoteTab()
         self.messaging_tab = MessagingTab(self.message_service)
         
-        # Add tabs to widget
+        # Add scanner tab first
         self.tab_widget.addTab(self.scanner_tab, "Network Scanner")
-        self.tab_widget.addTab(self.devices_tab, "Devices")
-        self.tab_widget.addTab(self.remote_tab, "Remote Management")
-        self.tab_widget.addTab(self.messaging_tab, "Messaging")
+        
+        # Now initialize monitoring tab with reference to scanner
+        self.monitoring_tab = MonitoringTab(self, device_manager=self.scanner_tab)
+        
+        # CRITICAL: Set up direct reference to devices
+        self.monitoring_tab.scanner_devices = self.scanner_tab.devices
         
         # Initialize Files Tab with our implementation - Use DeviceManager
         self.files_tab = FilesTab(
@@ -367,19 +415,22 @@ class MainWindow(QMainWindow):
             self.file_service,
             self.message_service
         )
-        self.tab_widget.addTab(self.files_tab, "Files")
         
-        # Keep the placeholder for monitoring tab
-        self.monitoring_tab = QWidget()
-        monitoring_layout = QVBoxLayout(self.monitoring_tab)
-        monitoring_layout.addWidget(QLabel("Network monitoring functionality will be implemented here"))
+        # Add remaining tabs to widget
+        self.tab_widget.addTab(self.devices_tab, "Devices")
+        self.tab_widget.addTab(self.remote_tab, "Remote Management")
+        self.tab_widget.addTab(self.messaging_tab, "Messaging")
+        self.tab_widget.addTab(self.files_tab, "Files")
         self.tab_widget.addTab(self.monitoring_tab, "Monitoring")
         
-        # Connect scanner tab signals to devices tab
-        self.scanner_tab.device_discovered.connect(self.devices_tab.add_device_from_scan)
+        # FIX: Connect scanner tab signals to devices tab through adapter
+        self.scanner_tab.device_discovered.connect(self._device_discovered_adapter)
         
         # Connect scanner tab signals to send messages
-        self.scanner_tab.device_discovered.connect(self._on_device_discovered)
+        self.scanner_tab.device_discovered.connect(self._on_device_discovered_adapter)
+        
+        # Connect signal to update monitoring tab when scan completes
+        self.scanner_tab.scan_completed_signal.connect(self._update_monitoring_reference)
         
         # Setup status bar
         self.status_bar = QStatusBar()
@@ -388,11 +439,52 @@ class MainWindow(QMainWindow):
         # Setup menu bar
         self._setup_menu()
         
-        # Setup toolbar
-        self._setup_toolbar()
-        
         # Show home screen by default
         self.stacked_widget.setCurrentIndex(0)
+    
+    def _update_monitoring_reference(self):
+        """Update monitoring tab's reference to scanner devices after scan completes"""
+        print("Scan completed - updating monitoring tab reference")
+        device_count = len(self.scanner_tab.devices) if hasattr(self.scanner_tab, 'devices') else 0
+        print(f"Scanner has {device_count} devices now")
+        
+        # Update the reference
+        self.monitoring_tab.scanner_devices = self.scanner_tab.devices
+        
+        # Print device count
+        print(f"Monitoring tab now has reference to {device_count} devices")
+        
+    # FIX: Add adapter methods for signal/slot compatibility
+        
+    @pyqtSlot(str, str, str, str)
+    def _device_discovered_adapter(self, ip, mac, hostname, manufacturer):
+        """Adapter method to connect ScannerTab signals to DevicesTab
+        
+        This resolves the incompatible signature between ScannerTab.device_discovered
+        and DevicesTab.add_device_from_scan
+        """
+        device_info = {
+        'ip': ip,
+        'mac': mac,
+        'hostname': hostname,
+        'manufacturer': manufacturer
+    }
+        # Call the devices tab method with correct parameters (likely just 3)
+        self.devices_tab.add_device_from_scan(device_info)
+    
+    @pyqtSlot(str, str, str, str)
+    def _on_device_discovered_adapter(self, ip, mac, hostname, manufacturer):
+        """Adapter method for device discovery to message service"""
+        # Create a device info dictionary from the separate parameters
+        device_info = {
+            'ip': ip,
+            'mac': mac,
+            'hostname': hostname,
+            'manufacturer': manufacturer
+        }
+        
+        # Call the original method with the dictionary
+        self._on_device_discovered(device_info)
         
     def _create_home_screen(self):
         """Create the home screen widget as shown in the image"""
@@ -406,13 +498,15 @@ class MainWindow(QMainWindow):
         center_layout.setAlignment(Qt.AlignCenter)
         
         # Title
-        title_label = QLabel("Network Scanner & Management")
+        title_label = QLabel("Network Scanner & Management tool")
+        title_label.setObjectName("mainTitle")
         title_label.setAlignment(Qt.AlignCenter)
         title_font = QFont()
         title_font.setPointSize(36)
         title_font.setBold(True)
         title_label.setFont(title_font)
-        
+        title_label.setMinimumWidth(900)
+        title_label.setStyleSheet("color: white; font-size: 40pt; font-weight: bold; margin: 0 30px;")
         # Subtitle
         subtitle_label = QLabel("Your Network, Under Control.")
         subtitle_label.setAlignment(Qt.AlignCenter)
@@ -424,7 +518,7 @@ class MainWindow(QMainWindow):
         # Add to center layout
         center_layout.addWidget(title_label)
         center_layout.addWidget(subtitle_label)
-        
+        home_layout.addSpacing(30)
         # Add center layout to main layout with stretch
         home_layout.addStretch(1)
         home_layout.addLayout(center_layout)
@@ -569,6 +663,9 @@ class MainWindow(QMainWindow):
     
     def _go_to_monitoring_tab(self):
         """Navigate to monitoring tab"""
+        # Update the monitoring tab's reference to scanner devices before showing
+        self.monitoring_tab.scanner_devices = self.scanner_tab.devices
+        
         self._change_screen(1)
         QTimer.singleShot(50, lambda: self.tab_widget.setCurrentWidget(self.monitoring_tab))
     
@@ -714,6 +811,12 @@ class MainWindow(QMainWindow):
         settings_action.triggered.connect(self._show_settings)
         tools_menu.addAction(settings_action)
         
+        # Debug menu item
+        debug_action = QAction("&Debug Integration", self)
+        debug_action.setStatusTip("Debug tab integration")
+        debug_action.triggered.connect(self._debug_integration)
+        tools_menu.addAction(debug_action)
+        
         # Help menu
         help_menu = self.menuBar().addMenu("&Help")
         
@@ -767,7 +870,7 @@ class MainWindow(QMainWindow):
     def _save_results(self):
         """Save scan results to file"""
         if self.tab_widget.currentWidget() == self.scanner_tab:
-            self.scanner_tab.save_results()
+            self.scanner_tab._export_results()  # Changed to match the actual method name
         elif self.tab_widget.currentWidget() == self.devices_tab:
             self.devices_tab.save_devices()
         else:
@@ -784,7 +887,7 @@ class MainWindow(QMainWindow):
         self.tab_widget.setCurrentWidget(self.scanner_tab)
         
         # Start scanning after a brief delay for UI to update
-        QTimer.singleShot(100, lambda: self.scanner_tab.start_scan())
+        QTimer.singleShot(100, lambda: self.scanner_tab._start_scan())  # Changed to match actual method name
         
         # Send notification message
         message = Message(
@@ -800,7 +903,7 @@ class MainWindow(QMainWindow):
         if self.stacked_widget.currentIndex() == 0:
             return
             
-        self.scanner_tab.stop_scan()
+        self.scanner_tab._stop_scan()  # Changed to match actual method name
         
         # Send notification message
         message = Message(
@@ -813,7 +916,7 @@ class MainWindow(QMainWindow):
     def _port_scan_selected(self):
         """Perform port scan on selected device"""
         if self.tab_widget.currentWidget() == self.scanner_tab:
-            self.scanner_tab._scan_ports_of_selected()
+            self.scanner_tab._scan_ports()  # Changed to match actual method name
         elif self.tab_widget.currentWidget() == self.devices_tab:
             self.devices_tab._scan_ports_of_selected()
         else:
@@ -841,7 +944,7 @@ class MainWindow(QMainWindow):
             message = Message(
                 content=msg_data["content"],
                 msg_type=msg_data["msg_type"],
-                sender="AnoirELGUEDDAR",
+                sender="ADMIN",
                 recipient=msg_data["recipient"],
                 is_broadcast=msg_data["is_broadcast"]
             )
@@ -930,10 +1033,10 @@ class MainWindow(QMainWindow):
             "About Network Scanner & Management Tool",
             "Network Scanner & Management Tool\n\n"
             "Version: 1.0.0\n"
-            "Author: AnoirELGUEDDAR\n\n"
+            "Author: ADMIN\n\n"
             "A comprehensive tool for network scanning, device discovery, remote management, "
             "messaging, file searching and network monitoring on local networks.\n\n"
-            "Last updated: 2025-05-04 14:55:44"
+            "Last updated: 2025-05-12 23:26:21"
         )
         
     def closeEvent(self, event):

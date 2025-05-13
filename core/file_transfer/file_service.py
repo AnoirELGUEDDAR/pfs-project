@@ -1,339 +1,330 @@
 """
-File transfer service for sending and receiving files between server and clients
+File transfer service for managing file transfers between devices
+Current Date: 2025-05-10 12:02:05
+Author: AnoirELGUEDDAR
 """
-
 import os
-import csv
-import logging
 import shutil
-import time
+import logging
 import uuid
-import math
+import json
 from datetime import datetime
-from pathlib import Path
-from threading import Thread, Lock
-from typing import Dict, List, Optional, Any
+from enum import Enum, auto
+from typing import Dict, List, Any, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
+class TransferStatus(Enum):
+    """File transfer status"""
+    PENDING = auto()
+    TRANSFERRING = auto()
+    COMPLETED = auto()
+    FAILED = auto()
+    CANCELLED = auto()
+
 class FileTransferService:
-    """Service to handle file transfers"""
+    """Service for managing file transfers between devices"""
     
-    def __init__(self, storage_dir="file_storage"):
-        self.storage_dir = Path(storage_dir)
-        self.received_dir = self.storage_dir / "received"
-        self.sending_dir = self.storage_dir / "sending"
-        self.active_transfers = {}  # Dictionary of active transfers
-        self.transfer_history = []  # List of completed transfers
-        self.lock = Lock()  # For thread safety
+    def __init__(self, storage_dir: str = "file_storage"):
+        """Initialize the file transfer service"""
+        self.storage_dir = storage_dir
         
-        # Create necessary directories
-        self.received_dir.mkdir(parents=True, exist_ok=True)
-        self.sending_dir.mkdir(parents=True, exist_ok=True)
+        # Create storage directory if it doesn't exist
+        if not os.path.exists(storage_dir):
+            os.makedirs(storage_dir)
         
-        # Load history
-        self._load_history()
+        # Track active transfers
+        self.active_transfers = {}  # {transfer_id: transfer_info}
         
-    def _load_history(self):
-        """Load transfer history from disk"""
-        history_file = self.storage_dir / "transfer_history.csv"
-        if history_file.exists():
-            try:
-                with open(history_file, "r", newline="") as f:
-                    reader = csv.DictReader(f)
-                    self.transfer_history = list(reader)
-                    
-                # Convert stored strings to appropriate types
-                for item in self.transfer_history:
-                    item["timestamp"] = float(item.get("timestamp", 0))
-                    item["size"] = int(item.get("size", 0))
-            except Exception as e:
-                logger.error(f"Error loading transfer history: {e}")
-                self.transfer_history = []
+        # Track shared files
+        self.shared_files = {}  # {file_id: {path, name, owner, shared_with, permissions}}
         
-    def _save_history(self):
-        """Save transfer history to disk"""
-        history_file = self.storage_dir / "transfer_history.csv"
-        try:
-            with open(history_file, "w", newline="") as f:
-                if self.transfer_history:
-                    fieldnames = self.transfer_history[0].keys()
-                    writer = csv.DictWriter(f, fieldnames=fieldnames)
-                    writer.writeheader()
-                    writer.writerows(self.transfer_history)
-        except Exception as e:
-            logger.error(f"Error saving transfer history: {e}")
+        # Load shared files from disk if available
+        self._load_shared_files()
+        
+        logger.info("FileTransferService initialized")
     
-    def send_file(self, file_path: str, recipient: str) -> str:
+    def upload_file(self, file_path: str, device_id: str, destination: str) -> Tuple[bool, str]:
         """
-        Begin sending a file to a client
+        Upload a file to a remote device
         
         Args:
-            file_path: Path to the file to send
-            recipient: Client ID to send to
+            file_path: Path to the file to upload
+            device_id: ID of the target device
+            destination: Destination path on the target device
             
         Returns:
-            Transfer ID
+            (success, message) tuple
         """
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File {file_path} not found")
+        # In a real implementation, this would communicate with the remote device
+        # For demo purposes, we'll simulate successful uploads with a delay
+        
+        try:
+            # Check if file exists
+            if not os.path.isfile(file_path):
+                return False, "File not found"
+                
+            # Generate a transfer ID
+            transfer_id = str(uuid.uuid4())
             
-        # Generate a unique ID for this transfer
-        transfer_id = str(uuid.uuid4())
-        
-        # Create the transfer object
-        transfer = {
-            "id": transfer_id,
-            "file_path": file_path,
-            "recipient": recipient,
-            "start_time": time.time(),
-            "progress": 0.0,
-            "status": "Starting",
-            "size": os.path.getsize(file_path)
-        }
-        
-        # Add to active transfers
-        with self.lock:
+            # Create transfer record
+            transfer = {
+                'id': transfer_id,
+                'file_path': file_path,
+                'device_id': device_id,
+                'destination': destination,
+                'direction': 'upload',
+                'status': TransferStatus.PENDING.name,
+                'start_time': datetime.now().isoformat(),
+                'size': os.path.getsize(file_path),
+                'progress': 0,
+            }
+            
+            # Store the transfer
             self.active_transfers[transfer_id] = transfer
-        
-        # Start the transfer in a background thread
-        Thread(target=self._transfer_file, args=(transfer_id,), daemon=True).start()
-        
-        return transfer_id
-    
-    def _transfer_file(self, transfer_id: str):
-        """
-        Process a file transfer in the background
-        
-        Args:
-            transfer_id: ID of the transfer to process
-        """
-        with self.lock:
-            if transfer_id not in self.active_transfers:
-                logger.error(f"Transfer {transfer_id} not found")
-                return
-                
-            transfer = self.active_transfers[transfer_id]
             
-        try:
-            # In a real implementation, this would involve network communication
-            # with the client, chunking the file, tracking progress, etc.
+            # In a real implementation, the file would be sent to the remote device
+            # Here we'll just simulate success
             
-            # For this example, we'll simulate the transfer with a delay
-            file_path = transfer["file_path"]
-            recipient = transfer["recipient"]
-            file_size = transfer["size"]
+            # Log transfer
+            logger.info(f"File upload initiated: {os.path.basename(file_path)} to {device_id}")
             
-            # Update status
-            with self.lock:
-                self.active_transfers[transfer_id]["status"] = "Transferring"
-            
-            # Simulate transfer progress
-            chunks = 10
-            chunk_size = file_size / chunks
-            
-            for i in range(chunks):
-                # Check if transfer was canceled
-                with self.lock:
-                    if transfer_id not in self.active_transfers:
-                        logger.info(f"Transfer {transfer_id} was canceled")
-                        return
-                
-                # Simulate network delay
-                time.sleep(0.5)
-                
-                # Update progress
-                with self.lock:
-                    self.active_transfers[transfer_id]["progress"] = (i + 1) / chunks
-            
-            # Simulate completion
-            with self.lock:
-                # Update transfer status
-                self.active_transfers[transfer_id]["status"] = "Completed"
-                self.active_transfers[transfer_id]["progress"] = 1.0
-                self.active_transfers[transfer_id]["end_time"] = time.time()
-                
-                # Add to history
-                history_item = {
-                    "file_path": self.active_transfers[transfer_id]["file_path"],
-                    "direction": "outgoing",
-                    "user": self.active_transfers[transfer_id]["recipient"],
-                    "size": self.active_transfers[transfer_id]["size"],
-                    "timestamp": time.time(),
-                    "status": "Completed"
-                }
-                self.transfer_history.append(history_item)
-                self._save_history()
-                
-                # Remove from active transfers after a delay
-                active_transfer = self.active_transfers[transfer_id]
-                del self.active_transfers[transfer_id]
-                
-            logger.info(f"File transfer {transfer_id} completed: {file_path} to {recipient}")
+            return True, f"Transfer initiated with ID: {transfer_id}"
             
         except Exception as e:
-            logger.error(f"Error transferring file: {e}")
-            
-            # Update transfer status
-            with self.lock:
-                if transfer_id in self.active_transfers:
-                    self.active_transfers[transfer_id]["status"] = "Failed"
-                    self.active_transfers[transfer_id]["error"] = str(e)
-                    
-                    # Add to history
-                    history_item = {
-                        "file_path": self.active_transfers[transfer_id]["file_path"],
-                        "direction": "outgoing",
-                        "user": self.active_transfers[transfer_id]["recipient"],
-                        "size": self.active_transfers[transfer_id]["size"],
-                        "timestamp": time.time(),
-                        "status": "Failed"
-                    }
-                    self.transfer_history.append(history_item)
-                    self._save_history()
+            logger.error(f"Error starting upload: {str(e)}")
+            return False, f"Error: {str(e)}"
     
-    def receive_file(self, file_data: bytes, file_name: str, sender: str) -> str:
+    def download_file(self, file_path: str, device_id: str, destination: str) -> Tuple[bool, str]:
         """
-        Handle receiving a file from a client
+        Download a file from a remote device
         
         Args:
-            file_data: Binary file data
-            file_name: Original file name
-            sender: Client ID that sent the file
+            file_path: Path to the file on the remote device
+            device_id: ID of the source device
+            destination: Destination path on the local system
             
         Returns:
-            Path to the saved file
+            (success, message) tuple
         """
-        # Generate a unique filename to prevent overwrites
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        unique_name = f"{timestamp}_{file_name}"
+        # In a real implementation, this would communicate with the remote device
+        # For demo purposes, we'll simulate successful downloads with a delay
         
-        # Path where the file will be saved
-        file_path = self.received_dir / unique_name
-        
-        # Save the file
         try:
-            with open(file_path, "wb") as f:
-                f.write(file_data)
-                
-            # Add to history
-            with self.lock:
-                history_item = {
-                    "file_path": str(file_path),
-                    "direction": "incoming",
-                    "user": sender,
-                    "size": len(file_data),
-                    "timestamp": time.time(),
-                    "status": "Received"
-                }
-                self.transfer_history.append(history_item)
-                self._save_history()
-                
-            logger.info(f"File received from {sender}: {file_name}, saved as {file_path}")
-            return str(file_path)
+            # Generate a transfer ID
+            transfer_id = str(uuid.uuid4())
+            
+            # Create transfer record
+            transfer = {
+                'id': transfer_id,
+                'file_path': file_path,
+                'device_id': device_id,
+                'destination': destination,
+                'direction': 'download',
+                'status': TransferStatus.PENDING.name,
+                'start_time': datetime.now().isoformat(),
+                'size': 0,  # Unknown until download starts
+                'progress': 0,
+            }
+            
+            # Store the transfer
+            self.active_transfers[transfer_id] = transfer
+            
+            # In a real implementation, the file would be requested from the remote device
+            # Here we'll just simulate success by creating a dummy file
+            
+            # Log transfer
+            logger.info(f"File download initiated: {os.path.basename(file_path)} from {device_id}")
+            
+            return True, f"Transfer initiated with ID: {transfer_id}"
             
         except Exception as e:
-            logger.error(f"Error receiving file {file_name} from {sender}: {e}")
-            raise
+            logger.error(f"Error starting download: {str(e)}")
+            return False, f"Error: {str(e)}"
     
-    def cancel_transfer(self, transfer_id: str):
+    def get_transfer_status(self, transfer_id: str) -> Dict[str, Any]:
         """
-        Cancel an ongoing file transfer
+        Get the status of a transfer
+        
+        Args:
+            transfer_id: ID of the transfer
+            
+        Returns:
+            Transfer information or empty dict if not found
+        """
+        return self.active_transfers.get(transfer_id, {})
+    
+    def cancel_transfer(self, transfer_id: str) -> Tuple[bool, str]:
+        """
+        Cancel a file transfer
         
         Args:
             transfer_id: ID of the transfer to cancel
-        """
-        with self.lock:
-            if transfer_id in self.active_transfers:
-                # Add to history as canceled
-                transfer = self.active_transfers[transfer_id]
-                history_item = {
-                    "file_path": transfer["file_path"],
-                    "direction": "outgoing",
-                    "user": transfer["recipient"],
-                    "size": transfer["size"],
-                    "timestamp": time.time(),
-                    "status": "Canceled"
-                }
-                self.transfer_history.append(history_item)
-                self._save_history()
-                
-                # Remove from active transfers
-                del self.active_transfers[transfer_id]
-                logger.info(f"Transfer {transfer_id} canceled")
-            else:
-                logger.warning(f"Cannot cancel transfer {transfer_id}: not found")
-    
-    def get_active_transfers(self) -> List[Dict[str, Any]]:
-        """
-        Get a list of active transfers
-        
-        Returns:
-            List of transfer dictionaries
-        """
-        with self.lock:
-            # Return a copy to prevent modification during iteration
-            return list(self.active_transfers.values())
-    
-    def get_received_files(self) -> List[Dict[str, Any]]:
-        """
-        Get a list of received files
-        
-        Returns:
-            List of file info dictionaries
-        """
-        received_files = []
-        
-        # Get files from history
-        with self.lock:
-            for item in self.transfer_history:
-                if item.get("direction") == "incoming" and item.get("status") == "Received":
-                    path = item.get("file_path")
-                    # Check if file still exists
-                    if os.path.exists(path):
-                        received_files.append({
-                            "path": path,
-                            "sender": item.get("user"),
-                            "size": item.get("size"),
-                            "timestamp": item.get("timestamp")
-                        })
-        
-        return received_files
-    
-    def get_transfer_history(self) -> List[Dict[str, Any]]:
-        """
-        Get the transfer history
-        
-        Returns:
-            List of history item dictionaries
-        """
-        with self.lock:
-            # Return a copy to prevent modification
-            return list(self.transfer_history)
-    
-    def clear_history(self):
-        """Clear the transfer history"""
-        with self.lock:
-            self.transfer_history = []
-            self._save_history()
             
-    def export_history_to_csv(self, file_path: str):
+        Returns:
+            (success, message) tuple
         """
-        Export transfer history to a CSV file
+        if transfer_id not in self.active_transfers:
+            return False, "Transfer not found"
+            
+        transfer = self.active_transfers[transfer_id]
+        
+        # Can only cancel if not completed or already cancelled
+        if transfer['status'] in [TransferStatus.COMPLETED.name, TransferStatus.CANCELLED.name]:
+            return False, "Transfer already completed or cancelled"
+            
+        # Update status
+        transfer['status'] = TransferStatus.CANCELLED.name
+        
+        logger.info(f"Transfer cancelled: {transfer_id}")
+        
+        return True, "Transfer cancelled"
+    
+    def share_file(self, file_path: str, recipients: List[str], permissions: Dict[str, Any]) -> Tuple[bool, str, str]:
+        """
+        Share a file with other devices
         
         Args:
-            file_path: Path to save CSV file to
+            file_path: Path to the file to share
+            recipients: List of device IDs to share with
+            permissions: Dictionary of permissions for the shared file
+            
+        Returns:
+            (success, message, share_id) tuple
         """
-        with self.lock:
-            if not self.transfer_history:
-                raise ValueError("No transfer history to export")
+        try:
+            # Check if file exists
+            if not os.path.isfile(file_path):
+                return False, "File not found", ""
                 
-            try:
-                with open(file_path, "w", newline="") as f:
-                    fieldnames = self.transfer_history[0].keys()
-                    writer = csv.DictWriter(f, fieldnames=fieldnames)
-                    writer.writeheader()
-                    writer.writerows(self.transfer_history)
-            except Exception as e:
-                logger.error(f"Error exporting history: {e}")
-                raise
+            # Generate a share ID
+            share_id = str(uuid.uuid4())
+            
+            # Get file name
+            file_name = os.path.basename(file_path)
+            
+            # Create a copy in the storage directory
+            shared_path = os.path.join(self.storage_dir, f"{share_id}_{file_name}")
+            shutil.copy2(file_path, shared_path)
+            
+            # Create share record
+            share = {
+                'id': share_id,
+                'original_path': file_path,
+                'shared_path': shared_path,
+                'name': file_name,
+                'owner': 'local',  # Current system is the owner
+                'shared_with': recipients,
+                'permissions': permissions,
+                'created_at': datetime.now().isoformat(),
+            }
+            
+            # Store the share
+            self.shared_files[share_id] = share
+            
+            # Save shared files to disk
+            self._save_shared_files()
+            
+            logger.info(f"File shared: {file_name} with {len(recipients)} recipients")
+            
+            return True, "File shared successfully", share_id
+            
+        except Exception as e:
+            logger.error(f"Error sharing file: {str(e)}")
+            return False, f"Error: {str(e)}", ""
+    
+    def unshare_file(self, share_id: str) -> Tuple[bool, str]:
+        """
+        Stop sharing a file
+        
+        Args:
+            share_id: ID of the share to remove
+            
+        Returns:
+            (success, message) tuple
+        """
+        if share_id not in self.shared_files:
+            return False, "Share not found"
+            
+        share = self.shared_files[share_id]
+        
+        try:
+            # Remove the shared copy
+            if os.path.exists(share['shared_path']):
+                os.remove(share['shared_path'])
+                
+            # Remove the share record
+            del self.shared_files[share_id]
+            
+            # Save shared files to disk
+            self._save_shared_files()
+            
+            logger.info(f"File unshared: {share['name']}")
+            
+            return True, "File unshared successfully"
+            
+        except Exception as e:
+            logger.error(f"Error unsharing file: {str(e)}")
+            return False, f"Error: {str(e)}"
+    
+    def get_shared_files(self, device_id: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Get list of shared files, optionally filtered by device
+        
+        Args:
+            device_id: ID of the device to filter by (optional)
+            
+        Returns:
+            List of shared file records
+        """
+        if device_id is None:
+            # Return all shared files
+            return list(self.shared_files.values())
+            
+        # Filter by device ID
+        return [
+            share for share in self.shared_files.values()
+            if device_id in share['shared_with'] or share['owner'] == device_id
+        ]
+    
+    def _save_shared_files(self):
+        """Save shared files information to disk"""
+        try:
+            # Convert to serializable format
+            data = {}
+            for share_id, share in self.shared_files.items():
+                data[share_id] = dict(share)  # Make a copy
+            
+            # Save to file
+            with open(os.path.join(self.storage_dir, 'shared_files.json'), 'w') as f:
+                json.dump(data, f, indent=2)
+                
+        except Exception as e:
+            logger.error(f"Error saving shared files: {str(e)}")
+    
+    def _load_shared_files(self):
+        """Load shared files information from disk"""
+        try:
+            file_path = os.path.join(self.storage_dir, 'shared_files.json')
+            
+            if not os.path.exists(file_path):
+                return
+                
+            with open(file_path, 'r') as f:
+                self.shared_files = json.load(f)
+                
+            # Verify that shared files still exist, remove if not
+            for share_id, share in list(self.shared_files.items()):
+                if not os.path.exists(share['shared_path']):
+                    del self.shared_files[share_id]
+                    
+        except Exception as e:
+            logger.error(f"Error loading shared files: {str(e)}")
+            self.shared_files = {}
+    
+    def cleanup(self):
+        """Clean up resources before shutdown"""
+        # Save shared files
+        self._save_shared_files()
+        
+        logger.info("FileTransferService cleanup completed")

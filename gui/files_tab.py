@@ -1,1381 +1,1174 @@
 """
-Files tab for Network Scanner - provides file management across remote devices
+Files Tab for file transfer and management
+Current Date: 2025-05-10 12:02:05
+Author: AnoirELGUEDDAR
 """
-
 import os
 import logging
-import math
-import time
 from datetime import datetime
-from typing import Dict, List
-
 from PyQt5.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QSplitter, QFileDialog,
-    QTreeWidget, QTreeWidgetItem, QLineEdit, QPushButton, QLabel, 
-    QComboBox, QMessageBox, QMenu, QTableWidget, QTableWidgetItem, 
-    QHeaderView, QButtonGroup, QToolButton, QInputDialog, QDialog,
-    QDialogButtonBox, QFormLayout
+    QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel,
+    QTableWidget, QTableWidgetItem, QHeaderView, QComboBox,
+    QLineEdit, QFileDialog, QMessageBox, QProgressBar,
+    QGroupBox, QFormLayout, QMenu, QCheckBox, QSplitter,
+    QTreeView, QToolBar
 )
-from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt, QSize, pyqtSignal, QThread, pyqtSlot, QTimer
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
+
+from core.file_transfer.file_transfer_thread import FileTransferThread, TransferType
+from core.messaging.message import Message, MessageType
 
 logger = logging.getLogger(__name__)
 
-# Common file icons - can be extended as needed
-FILE_ICONS = {
-    "default": "icons/file.png",
-    "dir": "icons/folder.png",
-    "txt": "icons/text.png",
-    "pdf": "icons/pdf.png",
-    "doc": "icons/doc.png",
-    "docx": "icons/doc.png",
-    "jpg": "icons/image.png",
-    "png": "icons/image.png",
-    "mp3": "icons/audio.png",
-    "mp4": "icons/video.png",
-    "zip": "icons/archive.png",
-    "exe": "icons/executable.png",
-    "py": "icons/code.png",
-}
-
 class FilesTab(QWidget):
-    """Tab for remote file management functionality"""
+    """Files Tab for file transfer and management"""
+    
+    # Custom signals
+    file_transfer_started = pyqtSignal(str, str, int)  # filename, destination, size
+    file_transfer_progress = pyqtSignal(str, int)  # filename, progress percentage
+    file_transfer_completed = pyqtSignal(str, bool, str)  # filename, success, message
     
     def __init__(self, device_manager, file_service, message_service):
+        """Initialize the Files Tab"""
         super().__init__()
-        self.device_manager = device_manager  # This is our DeviceManager
+        
+        self.device_manager = device_manager
         self.file_service = file_service
         self.message_service = message_service
-        self.search_results = []
-        self.selected_device = None
-        self.current_directory = None
-        self.is_windows = False  # Flag to track if current device is Windows
+        
+        # Track active transfers
+        self.active_transfers = {}  # {filename: transfer_thread}
+        
+        # Setup the UI
         self._setup_ui()
         
-        # Register for device changes to auto-refresh the device list
-        if self.device_manager and hasattr(self.device_manager, 'add_device_change_callback'):
-            self.device_manager.add_device_change_callback(self._load_devices)
+        # Connect signals
+        if self.message_service:
+            self.message_service.message_received.connect(self._on_message_received)
+            
+        # Initialize file list timer for periodic refresh
+        self.refresh_timer = QTimer(self)
+        self.refresh_timer.timeout.connect(self._refresh_files_list)
+        self.refresh_timer.start(30000)  # Refresh every 30 seconds
+        
+        logger.info("Files Tab initialized")
         
     def _setup_ui(self):
-        """Set up the files UI"""
+        """Setup the user interface"""
+        # Main layout
         main_layout = QVBoxLayout(self)
         
-        # Top search bar
-        search_layout = QHBoxLayout()
-        self.search_input = QLineEdit()
-        self.search_input.setPlaceholderText("Search files by name, extension, size, content...")
-        self.search_input.returnPressed.connect(self.search_files)
-        search_layout.addWidget(self.search_input, 3)
+        # Toolbar
+        toolbar = QToolBar("File Actions")
+        toolbar.setIconSize(QSize(16, 16))
         
-        # Device selection
-        self.device_combo = QComboBox()
-        self.device_combo.addItem("All Devices")
-        self.device_combo.currentIndexChanged.connect(self._on_device_changed)
-        search_layout.addWidget(self.device_combo, 1)
+        # Toolbar actions
+        upload_action = QPushButton("Upload")
+        upload_action.clicked.connect(self._upload_file)
+        toolbar.addWidget(upload_action)
+        
+        download_action = QPushButton("Download")
+        download_action.clicked.connect(self._download_selected)
+        toolbar.addWidget(download_action)
+        
+        toolbar.addSeparator()
+        
+        refresh_action = QPushButton("Refresh")
+        refresh_action.clicked.connect(self._refresh_files_list)
+        toolbar.addWidget(refresh_action)
+        
+        # Device selector
+        self.device_selector = QComboBox()
+        self.device_selector.setMinimumWidth(200)
+        self.device_selector.currentIndexChanged.connect(self._device_changed)
+        toolbar.addWidget(QLabel("Device:"))
+        toolbar.addWidget(self.device_selector)
+        
+        # Add search box
+        toolbar.addSeparator()
+        toolbar.addWidget(QLabel("Search:"))
+        self.search_input = QLineEdit()
+        self.search_input.setPlaceholderText("Search files...")
+        self.search_input.returnPressed.connect(self.search_files)
+        toolbar.addWidget(self.search_input)
         
         search_button = QPushButton("Search")
         search_button.clicked.connect(self.search_files)
-        search_layout.addWidget(search_button)
+        toolbar.addWidget(search_button)
         
-        advanced_button = QPushButton("Advanced")
-        advanced_button.clicked.connect(self._show_advanced_search)
-        search_layout.addWidget(advanced_button)
+        main_layout.addWidget(toolbar)
         
-        main_layout.addLayout(search_layout)
-        
-        # Main splitter
+        # Main splitter widget
         splitter = QSplitter(Qt.Horizontal)
         
-        # Left side - Directory tree
-        left_panel = QWidget()
-        left_layout = QVBoxLayout(left_panel)
-        left_layout.setContentsMargins(0, 0, 0, 0)
+        # Left side: Device file system
+        file_system_group = QGroupBox("Remote File System")
+        file_system_layout = QVBoxLayout(file_system_group)
         
-        dir_label = QLabel("File System")
-        dir_label.setStyleSheet("font-weight: bold; font-size: 14px; padding: 5px;")
-        left_layout.addWidget(dir_label)
+        # Path navigation
+        path_layout = QHBoxLayout()
+        self.path_label = QLabel("Path: /")
+        path_layout.addWidget(self.path_label)
         
-        self.dir_tree = QTreeWidget()
-        self.dir_tree.setHeaderLabels(["Directories"])
-        self.dir_tree.setColumnCount(1)
-        self.dir_tree.itemClicked.connect(self._on_directory_selected)
-        left_layout.addWidget(self.dir_tree)
+        self.up_button = QPushButton("Up")
+        self.up_button.clicked.connect(self._go_up_directory)
+        path_layout.addWidget(self.up_button)
         
-        refresh_tree_button = QPushButton("Refresh")
-        refresh_tree_button.clicked.connect(self.refresh_directory_tree)
-        left_layout.addWidget(refresh_tree_button)
+        file_system_layout.addLayout(path_layout)
         
-        splitter.addWidget(left_panel)
+        # File list
+        self.file_list = QTableWidget(0, 4)
+        self.file_list.setHorizontalHeaderLabels(["Name", "Size", "Modified", "Type"])
+        self.file_list.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
+        self.file_list.setSelectionBehavior(QTableWidget.SelectRows)
+        self.file_list.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.file_list.customContextMenuRequested.connect(self._show_context_menu)
+        self.file_list.doubleClicked.connect(self._on_file_double_clicked)
+        file_system_layout.addWidget(self.file_list)
         
-        # Right side - File list
-        right_panel = QWidget()
-        right_layout = QVBoxLayout(right_panel)
-        right_layout.setContentsMargins(0, 0, 0, 0)
+        splitter.addWidget(file_system_group)
         
-        self.path_label = QLabel("No directory selected")
-        self.path_label.setStyleSheet("font-weight: bold; font-size: 14px; padding: 5px;")
-        right_layout.addWidget(self.path_label)
+        # Right side: Transfers and shared files
+        transfers_group = QGroupBox("File Transfers")
+        transfers_layout = QVBoxLayout(transfers_group)
         
-        # File tools
-        tools_layout = QHBoxLayout()
+        # Active transfers
+        self.transfers_table = QTableWidget(0, 4)
+        self.transfers_table.setHorizontalHeaderLabels(["Filename", "Target", "Progress", "Status"])
+        self.transfers_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
+        transfers_layout.addWidget(self.transfers_table)
         
-        # View mode buttons
-        self.view_mode_group = QButtonGroup(self)
-        self.list_btn = QToolButton()
-        self.list_btn.setText("List")
-        self.list_btn.setCheckable(True)
-        self.list_btn.setChecked(True)
-        self.view_mode_group.addButton(self.list_btn, 1)
+        # Shared files
+        shared_group = QGroupBox("Shared Files")
+        shared_layout = QVBoxLayout(shared_group)
         
-        self.grid_btn = QToolButton()
-        self.grid_btn.setText("Grid")
-        self.grid_btn.setCheckable(True)
-        self.view_mode_group.addButton(self.grid_btn, 2)
+        # TODO: Implement shared files UI
+        self.shared_list = QTableWidget(0, 3)
+        self.shared_list.setHorizontalHeaderLabels(["Filename", "Shared With", "Access"])
+        self.shared_list.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
+        shared_layout.addWidget(self.shared_list)
         
-        tools_layout.addWidget(self.list_btn)
-        tools_layout.addWidget(self.grid_btn)
-        tools_layout.addStretch()
+        # Add buttons for shared files
+        shared_buttons = QHBoxLayout()
         
-        # Sort and filter options
-        tools_layout.addWidget(QLabel("Sort by:"))
-        self.sort_combo = QComboBox()
-        self.sort_combo.addItems(["Name", "Size", "Type", "Modified"])
-        tools_layout.addWidget(self.sort_combo)
+        share_button = QPushButton("Share Files")
+        share_button.clicked.connect(self._share_files)
+        shared_buttons.addWidget(share_button)
         
-        tools_layout.addWidget(QLabel("Filter:"))
-        self.filter_combo = QComboBox()
-        self.filter_combo.addItems(["All Files", "Documents", "Images", "Videos", "Audio", "Archives", "Code"])
-        self.filter_combo.currentIndexChanged.connect(self._apply_filter)
-        tools_layout.addWidget(self.filter_combo)
+        unshare_button = QPushButton("Stop Sharing")
+        unshare_button.clicked.connect(self._unshare_files)
+        shared_buttons.addWidget(unshare_button)
         
-        right_layout.addLayout(tools_layout)
+        shared_layout.addLayout(shared_buttons)
         
-        # Files table
-        self.files_table = QTableWidget()
-        self.files_table.setColumnCount(5)
-        self.files_table.setHorizontalHeaderLabels(["Name", "Size", "Type", "Modified", "Actions"])
-        self.files_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.files_table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.files_table.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.files_table.customContextMenuRequested.connect(self._show_context_menu)
-        self.files_table.doubleClicked.connect(self._on_file_double_clicked)
-        self.files_table.setAlternatingRowColors(True)
-        right_layout.addWidget(self.files_table)
+        # Add shared group to transfers layout
+        transfers_layout.addWidget(shared_group)
         
-        # File operation buttons
-        buttons_layout = QHBoxLayout()
+        splitter.addWidget(transfers_group)
         
-        buttons = [
-            ("New Folder", self._create_new_folder),
-            ("Upload", self._upload_file),
-            ("Download Selected", self._download_selected),
-            ("Delete Selected", self._delete_selected)
-        ]
+        # Set initial splitter sizes
+        splitter.setSizes([500, 500])
         
-        for text, callback in buttons:
-            btn = QPushButton(text)
-            btn.clicked.connect(callback)
-            buttons_layout.addWidget(btn)
-            
-        right_layout.addLayout(buttons_layout)
-        splitter.addWidget(right_panel)
-        splitter.setSizes([200, 600])  # Initial sizes for the panels
         main_layout.addWidget(splitter)
         
         # Status bar
+        status_layout = QHBoxLayout()
         self.status_label = QLabel("Ready")
-        main_layout.addWidget(self.status_label)
+        status_layout.addWidget(self.status_label, 1)
+        main_layout.addLayout(status_layout)
         
-        # Load devices
-        self._load_devices()
+        # Populate device selector
+        self._populate_device_selector()
         
-    def _sanitize_windows_path(self, path):
-        """Make sure Windows paths are formatted correctly"""
-        if not path:
-            return path
+    def _populate_device_selector(self):
+        """Populate the device selector with available devices"""
+        self.device_selector.clear()
         
-        # Handle drive letters properly
-        if len(path) >= 2 and path[1] == ':':
-            drive_letter = path[0].upper()
-            # Ensure proper drive letter format
-            path = f"{drive_letter}:" + path[2:]
+        # Add local system
+        self.device_selector.addItem("Local System", "local")
         
-        # Replace any forward slashes with backslashes
-        path = path.replace("/", "\\")
+        # Add remote devices if device manager is available
+        if self.device_manager:
+            devices = self.device_manager.get_devices()
+            for device_id, device_info in devices.items():
+                display_name = f"{device_info.get('name', 'Unknown')} ({device_info.get('ip', 'Unknown IP')})"
+                self.device_selector.addItem(display_name, device_id)
         
-        # Remove any double backslashes (except for UNC paths)
-        if not path.startswith("\\\\"):
-            while "\\\\" in path:
-                path = path.replace("\\\\", "\\")
-        
-        return path
-
-    def _format_path_for_display(self, path):
-        """Format path for display in the UI"""
-        if self.is_windows:
-            # Keep Windows format for display (using backslashes)
-            return path
+        # If no devices found, disable controls
+        if self.device_selector.count() <= 1:
+            self.status_label.setText("No remote devices available")
         else:
-            # Use Unix format for display (forward slashes)
-            return path.replace("\\", "/")
-
-    def _load_devices(self):
-        """Load available network devices with remote management capability"""
-        # Clear existing items
-        while self.device_combo.count() > 1:  # Keep "All Devices"
-            self.device_combo.removeItem(1)
-            
-        try:
-            if self.device_manager:
-                # Get devices from the DeviceManager that are online with network_agent
-                devices = self.device_manager.get_discovered_devices()
-                
-                if devices:
-                    # Add devices to combobox
-                    for device in devices:
-                        device_name = device.get("hostname", device.get("ip_address", "Unknown Device"))
-                        device_id = device.get("id") or device.get("ip_address")
-                        self.device_combo.addItem(device_name, device_id)
-                    self.status_label.setText(f"Found {len(devices)} devices with remote management")
-                else:
-                    self.status_label.setText("No devices with remote management. Run network_agent.py on target machines.")
-        except Exception as e:
-            logger.error(f"Error loading devices: {e}")
-            self.status_label.setText(f"Error loading devices: {str(e)}")
-            
-    def _on_device_changed(self, index):
+            self.status_label.setText(f"{self.device_selector.count() - 1} remote devices available")
+    
+    def _device_changed(self, index):
         """Handle device selection change"""
-        if index == 0:
-            self.selected_device = None
-            self.is_windows = False
-            self.dir_tree.clear()
-            self.path_label.setText("No directory selected")
-            self.files_table.setRowCount(0)
+        device_id = self.device_selector.itemData(index)
+        
+        if device_id == "local":
+            # Show local files
+            self._show_local_files()
         else:
-            self.selected_device = self.device_combo.currentData()
+            # Show remote files for the selected device
+            self._show_remote_files(device_id)
+    
+    def _show_local_files(self, path=None):
+        """Display local files in the file list"""
+        if path is None:
+            path = os.path.expanduser("~")  # Default to user home
+        
+        try:
+            # Update path label
+            self.path_label.setText(f"Path: {path}")
+            self.current_path = path
+            self.current_device = "local"
             
-            # Check if device is Windows
-            if hasattr(self.device_manager, 'get_system_info'):
+            # Clear the file list
+            self.file_list.setRowCount(0)
+            
+            # Populate with files and directories
+            files = os.listdir(path)
+            
+            row = 0
+            for file in files:
+                full_path = os.path.join(path, file)
+                
+                # Skip hidden files
+                if file.startswith('.') and not os.path.isdir(full_path):
+                    continue
+                
+                # Get file info
                 try:
-                    system_info = self.device_manager.get_system_info(self.selected_device)
-                    self.is_windows = system_info and "windows" in system_info.get("platform", "").lower()
-                except Exception:
-                    self.is_windows = False
-            
-            self.refresh_directory_tree()
-            
-    def refresh_directory_tree(self):
-        """Refresh the directory tree"""
-        self.dir_tree.clear()
-        if not self.selected_device:
-            return
-            
-        try:
-            directories = self._get_directories("/")
-            
-            root_item = QTreeWidgetItem(self.dir_tree)
-            root_item.setText(0, self.device_combo.currentText())
-            root_item.setIcon(0, self._get_icon("dir"))
-            root_item.setData(0, Qt.UserRole, "/")
-            
-            for directory in directories:
-                dir_item = QTreeWidgetItem(root_item)
-                dir_item.setText(0, directory.get("name"))
-                dir_item.setIcon(0, self._get_icon("dir"))
-                dir_item.setData(0, Qt.UserRole, directory.get("path"))
-                
-                # Add placeholder for expandable dirs
-                if directory.get("has_subdirs", True):
-                    placeholder = QTreeWidgetItem(dir_item)
-                    placeholder.setText(0, "Loading...")
+                    stat_info = os.stat(full_path)
+                    size = stat_info.st_size
+                    modified = datetime.fromtimestamp(stat_info.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
                     
-            root_item.setExpanded(True)
-        except Exception as e:
-            logger.error(f"Error refreshing directory tree: {e}")
-            self.status_label.setText(f"Error loading directories: {str(e)}")
-            
-    def _get_icon(self, icon_type):
-        """Get icon for file type"""
-        icon_path = FILE_ICONS.get(icon_type, FILE_ICONS.get("default"))
-        return QIcon(icon_path) if icon_path and os.path.exists(icon_path) else QIcon()
-        
-    def _on_directory_selected(self, item, column):
-        """Handle directory selection"""
-        path = item.data(0, Qt.UserRole)
-        if not path:
-            return
-            
-        # Load subdirectories on first expansion
-        if item.childCount() == 1 and item.child(0).text(0) == "Loading...":
-            item.removeChild(item.child(0))  # Remove placeholder
-            try:
-                subdirs = self._get_directories(path)
-                for subdir in subdirs:
-                    dir_item = QTreeWidgetItem(item)
-                    dir_item.setText(0, subdir.get("name"))
-                    dir_item.setIcon(0, self._get_icon("dir"))
-                    dir_item.setData(0, Qt.UserRole, subdir.get("path"))
-                    
-                    if subdir.get("has_subdirs", True):
-                        placeholder = QTreeWidgetItem(dir_item)
-                        placeholder.setText(0, "Loading...")
-            except Exception as e:
-                logger.error(f"Error loading subdirectories: {e}")
-                self.status_label.setText(f"Error loading subdirectories: {str(e)}")
-        
-        # Update current directory
-        self.current_directory = path
-        
-        # Update path label
-        device_name = self.device_combo.currentText()
-        self.path_label.setText(f"{device_name}: {self._format_path_for_display(path)}")
-        
-        # Load files for this directory
-        self._load_files(path)
-            
-    def _get_directories(self, path):
-        """Get directories from selected device"""
-        if not self.selected_device:
-            return []
-            
-        # Try to use device_manager to get real directories
-        if hasattr(self.device_manager, 'get_system_info') and hasattr(self.device_manager, 'execute_command'):
-            try:
-                # Get system info to check if Windows
-                system_info = self.device_manager.get_system_info(self.selected_device)
-                self.is_windows = system_info and "windows" in system_info.get("platform", "").lower()
-                
-                if self.is_windows:
-                    # Handle Windows directories
-                    if path == "/":
-                        # List drives for root directory
-                        cmd = "wmic logicaldisk get caption"
-                        result = self.device_manager.execute_command(self.selected_device, cmd)
-                        
-                        if result:
-                            directories = []
-                            for line in result.strip().split('\n'):
-                                drive = line.strip()
-                                if drive and drive != "Caption":  # Skip header
-                                    directories.append({
-                                        "name": drive,
-                                        "path": f"{drive}",  # Don't add backslash to drive letter
-                                        "has_subdirs": True
-                                    })
-                            return directories
+                    # Determine type
+                    if os.path.isdir(full_path):
+                        type_str = "Directory"
+                        size_str = "--"
                     else:
-                        # Fix path handling for subdirectories
-                        # Create proper Windows path - maintain drive letter format
-                        if ":" in path:
-                            # Path already has drive letter (C:, D:, etc.)
-                            windows_path = self._sanitize_windows_path(path)
+                        # Get file extension
+                        _, ext = os.path.splitext(file)
+                        type_str = ext[1:].upper() if ext else "File"
+                        
+                        # Format size
+                        if size < 1024:
+                            size_str = f"{size} B"
+                        elif size < 1024 * 1024:
+                            size_str = f"{size/1024:.1f} KB"
+                        elif size < 1024 * 1024 * 1024:
+                            size_str = f"{size/(1024*1024):.1f} MB"
                         else:
-                            # Something went wrong, try to recover
-                            windows_path = path.replace("/", "\\")
-                        
-                        # Use proper command to list directories only
-                        cmd = f"dir /ad /b \"{windows_path}\""
-                        result = self.device_manager.execute_command(self.selected_device, cmd)
-                        
-                        if result:
-                            directories = []
-                            for line in result.strip().split('\n'):
-                                name = line.strip()
-                                if name and len(name) > 0:
-                                    # Skip system directories
-                                    if name not in ["System Volume Information", "$RECYCLE.BIN", "$Recycle.Bin"]:
-                                        # Properly construct the full path
-                                        if windows_path.endswith("\\"):
-                                            full_path = f"{windows_path}{name}"
-                                        else:
-                                            full_path = f"{windows_path}\\{name}"
-                                            
-                                        directories.append({
-                                            "name": name,
-                                            "path": full_path,  # Keep Windows path format
-                                            "has_subdirs": True
-                                        })
-                            return directories
-                else:
-                    # Linux/Mac handling
-                    cmd = f"ls -la {path}"
-                    result = self.device_manager.execute_command(self.selected_device, cmd)
+                            size_str = f"{size/(1024*1024*1024):.1f} GB"
                     
-                    if result:
-                        directories = []
-                        lines = result.strip().split('\n')
-                        
-                        for line in lines[1:]:  # Skip the first line (total)
-                            parts = line.split()
-                            if len(parts) >= 9:
-                                if parts[0].startswith('d'):  # Directory check
-                                    name = parts[8]
-                                    if name not in [".", ".."]:
-                                        directories.append({
-                                            "name": name,
-                                            "path": os.path.join(path, name).replace("\\", "/"),
-                                            "has_subdirs": True
-                                        })
-                        return directories
-            except Exception as e:
-                logger.error(f"Error getting directories: {e}")
-                # Fall back to simulated data
-        
-        # Return simulated directories for testing
-        if path == "/":
-            return [
-                {"name": "home", "path": "/home", "has_subdirs": True},
-                {"name": "var", "path": "/var", "has_subdirs": True},
-                {"name": "etc", "path": "/etc", "has_subdirs": True},
-            ]
-        elif path == "/home":
-            return [
-                {"name": "user", "path": "/home/user", "has_subdirs": True},
-                {"name": "admin", "path": "/home/admin", "has_subdirs": True}
-            ]
-        elif path == "/home/user":
-            return [
-                {"name": "Documents", "path": "/home/user/Documents", "has_subdirs": True},
-                {"name": "Pictures", "path": "/home/user/Pictures", "has_subdirs": True},
-                {"name": "Downloads", "path": "/home/user/Downloads", "has_subdirs": False}
-            ]
-        return []
+                    # Add to table
+                    self.file_list.insertRow(row)
+                    self.file_list.setItem(row, 0, QTableWidgetItem(file))
+                    self.file_list.setItem(row, 1, QTableWidgetItem(size_str))
+                    self.file_list.setItem(row, 2, QTableWidgetItem(modified))
+                    self.file_list.setItem(row, 3, QTableWidgetItem(type_str))
+                    
+                    # Store full path as data
+                    self.file_list.item(row, 0).setData(Qt.UserRole, full_path)
+                    
+                    row += 1
+                except (PermissionError, FileNotFoundError):
+                    # Skip files we can't access
+                    continue
             
-    def _load_files(self, path):
-        """Load files from selected directory"""
-        self.files_table.setRowCount(0)
-        if not self.selected_device or not path:
-            return
+            self.status_label.setText(f"Displaying {row} items from local system")
             
-        try:
-            # Use appropriate path format based on OS
-            cmd_path = path
-            if self.is_windows and ":" in path:
-                cmd_path = self._sanitize_windows_path(path)
-            
-            files = self._get_files(cmd_path)
-            
-            for i, file_info in enumerate(files):
-                self.files_table.insertRow(i)
-                
-                # File name with icon
-                name_item = QTableWidgetItem(file_info.get("name"))
-                extension = file_info.get("extension", "").lower()
-                icon_type = "dir" if file_info.get("is_dir") else extension
-                name_item.setIcon(self._get_icon(icon_type))
-                name_item.setData(Qt.UserRole, file_info)
-                self.files_table.setItem(i, 0, name_item)
-                
-                # Size
-                is_dir = file_info.get("is_dir", False)
-                size_str = "<DIR>" if is_dir else self._format_size(file_info.get("size", 0))
-                size_item = QTableWidgetItem(size_str)
-                size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
-                self.files_table.setItem(i, 1, size_item)
-                
-                # Type
-                file_type = "Directory" if is_dir else f"{extension.upper()} File"
-                if "mime_type" in file_info and file_info["mime_type"]:
-                    file_type = file_info["mime_type"]
-                self.files_table.setItem(i, 2, QTableWidgetItem(file_type))
-                
-                # Modified date
-                mod_time = datetime.fromtimestamp(file_info.get("modified", 0)).strftime("%Y-%m-%d %H:%M:%S")
-                self.files_table.setItem(i, 3, QTableWidgetItem(mod_time))
-                
-                # Actions button
-                action_btn = QPushButton("Actions")
-                action_btn.clicked.connect(lambda _, row=i: self._show_file_actions(row))
-                self.files_table.setCellWidget(i, 4, action_btn)
-            
-            self.status_label.setText(f"Loaded {len(files)} items from {self._format_path_for_display(path)}")
-            
-            # Apply current filter
-            self._apply_filter(self.filter_combo.currentIndex())
         except Exception as e:
-            logger.error(f"Error loading files: {e}")
             self.status_label.setText(f"Error loading files: {str(e)}")
+            logger.error(f"Error loading local files: {str(e)}")
+    
+    def _show_remote_files(self, device_id, path=None):
+        """Display remote files from the selected device"""
+        if path is None:
+            path = "/"  # Default to root
             
-    def _get_files(self, path):
-        """Get files from selected directory"""
-        if not self.selected_device:
-            return []
-            
-        # Try to use device_manager if available
-        if hasattr(self.device_manager, 'get_system_info') and hasattr(self.device_manager, 'execute_command'):
+        # Update state
+        self.current_path = path
+        self.current_device = device_id
+        self.path_label.setText(f"Path: {path}")
+        
+        # Clear the file list
+        self.file_list.setRowCount(0)
+        
+        # Use device manager to get file list
+        if self.device_manager:
             try:
-                # Check if path is valid
-                if not path:
-                    logger.warning("Empty path provided to _get_files")
-                    return []
+                # Request file listing from device
+                self.status_label.setText(f"Requesting file listing from {device_id}...")
                 
-                if self.is_windows:
-                    # Use Windows commands
-                    windows_path = self._sanitize_windows_path(path)
-                    
-                    # Get both files and directories
-                    cmd = f"dir \"{windows_path}\" /a /b"
-                    result = self.device_manager.execute_command(self.selected_device, cmd)
-                    
-                    if result:
-                        files = []
-                        current_time = time.time()
-                        
-                        for line in result.strip().split('\n'):
-                            name = line.strip()
-                            if name and name not in [".", ".."]:
-                                # Create full path - proper Windows format
-                                if windows_path.endswith("\\"):
-                                    full_path = f"{windows_path}{name}"
-                                else:
-                                    full_path = f"{windows_path}\\{name}"
-                                
-                                # Check if it's a directory using another command
-                                dir_check_cmd = f"if exist \"{full_path}\\*\" (echo isdir) else (echo isfile)"
-                                check_result = self.device_manager.execute_command(self.selected_device, dir_check_cmd)
-                                is_dir = check_result and "isdir" in check_result.lower()
-                                
-                                # Skip system directories/files that might cause issues
-                                if name in ["System Volume Information", "$RECYCLE.BIN", "$Recycle.Bin"]:
-                                    continue
-                                    
-                                # Get file extension
-                                extension = ""
-                                if not is_dir and "." in name:
-                                    extension = name.split(".")[-1].lower()
-                                
-                                # Get file size (only for files)
-                                size = 0
-                                if not is_dir:
-                                    size_cmd = f"for %I in (\"{full_path}\") do @echo %~zI"
-                                    size_result = self.device_manager.execute_command(self.selected_device, size_cmd)
-                                    try:
-                                        if size_result and size_result.strip().isdigit():
-                                            size = int(size_result.strip())
-                                    except ValueError:
-                                        pass
-                                
-                                files.append({
-                                    "name": name,
-                                    "path": full_path,  # Keep Windows format
-                                    "size": size,
-                                    "modified": current_time - 86400,  # Placeholder
-                                    "extension": extension,
-                                    "is_dir": is_dir
-                                })
-                        return files
-                else:
-                    # Linux/Mac handling
-                    cmd = f"ls -la {path}"
-                    result = self.device_manager.execute_command(self.selected_device, cmd)
-                    
-                    if result:
-                        files = []
-                        lines = result.strip().split('\n')
-                        
-                        for line in lines[1:]:  # Skip the first line (total)
-                            parts = line.split()
-                            if len(parts) >= 9:
-                                name = parts[8]
-                                if name not in [".", ".."]:
-                                    is_dir = parts[0].startswith('d')
-                                    size = int(parts[4]) if not is_dir else 0
-                                    extension = name.split(".")[-1].lower() if not is_dir and "." in name else ""
-                                    
-                                    files.append({
-                                        "name": name,
-                                        "path": os.path.join(path, name).replace("\\", "/"),
-                                        "size": size,
-                                        "modified": time.time() - 86400,  # Placeholder
-                                        "extension": extension,
-                                        "is_dir": is_dir
-                                    })
-                        return files
+                # This would be implemented to communicate with the remote device
+                # For now, show a placeholder message
+                self.status_label.setText(f"Remote file browsing not fully implemented for {device_id}")
+                
+                # Add some placeholder files for demonstration
+                self._add_demo_remote_files()
+                
             except Exception as e:
-                logger.error(f"Error executing remote command: {e}")
-                # Fall back to simulated data
-        
-        # Return simulated files for testing
-        current_time = time.time()
-        if path == "/home/user/Documents":
-            return [
-                {
-                    "name": "Project Proposal.docx",
-                    "path": "/home/user/Documents/Project Proposal.docx",
-                    "size": 1024 * 1024 * 2.5,
-                    "modified": current_time - 86400,
-                    "extension": "docx",
-                    "is_dir": False
-                },
-                {
-                    "name": "Budget.xlsx",
-                    "path": "/home/user/Documents/Budget.xlsx",
-                    "size": 1024 * 512,
-                    "modified": current_time - 86400 * 2,
-                    "extension": "xlsx",
-                    "is_dir": False
-                },
-                {
-                    "name": "Meeting Notes",
-                    "path": "/home/user/Documents/Meeting Notes",
-                    "size": 0,
-                    "modified": current_time - 86400 * 5,
-                    "is_dir": True
-                }
-            ]
-        return []
-            
-    def _format_size(self, size_bytes):
-        """Format file size"""
-        if size_bytes == 0:
-            return "0 B"
-        
-        size_names = ("B", "KB", "MB", "GB", "TB")
-        i = int(math.floor(math.log(size_bytes, 1024))) if size_bytes > 0 else 0
-        p = math.pow(1024, i)
-        s = round(size_bytes / p, 2)
-        
-        return f"{s} {size_names[i]}"
-
-    def search_files(self):
-        """Search for files based on query"""
-        query = self.search_input.text().strip()
-        if not query:
-            QMessageBox.warning(self, "Search Error", "Please enter a search query.")
-            return
-            
-        self.status_label.setText(f"Searching for '{query}'...")
-        device_id = self.device_combo.currentData() if self.device_combo.currentIndex() > 0 else None
-            
-        try:
-            results = self._perform_search(query, device_id)
-            self._display_search_results(results)
-        except Exception as e:
-            logger.error(f"Error searching files: {e}")
-            self.status_label.setText(f"Error searching: {str(e)}")
-            
-    def _perform_search(self, query, device_id=None):
-        """Perform file search"""
-        # Use device_manager if available for a specific device
-        if device_id and hasattr(self.device_manager, 'get_system_info') and hasattr(self.device_manager, 'execute_command'):
-            try:
-                # Get system info to check platform
-                system_info = self.device_manager.get_system_info(device_id)
-                is_windows = system_info and "windows" in system_info.get("platform", "").lower()
-                
-                if is_windows:
-                    # Windows search command - use more specific searching
-                    # Double quotes in Windows can cause issues, so use single quotes in findstr
-                    safe_query = query.replace("\"", "'")
-                    cmd = f"dir /s /b | findstr /i \"{safe_query}\""
-                    result = self.device_manager.execute_command(device_id, cmd)
-                else:
-                    # Linux search command
-                    cmd = f"find / -name \"*{query}*\" -type f -o -name \"*{query}*\" -type d 2>/dev/null"
-                    result = self.device_manager.execute_command(device_id, cmd)
-                
-                if result:
-                    search_results = []
-                    current_time = time.time()
-                    device_name = self.device_combo.currentText() if device_id else "Unknown"
-                    
-                    for line in result.strip().split('\n'):
-                        if line.strip():
-                            path = line.strip()
-                            if is_windows:
-                                name = os.path.basename(path)
-                                # Check if path is a directory
-                                dir_check_cmd = f"if exist \"{path}\\*\" (echo isdir) else (echo isfile)"
-                                check_result = self.device_manager.execute_command(device_id, dir_check_cmd)
-                                is_dir = check_result and "isdir" in check_result.lower()
-                            else:  # Linux
-                                name = os.path.basename(path)
-                                is_dir = os.path.isdir(path) if os.path.exists(path) else "/" in path and path.endswith("/")
-                            
-                            extension = name.split(".")[-1].lower() if not is_dir and "." in name else ""
-                            
-                            # Keep Windows path format for Windows systems
-                            display_path = path
-                            if not is_windows:
-                                display_path = path.replace("\\", "/")
-                            
-                            search_results.append({
-                                "name": name,
-                                "path": path,  # Keep original path format
-                                "device": device_name,
-                                "device_id": device_id,
-                                "size": 0,  # Placeholder
-                                "modified": current_time - 86400,  # Placeholder
-                                "extension": extension,
-                                "is_dir": is_dir
-                            })
-                    return search_results
-            except Exception as e:
-                logger.error(f"Error performing remote search: {e}")
-        
-        # Simulated search results for testing or if remote search failed
-        current_time = time.time()
-        results = [
-            {
-                "name": "Project Proposal.docx",
-                "path": "/home/user/Documents/Project Proposal.docx",
-                "device": "Desktop-PC (Remote Managed)",
-                "device_id": "123456",
-                "size": 1024 * 1024 * 2.5,
-                "modified": current_time - 86400,
-                "extension": "docx",
-                "is_dir": False
-            },
-            {
-                "name": "Project Notes.txt",
-                "path": "/home/admin/Notes/Project Notes.txt",
-                "device": "Server-01 (Remote Managed)",
-                "device_id": "789012",
-                "size": 1024 * 15,
-                "modified": current_time - 86400 * 3,
-                "extension": "txt",
-                "is_dir": False
-            }
+                self.status_label.setText(f"Error: {str(e)}")
+                logger.error(f"Error getting remote files: {str(e)}")
+        else:
+            self.status_label.setText("Device manager not available")
+    
+    def _add_demo_remote_files(self):
+        """Add demo remote files for demonstration"""
+        demo_files = [
+            {"name": "Documents", "size": "--", "modified": "2025-04-15 10:23:45", "type": "Directory"},
+            {"name": "Downloads", "size": "--", "modified": "2025-05-01 15:42:32", "type": "Directory"},
+            {"name": "report.pdf", "size": "2.4 MB", "modified": "2025-05-08 09:12:35", "type": "PDF"},
+            {"name": "data.xlsx", "size": "352.1 KB", "modified": "2025-05-07 14:22:18", "type": "XLSX"},
+            {"name": "presentation.pptx", "size": "4.7 MB", "modified": "2025-04-28 16:01:22", "type": "PPTX"},
+            {"name": "config.xml", "size": "8.2 KB", "modified": "2025-05-02 11:45:03", "type": "XML"},
+            {"name": "server.log", "size": "1.2 MB", "modified": "2025-05-10 08:15:46", "type": "LOG"}
         ]
         
-        if device_id:
-            results = [r for r in results if r.get("device_id") == device_id]
+        for i, file_info in enumerate(demo_files):
+            self.file_list.insertRow(i)
+            self.file_list.setItem(i, 0, QTableWidgetItem(file_info["name"]))
+            self.file_list.setItem(i, 1, QTableWidgetItem(file_info["size"]))
+            self.file_list.setItem(i, 2, QTableWidgetItem(file_info["modified"]))
+            self.file_list.setItem(i, 3, QTableWidgetItem(file_info["type"]))
             
-        return results
-        
-    def _display_search_results(self, results):
-        """Display search results"""
-        self.files_table.setRowCount(0)
-        self.search_results = results
-        self.path_label.setText(f"Search Results: {len(results)} items found")
-        
-        for i, file_info in enumerate(results):
-            self.files_table.insertRow(i)
-            
-            # File name with device info
-            name_text = f"{file_info.get('name')} (on {file_info.get('device', 'Unknown Device')})"
-            name_item = QTableWidgetItem(name_text)
-            icon_type = "dir" if file_info.get("is_dir") else file_info.get("extension", "").lower()
-            name_item.setIcon(self._get_icon(icon_type))
-            name_item.setData(Qt.UserRole, file_info)
-            self.files_table.setItem(i, 0, name_item)
-            
-            # Size
-            is_dir = file_info.get("is_dir", False)
-            size_str = "<DIR>" if is_dir else self._format_size(file_info.get("size", 0))
-            size_item = QTableWidgetItem(size_str)
-            size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
-            self.files_table.setItem(i, 1, size_item)
-            
-            # Type
-            ext = file_info.get("extension", "").lower()
-            file_type = "Directory" if is_dir else f"{ext.upper()} File"
-            self.files_table.setItem(i, 2, QTableWidgetItem(file_type))
-            
-            # Modified
-            mod_time = datetime.fromtimestamp(file_info.get("modified", 0)).strftime("%Y-%m-%d %H:%M:%S")
-            self.files_table.setItem(i, 3, QTableWidgetItem(mod_time))
-            
-            # Actions
-            action_btn = QPushButton("Actions")
-            action_btn.clicked.connect(lambda _, row=i: self._show_file_actions(row))
-            self.files_table.setCellWidget(i, 4, action_btn)
-            
-        self.status_label.setText(f"Found {len(results)} items matching your query")
-
-    def _show_advanced_search(self):
-        """Show advanced search dialog"""
-        dialog = AdvancedSearchDialog(self)
-        if dialog.exec_() == QDialog.Accepted:
-            params = dialog.get_search_parameters()
-            self.status_label.setText("Searching with advanced parameters...")
-            device_id = self.device_combo.currentData() if self.device_combo.currentIndex() > 0 else None
-                
-            try:
-                results = self._perform_advanced_search(params, device_id)
-                self._display_search_results(results)
-            except Exception as e:
-                logger.error(f"Error searching files: {e}")
-                self.status_label.setText(f"Error searching: {str(e)}")
-                
-    def _perform_advanced_search(self, params, device_id=None):
-        """Perform advanced file search"""
-        # For simplicity, use the basic search for now with the filename parameter
-        return self._perform_search(params.get("filename", ""), device_id)
+            # Store path as data
+            full_path = f"{self.current_path}/{file_info['name']}" if self.current_path != "/" else f"/{file_info['name']}"
+            self.file_list.item(i, 0).setData(Qt.UserRole, full_path)
     
-    def _apply_filter(self, index):
-        """Apply file type filter"""
-        filter_type = self.filter_combo.currentText()
-        
-        # If there are no files shown, skip filtering
-        if self.files_table.rowCount() == 0:
+    def _go_up_directory(self):
+        """Navigate to the parent directory"""
+        if self.current_path in ["/", "C:\\", os.path.expanduser("~")]:
+            # Already at root or home, do nothing
             return
-            
-        for row in range(self.files_table.rowCount()):
-            file_info = self.files_table.item(row, 0).data(Qt.UserRole)
-            if not file_info:
-                continue
-                
-            is_dir = file_info.get("is_dir", False)
-            extension = file_info.get("extension", "").lower()
-            
-            # Always show all files or directories
-            if filter_type == "All Files" or is_dir:
-                self.files_table.setRowHidden(row, False)
-                continue
-                
-            # Apply filter based on type
-            show_row = False
-            if filter_type == "Documents" and extension in ["doc", "docx", "pdf", "txt", "rtf", "odt", "xlsx", "pptx"]:
-                show_row = True
-            elif filter_type == "Images" and extension in ["jpg", "jpeg", "png", "gif", "bmp", "tiff"]:
-                show_row = True
-            elif filter_type == "Videos" and extension in ["mp4", "avi", "mov", "wmv", "mkv"]:
-                show_row = True
-            elif filter_type == "Audio" and extension in ["mp3", "wav", "flac", "aac", "ogg"]:
-                show_row = True
-            elif filter_type == "Archives" and extension in ["zip", "rar", "7z", "tar", "gz"]:
-                show_row = True
-            elif filter_type == "Code" and extension in ["py", "java", "c", "cpp", "js", "html", "css", "php"]:
-                show_row = True
-                
-            self.files_table.setRowHidden(row, not show_row)
         
-    def _show_file_actions(self, row):
-        """Show actions menu for a file"""
-        file_info = self.files_table.item(row, 0).data(Qt.UserRole)
+        # Get parent directory
+        parent_dir = os.path.dirname(self.current_path)
         
-        menu = QMenu(self)
-        
-        # Create action items based on file type
-        if file_info.get("is_dir"):
-            menu.addAction("Open").triggered.connect(lambda: self._open_directory(file_info))
+        if self.current_device == "local":
+            self._show_local_files(parent_dir)
         else:
-            menu.addAction("Download").triggered.connect(lambda: self._download_file(file_info))
-            menu.addAction("Open").triggered.connect(lambda: self._open_file(file_info))
-            
-        menu.addSeparator()
-        menu.addAction("Copy").triggered.connect(lambda: self._copy_file(file_info))
-        menu.addAction("Move/Rename").triggered.connect(lambda: self._move_file(file_info))
-        menu.addAction("Delete").triggered.connect(lambda: self._delete_file(file_info))
-        
-        button = self.files_table.cellWidget(row, 4)
-        menu.exec_(button.mapToGlobal(button.rect().center()))
-        
-    def _show_context_menu(self, pos):
-        """Show context menu for selected files"""
-        selected_rows = self.files_table.selectionModel().selectedRows()
-        if not selected_rows:
-            return
-            
-        menu = QMenu(self)
-        
-        # Special actions for single selection
-        if len(selected_rows) == 1:
-            row = selected_rows[0].row()
-            file_info = self.files_table.item(row, 0).data(Qt.UserRole)
-            
-            if file_info.get("is_dir"):
-                menu.addAction("Open Directory").triggered.connect(lambda: self._open_directory(file_info))
-            else:
-                menu.addAction("Open File").triggered.connect(lambda: self._open_file(file_info))
-                
-        # Multi-selection actions
-        menu.addSeparator()
-        menu.addAction(f"Download Selected ({len(selected_rows)})").triggered.connect(self._download_selected)
-        menu.addAction(f"Copy Selected ({len(selected_rows)})").triggered.connect(self._copy_selected)
-        menu.addAction(f"Delete Selected ({len(selected_rows)})").triggered.connect(self._delete_selected)
-        
-        menu.exec_(self.files_table.mapToGlobal(pos))
-        
+            self._show_remote_files(self.current_device, parent_dir)
+    
     def _on_file_double_clicked(self, index):
-        """Handle double-click on file"""
+        """Handle double-click on file item"""
+        if index.column() != 0:  # Only respond to first column
+            return
+            
         row = index.row()
-        file_info = self.files_table.item(row, 0).data(Qt.UserRole)
+        item = self.file_list.item(row, 0)
+        file_path = item.data(Qt.UserRole)
+        file_name = item.text()
         
-        if file_info.get("is_dir"):
-            self._open_directory(file_info)
+        # Check if it's a directory
+        file_type = self.file_list.item(row, 3).text()
+        
+        if file_type == "Directory":
+            # Navigate to directory
+            if self.current_device == "local":
+                self._show_local_files(file_path)
+            else:
+                new_path = f"{self.current_path}/{file_name}" if self.current_path != "/" else f"/{file_name}"
+                self._show_remote_files(self.current_device, new_path)
         else:
-            self._open_file(file_info)
-            
-    def _open_directory(self, dir_info):
-        """Open a directory"""
-        path = dir_info.get("path")
-        device_id = dir_info.get("device_id")
-        
-        # Switch device if needed
-        if device_id and device_id != self.selected_device:
-            for i in range(1, self.device_combo.count()):
-                if self.device_combo.itemData(i) == device_id:
-                    self.device_combo.setCurrentIndex(i)
-                    break
-        
-        # Properly format path based on OS
-        if self.is_windows and ":" in path:
-            path = self._sanitize_windows_path(path)
-        
-        # Try to find and select path in tree
-        root = self.dir_tree.invisibleRootItem()
-        for i in range(root.childCount()):
-            if self._find_and_select_path(root.child(i), path):
-                break
-        else:
-            # Not found in tree, load directly
-            self.current_directory = path
-            self.path_label.setText(f"{dir_info.get('device', 'Unknown Device')}: {self._format_path_for_display(path)}")
-            self._load_files(path)
-            
-    def _find_and_select_path(self, item, target_path):
-        """Recursively find and select a path in directory tree"""
-        path = item.data(0, Qt.UserRole)
-        
-        # Handle case differences in Windows paths
-        if self.is_windows and path and target_path:
-            path = path.lower()
-            target_path = target_path.lower()
-        
-        if path == target_path:
-            self.dir_tree.setCurrentItem(item)
-            self._on_directory_selected(item, 0)
-            return True
-            
-        # Check children
-        for i in range(item.childCount()):
-            child = item.child(i)
-            child_path = child.data(0, Qt.UserRole)
-            
-            if not child_path:
-                continue
-            
-            # Normalize paths for comparison
-            if self.is_windows and child_path and target_path:
-                child_path = child_path.lower()
-                target_path_lower = target_path.lower()
-                
-                # Special comparison for Windows paths
-                if target_path_lower.startswith(child_path) or (
-                    child_path.endswith("\\") and target_path_lower.startswith(child_path[:-1])):
-                    item.setExpanded(True)
-                    
-                    # Load subdirs if needed
-                    if child.childCount() == 1 and child.child(0).text(0) == "Loading...":
-                        self._on_directory_selected(child, 0)
-                        
-                    if self._find_and_select_path(child, target_path):
-                        return True
-            else:
-                # Unix-style path comparison
-                if target_path.startswith(child_path):
-                    item.setExpanded(True)
-                    
-                    # Load subdirs if needed
-                    if child.childCount() == 1 and child.child(0).text(0) == "Loading...":
-                        self._on_directory_selected(child, 0)
-                        
-                    if self._find_and_select_path(child, target_path):
-                        return True
-                    
-        return False
-
-    # File operations
-    def _download_file(self, file_info):
-        """Download a file"""
-        file_name = file_info.get("name")
-        file_path = file_info.get("path")
-        device_id = file_info.get("device_id", self.selected_device)
-        
-        # Ask for save location
-        file_dialog = QFileDialog()
-        file_dialog.setAcceptMode(QFileDialog.AcceptSave)
-        file_dialog.selectFile(file_name)
-        
-        if file_dialog.exec_():
-            save_path = file_dialog.selectedFiles()[0]
-            self.status_label.setText(f"Downloading {file_name} to {save_path}...")
-            
-            # Use device manager if available
-            if hasattr(self.device_manager, 'send_file'):
+            # Regular file
+            if self.current_device == "local":
+                # Open local file with default application
                 try:
-                    # Ensure proper path format for the OS
-                    remote_path = file_path
-                    if self.is_windows and ":" in file_path:
-                        remote_path = self._sanitize_windows_path(file_path)
+                    import subprocess
+                    import platform
                     
-                    self.device_manager.send_file(device_id, remote_path, save_path)
-                    QTimer.singleShot(100, lambda: self._download_complete(file_name, save_path))
-                except Exception as e:
-                    logger.error(f"Error downloading file: {e}")
-                    self.status_label.setText(f"Error: {str(e)}")
-                    QMessageBox.warning(self, "Download Error", str(e))
-            else:
-                # Demo mode
-                QTimer.singleShot(1000, lambda: self._download_complete(file_name, save_path))
-            
-    def _download_complete(self, file_name, save_path):
-        """Handle download completion"""
-        self.status_label.setText(f"Downloaded {file_name} to {save_path}")
-        QMessageBox.information(self, "Download Complete", f"File {file_name} has been downloaded to {save_path}")
-
-    def _download_selected(self):
-        """Download selected files"""
-        selected_rows = self.files_table.selectionModel().selectedRows()
-        if not selected_rows:
-            QMessageBox.warning(self, "No Selection", "Please select files to download.")
-            return
-            
-        # Ask for save directory
-        file_dialog = QFileDialog()
-        file_dialog.setFileMode(QFileDialog.DirectoryOnly)
-        file_dialog.setWindowTitle("Select Download Directory")
-        
-        if file_dialog.exec_():
-            save_dir = file_dialog.selectedFiles()[0]
-            file_count = 0
-            
-            # Process each selected file
-            for row_idx in selected_rows:
-                row = row_idx.row()
-                file_info = self.files_table.item(row, 0).data(Qt.UserRole)
-                
-                # Skip directories for now
-                if not file_info.get("is_dir"):
-                    file_name = file_info.get("name")
-                    file_path = file_info.get("path")
-                    device_id = file_info.get("device_id", self.selected_device)
-                    save_path = os.path.join(save_dir, file_name)
-                    
-                    self.status_label.setText(f"Downloading {file_name} to {save_dir}...")
-                    
-                    # Use device manager if available
-                    if hasattr(self.device_manager, 'send_file'):
-                        try:
-                            # Ensure proper path format for the OS
-                            remote_path = file_path
-                            if self.is_windows and ":" in file_path:
-                                remote_path = self._sanitize_windows_path(file_path)
-                            
-                            self.device_manager.send_file(device_id, remote_path, save_path)
-                            file_count += 1
-                        except Exception as e:
-                            logger.error(f"Error downloading {file_name}: {e}")
-                    else:
-                        # Demo mode
-                        file_count += 1
-            
-            # Show completion after all files are processed
-            if file_count > 0:
-                QTimer.singleShot(500, lambda: self._bulk_download_complete(file_count, save_dir))
-            else:
-                self.status_label.setText("No files were downloaded")
-
-    def _bulk_download_complete(self, count, save_dir):
-        """Handle bulk download completion"""
-        self.status_label.setText(f"Downloaded {count} files to {save_dir}")
-        QMessageBox.information(self, "Download Complete", f"{count} files have been downloaded to {save_dir}")
-        
-    def _open_file(self, file_info):
-        """Preview a file"""
-        file_name = file_info.get("name")
-        file_path = file_info.get("path")
-        
-        # In a real implementation, first download the file to a temp location, then open it
-        self.status_label.setText(f"Opening {file_name}...")
-        
-        # For demo purposes
-        QMessageBox.information(self, "Open File", f"Opening file: {file_name} from {file_path}")
-        
-    def _copy_file(self, file_info):
-        """Copy a file"""
-        QMessageBox.information(self, "Copy File", "File copy functionality will be implemented here.")
-        
-    def _copy_selected(self):
-        """Copy selected files"""
-        selected_rows = self.files_table.selectionModel().selectedRows()
-        if not selected_rows:
-            QMessageBox.warning(self, "No Selection", "Please select files to copy.")
-            return
-            
-        QMessageBox.information(self, "Copy Files", f"Copying {len(selected_rows)} files")
-        
-    def _move_file(self, file_info):
-        """Move or rename a file"""
-        QMessageBox.information(self, "Move/Rename File", "File move/rename functionality will be implemented here.")
-        
-    def _delete_file(self, file_info):
-        """Delete a file"""
-        file_name = file_info.get("name")
-        file_path = file_info.get("path")
-        device_id = file_info.get("device_id", self.selected_device)
-        
-        reply = QMessageBox.question(self, "Delete File", 
-                                 f"Are you sure you want to delete '{file_name}'?",
-                                 QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-                                 
-        if reply == QMessageBox.Yes:
-            # In a real implementation, use DeviceManager to delete the file
-            self.status_label.setText(f"Deleting {file_name}...")
-            
-            if hasattr(self.device_manager, 'execute_command'):
-                try:
-                    # Prepare for OS-specific command
-                    if self.is_windows:
-                        # Clean up Windows path
-                        windows_path = self._sanitize_windows_path(file_path)
-                        cmd = f"del /q \"{windows_path}\""
-                    else:
-                        cmd = f"rm -f \"{file_path}\""
-                    
-                    result = self.device_manager.execute_command(device_id, cmd)
-                    
-                    # Check if successful (command usually won't return anything if successful)
-                    if result == "" or result is None:
-                        QTimer.singleShot(100, lambda: self._delete_complete(file_name))
-                    else:
-                        self.status_label.setText(f"Error deleting {file_name}: {result}")
-                        QMessageBox.warning(self, "Delete Failed", result)
-                except Exception as e:
-                    logger.error(f"Error deleting file: {e}")
-                    self.status_label.setText(f"Error: {str(e)}")
-                    QMessageBox.warning(self, "Delete Error", str(e))
-            else:
-                # Demo mode - simulate successful deletion
-                QTimer.singleShot(1000, lambda: self._delete_complete(file_name))
-            
-    def _delete_complete(self, file_name):
-        """Handle file deletion completion"""
-        self.status_label.setText(f"Deleted {file_name}")
-        
-        # Refresh file list
-        if self.current_directory:
-            self._load_files(self.current_directory)
-        
-    def _delete_selected(self):
-        """Delete selected files"""
-        selected_rows = self.files_table.selectionModel().selectedRows()
-        if not selected_rows:
-            QMessageBox.warning(self, "No Selection", "Please select files to delete.")
-            return
-            
-        reply = QMessageBox.question(self, "Delete Files", 
-                                 f"Are you sure you want to delete {len(selected_rows)} files?",
-                                 QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-                                 
-        if reply == QMessageBox.Yes:
-            # In a real implementation, use DeviceManager to delete the files
-            self.status_label.setText(f"Deleting {len(selected_rows)} files...")
-            
-            # For each selected file
-            for row_idx in selected_rows:
-                row = row_idx.row()
-                file_info = self.files_table.item(row, 0).data(Qt.UserRole)
-                file_path = file_info.get("path")
-                device_id = file_info.get("device_id", self.selected_device)
-                
-                if hasattr(self.device_manager, 'execute_command'):
-                    try:
-                        if self.is_windows:
-                            # Clean up Windows path
-                            windows_path = self._sanitize_windows_path(file_path)
-                            cmd = f"del /q \"{windows_path}\""
-                        else:
-                            cmd = f"rm -f \"{file_path}\""
+                    system = platform.system()
+                    if system == "Windows":
+                        os.startfile(file_path)
+                    elif system == "Darwin":  # macOS
+                        subprocess.call(["open", file_path])
+                    else:  # Linux/Unix
+                        subprocess.call(["xdg-open", file_path])
                         
-                        self.device_manager.execute_command(device_id, cmd)
-                    except Exception as e:
-                        logger.error(f"Error deleting {file_path}: {e}")
-            
-            # Simulate deletion for demo purposes
-            QTimer.singleShot(1000, lambda: self._bulk_delete_complete(len(selected_rows)))
-            
-    def _bulk_delete_complete(self, count):
-        """Handle bulk file deletion completion"""
-        self.status_label.setText(f"Deleted {count} files")
-        
-        # Refresh file list
-        if self.current_directory:
-            self._load_files(self.current_directory)
-            
-    def _create_new_folder(self):
-        """Create a new folder"""
-        if not self.current_directory:
-            QMessageBox.warning(self, "No Directory", "Please select a directory first.")
-            return
-            
-        folder_name, ok = QInputDialog.getText(self, "New Folder", "Enter folder name:")
-        
-        if ok and folder_name:
-            # In a real implementation, use DeviceManager to create the folder
-            self.status_label.setText(f"Creating folder {folder_name}...")
-            
-            if hasattr(self.device_manager, 'execute_command'):
-                try:
-                    # Handle OS-specific path and command
-                    if self.is_windows:
-                        windows_path = self._sanitize_windows_path(self.current_directory)
-                        if windows_path.endswith("\\"):
-                            new_folder_path = f"{windows_path}{folder_name}"
-                        else:
-                            new_folder_path = f"{windows_path}\\{folder_name}"
-                        cmd = f"mkdir \"{new_folder_path}\""
-                    else:
-                        # Create new folder path
-                        new_folder_path = os.path.join(self.current_directory, folder_name).replace("\\", "/")
-                        cmd = f"mkdir -p \"{new_folder_path}\""
-                    
-                    result = self.device_manager.execute_command(self.selected_device, cmd)
-                    
-                    # Check if successful
-                    if result == "" or result is None:
-                        QTimer.singleShot(100, lambda: self._folder_created(folder_name))
-                    else:
-                        self.status_label.setText(f"Error creating folder: {result}")
-                        QMessageBox.warning(self, "Folder Creation Failed", result)
                 except Exception as e:
-                    logger.error(f"Error creating folder: {e}")
-                    self.status_label.setText(f"Error: {str(e)}")
-                    QMessageBox.warning(self, "Folder Creation Error", str(e))
+                    QMessageBox.warning(self, "Error", f"Could not open file: {str(e)}")
             else:
-                # Demo mode - simulate successful folder creation
-                QTimer.singleShot(1000, lambda: self._folder_created(folder_name))
-            
-    def _folder_created(self, folder_name):
-        """Handle folder creation completion"""
-        self.status_label.setText(f"Created folder {folder_name}")
-        
-        # Refresh directory tree and file list
-        self.refresh_directory_tree()
-        if self.current_directory:
-            self._load_files(self.current_directory)
-            
-    def _upload_file(self):
-        """Upload a file to current directory"""
-        if not self.current_directory:
-            QMessageBox.warning(self, "No Directory", "Please select a directory first.")
-            return
-            
-        # Ask for file(s) to upload
-        file_dialog = QFileDialog()
-        file_dialog.setFileMode(QFileDialog.ExistingFiles)
-        
-        if file_dialog.exec_():
-            file_paths = file_dialog.selectedFiles()
-            
-            # Upload each file
-            for file_path in file_paths:
-                file_name = os.path.basename(file_path)
+                # For remote files, show download dialog
+                reply = QMessageBox.question(
+                    self,
+                    "Download File",
+                    f"Would you like to download the file '{file_name}'?",
+                    QMessageBox.Yes | QMessageBox.No,
+                    QMessageBox.No
+                )
                 
-                # In a real implementation, use DeviceManager to upload the file
-                self.status_label.setText(f"Uploading {file_name}...")
-                
-                if hasattr(self.device_manager, 'send_file'):
-                    try:
-                        # Prepare remote path based on OS
-                        if self.is_windows:
-                            windows_path = self._sanitize_windows_path(self.current_directory)
-                            if windows_path.endswith("\\"):
-                                remote_path = f"{windows_path}{file_name}"
-                            else:
-                                remote_path = f"{windows_path}\\{file_name}"
-                        else:
-                            remote_path = os.path.join(self.current_directory, file_name).replace("\\", "/")
-                        
-                        # Send file to remote device
-                        success = self.device_manager.send_file(
-                            self.selected_device,
-                            file_path,  # Local file path
-                            remote_path  # Remote path
-                        )
-                        
-                        if success:
-                            QTimer.singleShot(100, lambda name=file_name: self._upload_complete(name))
-                        else:
-                            self.status_label.setText(f"Error uploading {file_name}")
-                            QMessageBox.warning(self, "Upload Failed", f"Failed to upload {file_name} to the remote device.")
-                    except Exception as e:
-                        logger.error(f"Error uploading file: {e}")
-                        self.status_label.setText(f"Error: {str(e)}")
-                        QMessageBox.warning(self, "Upload Error", str(e))
-                else:
-                    # Demo mode - simulate successful upload
-                    QTimer.singleShot(2000, lambda name=file_name: self._upload_complete(name))
-                
-    def _upload_complete(self, file_name):
-        """Handle file upload completion"""
-        self.status_label.setText(f"Uploaded {file_name}")
-        
-        # Refresh file list
-        if self.current_directory:
-            self._load_files(self.current_directory)
-
-
-class AdvancedSearchDialog(QDialog):
-    """Dialog for advanced search options"""
+                if reply == QMessageBox.Yes:
+                    self._download_file(file_path)
     
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("Advanced Search")
-        self.setMinimumWidth(400)
+    def _show_context_menu(self, position):
+        """Show context menu for file list item"""
+        menu = QMenu()
         
-        layout = QVBoxLayout(self)
-        form = QFormLayout()
-        
-        # Search fields
-        self.filename_edit = QLineEdit()
-        form.addRow("File Name:", self.filename_edit)
-        
-        self.content_edit = QLineEdit()
-        form.addRow("File Content:", self.content_edit)
-        
-        self.type_combo = QComboBox()
-        self.type_combo.addItems(["All Files", "Documents", "Images", "Videos", "Audio", "Archives", "Code"])
-        form.addRow("File Type:", self.type_combo)
-        
-        # Size options (in a horizontal layout)
-        size_layout = QHBoxLayout()
-        self.min_size_edit = QLineEdit()
-        self.min_size_edit.setPlaceholderText("Min")
-        self.max_size_edit = QLineEdit()
-        self.max_size_edit.setPlaceholderText("Max")
-        self.size_unit_combo = QComboBox()
-        self.size_unit_combo.addItems(["B", "KB", "MB", "GB"])
-        self.size_unit_combo.setCurrentText("MB")
-        
-        size_layout.addWidget(self.min_size_edit)
-        size_layout.addWidget(QLabel("to"))
-        size_layout.addWidget(self.max_size_edit)
-        size_layout.addWidget(self.size_unit_combo)
-        form.addRow("Size:", size_layout)
-        
-        # Date options (in a horizontal layout)
-        date_layout = QHBoxLayout()
-        self.start_date_edit = QLineEdit()
-        self.start_date_edit.setPlaceholderText("YYYY-MM-DD")
-        self.end_date_edit = QLineEdit()
-        self.end_date_edit.setPlaceholderText("YYYY-MM-DD")
-        
-        date_layout.addWidget(self.start_date_edit)
-        date_layout.addWidget(QLabel("to"))
-        date_layout.addWidget(self.end_date_edit)
-        form.addRow("Modified:", date_layout)
-        
-        layout.addLayout(form)
-        
-        # Dialog buttons
-        button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        button_box.accepted.connect(self.accept)
-        button_box.rejected.connect(self.reject)
-        layout.addWidget(button_box)
-        
-    def get_search_parameters(self):
-        """Get search parameters from dialog fields"""
-        return {
-            "filename": self.filename_edit.text(),
-            "content": self.content_edit.text(),
-            "file_type": self.type_combo.currentText(),
-            "min_size": self.min_size_edit.text,
-            "max_size": self.max_size_edit.text(),
-            "size_unit": self.size_unit_combo.currentText(),
-            "start_date": self.start_date_edit.text(),
-            "end_date": self.end_date_edit.text(),}
-
+        # Get selected items
+        selected_items = self.file_list.selectedItems()
+        if not selected_items:
+            return
             
+        # Get the row of the first selected item
+        row = selected_items[0].row()
+        
+        # Get file info
+        file_name = self.file_list.item(row, 0).text()
+        file_path = self.file_list.item(row, 0).data(Qt.UserRole)
+        file_type = self.file_list.item(row, 3).text()
+        
+        # Add menu actions based on file type
+        if file_type == "Directory":
+            open_action = menu.addAction("Open Directory")
+            open_action.triggered.connect(lambda: self._on_file_double_clicked(self.file_list.indexFromItem(selected_items[0])))
+        else:
+            if self.current_device == "local":
+                open_action = menu.addAction("Open File")
+                open_action.triggered.connect(lambda: self._on_file_double_clicked(self.file_list.indexFromItem(selected_items[0])))
+            else:
+                download_action = menu.addAction("Download File")
+                download_action.triggered.connect(lambda: self._download_file(file_path))
+        
+        menu.addSeparator()
+        
+        # Add file operations
+        if self.current_device == "local":
+            delete_action = menu.addAction("Delete")
+            delete_action.triggered.connect(lambda: self._delete_file(file_path))
+            
+            rename_action = menu.addAction("Rename")
+            rename_action.triggered.connect(lambda: self._rename_file(file_path))
+        
+        # Add upload/download based on context
+        if self.current_device == "local":
+            # For local files, add upload option
+            upload_action = menu.addAction("Upload to Remote")
+            upload_action.triggered.connect(lambda: self._upload_file_to_remote(file_path))
+        else:
+            # For remote files, add download option if not already there
+            if not menu.actions()[0].text() == "Download File":
+                download_action = menu.addAction("Download File")
+                download_action.triggered.connect(lambda: self._download_file(file_path))
+        
+        # Execute the menu
+        menu.exec_(self.file_list.mapToGlobal(position))
+    
+    def _upload_file(self):
+        """Upload a file to the selected device"""
+        # If no remote device is selected, show error
+        if self.device_selector.currentData() == "local":
+            QMessageBox.warning(self, "Upload Error", "Please select a remote device to upload to")
+            return
+            
+        # Open file dialog
+        file_paths, _ = QFileDialog.getOpenFileNames(
+            self,
+            "Select Files to Upload",
+            os.path.expanduser("~"),
+            "All Files (*.*)"
+        )
+        
+        if not file_paths:
+            return  # User canceled
+            
+        # Get the target device
+        device_id = self.device_selector.currentData()
+        
+        # Upload each selected file
+        for file_path in file_paths:
+            self._start_upload(file_path, device_id, self.current_path)
+    
+    def _upload_file_to_remote(self, file_path):
+        """Upload a specific file to a remote device"""
+        # If no remote device is selected, show device selector
+        if self.device_selector.currentData() == "local":
+            # Get list of available devices
+            devices = []
+            for i in range(1, self.device_selector.count()):  # Skip local
+                devices.append((self.device_selector.itemText(i), self.device_selector.itemData(i)))
+            
+            if not devices:
+                QMessageBox.warning(self, "Upload Error", "No remote devices available")
+                return
+                
+            # If only one device, use that
+            if len(devices) == 1:
+                device_id = devices[0][1]
+            else:
+                # Show device selector dialog
+                from PyQt5.QtWidgets import QDialog, QVBoxLayout, QDialogButtonBox
+                
+                dialog = QDialog(self)
+                dialog.setWindowTitle("Select Target Device")
+                layout = QVBoxLayout(dialog)
+                
+                device_combo = QComboBox()
+                for device_name, device_id in devices:
+                    device_combo.addItem(device_name, device_id)
+                
+                layout.addWidget(QLabel("Select a device to upload to:"))
+                layout.addWidget(device_combo)
+                
+                buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+                buttons.accepted.connect(dialog.accept)
+                buttons.rejected.connect(dialog.reject)
+                layout.addWidget(buttons)
+                
+                if dialog.exec_() == QDialog.Accepted:
+                    device_id = device_combo.currentData()
+                else:
+                    return  # User canceled
+        else:
+            device_id = self.device_selector.currentData()
+        
+        # Start the upload
+        self._start_upload(file_path, device_id, "/")  # Default to root directory
+    
+    def _start_upload(self, file_path, device_id, destination):
+        """Start a file upload in a separate thread"""
+        if not os.path.isfile(file_path):
+            QMessageBox.warning(self, "Upload Error", f"File not found: {file_path}")
+            return
+            
+        # Get file size
+        file_size = os.path.getsize(file_path)
+        file_name = os.path.basename(file_path)
+        
+        # Show in transfers table
+        row = self.transfers_table.rowCount()
+        self.transfers_table.insertRow(row)
+        self.transfers_table.setItem(row, 0, QTableWidgetItem(file_name))
+        self.transfers_table.setItem(row, 1, QTableWidgetItem(f"To: {self.device_selector.currentText()}"))
+        
+        # Add progress bar
+        progress_bar = QProgressBar()
+        progress_bar.setRange(0, 100)
+        progress_bar.setValue(0)
+        self.transfers_table.setCellWidget(row, 2, progress_bar)
+        
+        self.transfers_table.setItem(row, 3, QTableWidgetItem("Starting..."))
+        
+        # Create progress callback
+        def update_progress(percent):
+            progress_bar.setValue(percent)
+            self.transfers_table.item(row, 3).setText(f"Uploading ({percent}%)")
+        
+        # Create completion callback
+        def transfer_completed(success, message):
+            if success:
+                self.transfers_table.item(row, 3).setText("Completed")
+                # Send notification
+                if self.message_service:
+                    notification = Message(
+                        content=f"File uploaded successfully: {file_name}",
+                        msg_type=MessageType.INFO,
+                        sender="File Transfer"
+                    )
+                    self.message_service.send_message(notification)
+            else:
+                self.transfers_table.item(row, 3).setText(f"Failed: {message}")
+                # Send notification
+                if self.message_service:
+                    notification = Message(
+                        content=f"File upload failed: {file_name} - {message}",
+                        msg_type=MessageType.ERROR,
+                        sender="File Transfer"
+                    )
+                    self.message_service.send_message(notification)
+        
+        # Start upload in a separate thread
+        transfer_thread = FileTransferThread(
+            file_path=file_path,
+            device_id=device_id,
+            destination=destination,
+            transfer_type=TransferType.UPLOAD,
+            file_service=self.file_service
+        )
+        
+        # Connect signals
+        transfer_thread.progress_updated.connect(update_progress)
+        transfer_thread.transfer_completed.connect(transfer_completed)
+        
+        # Start the thread
+        transfer_thread.start()
+        
+        # Store the thread
+        self.active_transfers[file_name] = transfer_thread
+        
+        # Emit signal
+        self.file_transfer_started.emit(file_name, device_id, file_size)
+        
+        # Update status
+        self.status_label.setText(f"Uploading {file_name} to {device_id}...")
+    
+    def _download_selected(self):
+        """Download selected file from remote device"""
+        # Check if file is selected
+        selected_items = self.file_list.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Download Error", "No file selected")
+            return
+            
+        # If local device is selected, can't download
+        if self.device_selector.currentData() == "local":
+            QMessageBox.warning(self, "Download Error", "Cannot download from local device")
+            return
+            
+        # Get the row of the first selected item
+        row = selected_items[0].row()
+        
+        # Get file info
+        file_path = self.file_list.item(row, 0).data(Qt.UserRole)
+        
+        # Download the file
+        self._download_file(file_path)
+    
+    def _download_file(self, file_path):
+        """Download a file from remote device"""
+        # Get file name
+        file_name = os.path.basename(file_path)
+        
+        # Get device ID
+        device_id = self.device_selector.currentData()
+        
+        # Ask for download location
+        download_dir = QFileDialog.getExistingDirectory(
+            self,
+            "Select Download Location",
+            os.path.expanduser("~/Downloads")
+        )
+        
+        if not download_dir:
+            return  # User canceled
+            
+        # Full destination path
+        destination = os.path.join(download_dir, file_name)
+        
+        # Check if file already exists
+        if os.path.exists(destination):
+            reply = QMessageBox.question(
+                self,
+                "File Exists",
+                f"The file '{file_name}' already exists. Overwrite?",
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.No
+            )
+            
+            if reply == QMessageBox.No:
+                return
+        
+        # Show in transfers table
+        row = self.transfers_table.rowCount()
+        self.transfers_table.insertRow(row)
+        self.transfers_table.setItem(row, 0, QTableWidgetItem(file_name))
+        self.transfers_table.setItem(row, 1, QTableWidgetItem(f"From: {self.device_selector.currentText()}"))
+        
+        # Add progress bar
+        progress_bar = QProgressBar()
+        progress_bar.setRange(0, 100)
+        progress_bar.setValue(0)
+        self.transfers_table.setCellWidget(row, 2, progress_bar)
+        
+        self.transfers_table.setItem(row, 3, QTableWidgetItem("Starting..."))
+        
+        # Create progress callback
+        def update_progress(percent):
+            progress_bar.setValue(percent)
+            self.transfers_table.item(row, 3).setText(f"Downloading ({percent}%)")
+        
+        # Create completion callback
+        def transfer_completed(success, message):
+            if success:
+                self.transfers_table.item(row, 3).setText("Completed")
+                # Send notification
+                if self.message_service:
+                    notification = Message(
+                        content=f"File downloaded successfully: {file_name}",
+                        msg_type=MessageType.INFO,
+                        sender="File Transfer"
+                    )
+                    self.message_service.send_message(notification)
+            else:
+                self.transfers_table.item(row, 3).setText(f"Failed: {message}")
+                # Send notification
+                if self.message_service:
+                    notification = Message(
+                        content=f"File download failed: {file_name} - {message}",
+                        msg_type=MessageType.ERROR,
+                        sender="File Transfer"
+                    )
+                    self.message_service.send_message(notification)
+        
+        # Start download in a separate thread
+        transfer_thread = FileTransferThread(
+            file_path=file_path,
+            device_id=device_id,
+            destination=destination,
+            transfer_type=TransferType.DOWNLOAD,
+            file_service=self.file_service
+        )
+        
+        # Connect signals
+        transfer_thread.progress_updated.connect(update_progress)
+        transfer_thread.transfer_completed.connect(transfer_completed)
+        
+        # Start the thread
+        transfer_thread.start()
+        
+        # Store the thread
+        self.active_transfers[file_name] = transfer_thread
+        
+        # Emit signal
+        self.file_transfer_started.emit(file_name, device_id, 0)  # Size unknown for remote files
+        
+        # Update status
+        self.status_label.setText(f"Downloading {file_name} from {device_id}...")
+    
+    def _delete_file(self, file_path):
+        """Delete a file"""
+        # Get file name
+        file_name = os.path.basename(file_path)
+        
+        # Confirm deletion
+        reply = QMessageBox.question(
+            self,
+            "Confirm Deletion",
+            f"Are you sure you want to delete '{file_name}'?",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+        
+        if reply == QMessageBox.No:
+            return
+            
+        try:
+            if self.current_device == "local":
+                # Delete local file
+                if os.path.isdir(file_path):
+                    import shutil
+                    shutil.rmtree(file_path)
+                else:
+                    os.remove(file_path)
+                    
+                # Refresh the file list
+                self._refresh_files_list()
+                
+                # Update status
+                self.status_label.setText(f"Deleted {file_name}")
+            else:
+                # Delete remote file
+                # This would be implemented with device_manager
+                self.status_label.setText("Remote deletion not implemented yet")
+                
+        except Exception as e:
+            QMessageBox.warning(self, "Delete Error", f"Could not delete file: {str(e)}")
+    
+    def _rename_file(self, file_path):
+        """Rename a file"""
+        # Get file name
+        file_name = os.path.basename(file_path)
+        
+        # Get new name
+        from PyQt5.QtWidgets import QInputDialog
+        
+        new_name, ok = QInputDialog.getText(
+            self,
+            "Rename File",
+            "Enter new name:",
+            text=file_name
+        )
+        
+        if not ok or not new_name or new_name == file_name:
+            return
+            
+        try:
+            if self.current_device == "local":
+                # Rename local file
+                new_path = os.path.join(os.path.dirname(file_path), new_name)
+                os.rename(file_path, new_path)
+                
+                # Refresh the file list
+                self._refresh_files_list()
+                
+                # Update status
+                self.status_label.setText(f"Renamed {file_name} to {new_name}")
+            else:
+                # Rename remote file
+                # This would be implemented with device_manager
+                self.status_label.setText("Remote rename not implemented yet")
+                
+        except Exception as e:
+            QMessageBox.warning(self, "Rename Error", f"Could not rename file: {str(e)}")
+    
+    def _refresh_files_list(self):
+        """Refresh the file list"""
+        if hasattr(self, 'current_device') and hasattr(self, 'current_path'):
+            if self.current_device == "local":
+                self._show_local_files(self.current_path)
+            else:
+                self._show_remote_files(self.current_device, self.current_path)
+    
+    def _on_message_received(self, message):
+        """Handle received messages"""
+        # Look for file transfer related messages
+        if message.sender == "File Transfer":
+            # File transfer completed notification
+            if "successfully" in message.content:
+                # Refresh file list
+                self._refresh_files_list()
+    
+    def search_files(self):
+        """Search for files"""
+        query = self.search_input.text().strip()
+        if not query:
+            return
+            
+        # If local is selected, perform local search
+        if self.device_selector.currentData() == "local":
+            self._search_local_files(query)
+        else:
+            # Search on remote device
+            self._search_remote_files(query)
+    
+    def _search_local_files(self, query):
+        """Search for files locally"""
+        import fnmatch
+        
+        # Start from current directory
+        if hasattr(self, 'current_path') and self.current_path:
+            start_dir = self.current_path
+        else:
+            start_dir = os.path.expanduser("~")
+        
+        # Clear the file list
+        self.file_list.setRowCount(0)
+        
+        # Update status
+        self.status_label.setText(f"Searching for '{query}' in {start_dir}...")
+        
+        # Enable wildcard search
+        pattern = f"*{query}*"
+        
+        # Limit depth to avoid too long searches
+        max_depth = 3
+        
+        matches = []
+        
+        # Walk the directory tree
+        for root, dirs, files in os.walk(start_dir):
+            # Check depth
+            depth = root[len(start_dir):].count(os.sep)
+            if depth > max_depth:
+                dirs[:] = []  # Don't go deeper
+                continue
+                
+            # Search directories
+            for d in dirs:
+                if fnmatch.fnmatch(d.lower(), pattern.lower()):
+                    matches.append(os.path.join(root, d))
+                    
+            # Search files
+            for f in files:
+                if fnmatch.fnmatch(f.lower(), pattern.lower()):
+                    matches.append(os.path.join(root, f))
+                    
+            # Limit results
+            if len(matches) >= 100:
+                break
+        
+        # Display results
+        for i, file_path in enumerate(matches):
+            try:
+                # Get file info
+                stat_info = os.stat(file_path)
+                size = stat_info.st_size
+                modified = datetime.fromtimestamp(stat_info.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+                
+                # Determine type
+                if os.path.isdir(file_path):
+                    type_str = "Directory"
+                    size_str = "--"
+                else:
+                    # Get file extension
+                    _, ext = os.path.splitext(os.path.basename(file_path))
+                    type_str = ext[1:].upper() if ext else "File"
+                    
+                    # Format size
+                    if size < 1024:
+                        size_str = f"{size} B"
+                    elif size < 1024 * 1024:
+                        size_str = f"{size/1024:.1f} KB"
+                    elif size < 1024 * 1024 * 1024:
+                        size_str = f"{size/(1024*1024):.1f} MB"
+                    else:
+                        size_str = f"{size/(1024*1024*1024):.1f} GB"
+                
+                # Add to table
+                self.file_list.insertRow(i)
+                self.file_list.setItem(i, 0, QTableWidgetItem(os.path.basename(file_path)))
+                self.file_list.setItem(i, 1, QTableWidgetItem(size_str))
+                self.file_list.setItem(i, 2, QTableWidgetItem(modified))
+                self.file_list.setItem(i, 3, QTableWidgetItem(type_str))
+                
+                # Store full path as data
+                self.file_list.item(i, 0).setData(Qt.UserRole, file_path)
+                
+            except (PermissionError, FileNotFoundError):
+                # Skip files we can't access
+                continue
+                
+        # Update status
+        self.status_label.setText(f"Found {self.file_list.rowCount()} items matching '{query}'")
+    
+    def _search_remote_files(self, query):
+        """Search for files on remote device"""
+        device_id = self.device_selector.currentData()
+        
+        # Update status
+        self.status_label.setText(f"Searching for '{query}' on {self.device_selector.currentText()}...")
+        
+        # Clear the file list
+        self.file_list.setRowCount(0)
+        
+        # This would be implemented to communicate with the remote device
+        # For now, show some demo results
+        
+        # Add demo search results
+        self._add_demo_search_results(query)
+    
+    def _add_demo_search_results(self, query):
+        """Add demo search results for demonstration"""
+        # Create some plausible search results based on the query
+        import random
+        
+        # Base paths for results
+        base_paths = ["/home/user", "/var/www", "/etc/config", "/usr/local/bin"]
+        
+        # File types that might match query
+        extensions = ["pdf", "txt", "docx", "xlsx", "pptx", "jpg", "png", "log", "xml", "json", "csv"]
+        
+        # Generate random results
+        results = []
+        
+        # Use query to make results more relevant
+        if "report" in query.lower():
+            types = ["pdf", "docx", "xlsx"]
+            prefixes = ["annual_report", "monthly_report", "status_report", "financial_report"]
+            
+            for _ in range(min(5, random.randint(3, 8))):
+                prefix = random.choice(prefixes)
+                ext = random.choice(types)
+                path = f"{random.choice(base_paths)}/Documents/{prefix}_{random.randint(2020, 2025)}.{ext}"
+                size = f"{random.uniform(0.5, 10):.1f} MB"
+                date = f"2025-{random.randint(1,5):02d}-{random.randint(1,28):02d} {random.randint(8,18):02d}:{random.randint(0,59):02d}:{random.randint(0,59):02d}"
+                results.append((path, size, date, ext.upper()))
+        
+        elif "config" in query.lower():
+            types = ["xml", "json", "ini", "conf", "yaml"]
+            prefixes = ["system_config", "app_config", "network_config", "security_config"]
+            
+            for _ in range(min(6, random.randint(4, 9))):
+                prefix = random.choice(prefixes)
+                ext = random.choice(types)
+                path = f"{random.choice(base_paths)}/config/{prefix}.{ext}"
+                size = f"{random.uniform(0.1, 2):.1f} KB"
+                date = f"2025-{random.randint(1,5):02d}-{random.randint(1,28):02d} {random.randint(8,18):02d}:{random.randint(0,59):02d}:{random.randint(0,59):02d}"
+                results.append((path, size, date, ext.upper()))
+        
+        elif "log" in query.lower():
+            types = ["log", "txt"]
+            prefixes = ["system", "error", "access", "debug", "application"]
+            
+            for _ in range(min(8, random.randint(5, 12))):
+                prefix = random.choice(prefixes)
+                ext = random.choice(types)
+                path = f"{random.choice(base_paths)}/logs/{prefix}.{ext}"
+                size = f"{random.uniform(1, 50):.1f} MB"
+                date = f"2025-{random.randint(1,5):02d}-{random.randint(1,28):02d} {random.randint(8,18):02d}:{random.randint(0,59):02d}:{random.randint(0,59):02d}"
+                results.append((path, size, date, ext.upper()))
+        
+        else:
+            # Generic results
+            for _ in range(min(10, random.randint(2, 15))):
+                ext = random.choice(extensions)
+                path = f"{random.choice(base_paths)}/{query.lower()}_{random.randint(1, 100)}.{ext}"
+                
+                if ext in ["pdf", "docx", "pptx"]:
+                    size = f"{random.uniform(0.5, 10):.1f} MB"
+                elif ext in ["jpg", "png"]:
+                    size = f"{random.uniform(0.2, 5):.1f} MB"
+                else:
+                    size = f"{random.uniform(0.1, 500):.1f} KB"
+                    
+                date = f"2025-{random.randint(1,5):02d}-{random.randint(1,28):02d} {random.randint(8,18):02d}:{random.randint(0,59):02d}:{random.randint(0,59):02d}"
+                results.append((path, size, date, ext.upper()))
+        
+        # Add directory results
+        if random.random() > 0.5:
+            for _ in range(random.randint(1, 3)):
+                dir_name = f"{query.lower()}_directory"
+                path = f"{random.choice(base_paths)}/{dir_name}"
+                date = f"2025-{random.randint(1,5):02d}-{random.randint(1,28):02d} {random.randint(8,18):02d}:{random.randint(0,59):02d}:{random.randint(0,59):02d}"
+                results.append((path, "--", date, "Directory"))
+        
+        # Display results
+        for i, (file_path, size, modified, file_type) in enumerate(results):
+            self.file_list.insertRow(i)
+            self.file_list.setItem(i, 0, QTableWidgetItem(os.path.basename(file_path)))
+            self.file_list.setItem(i, 1, QTableWidgetItem(size))
+            self.file_list.setItem(i, 2, QTableWidgetItem(modified))
+            self.file_list.setItem(i, 3, QTableWidgetItem(file_type))
+            
+            # Store full path as data
+            self.file_list.item(i, 0).setData(Qt.UserRole, file_path)
+        
+        # Update status
+        self.status_label.setText(f"Found {len(results)} items matching '{query}' on {self.device_selector.currentText()}")
+    
+    def _share_files(self):
+        """Share selected files with other devices"""
+        # Check if file is selected
+        selected_items = self.file_list.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Share Error", "No file selected")
+            return
+            
+        # Only allow sharing from local device for now
+        if self.device_selector.currentData() != "local":
+            QMessageBox.warning(self, "Share Error", "Can only share local files")
+            return
+            
+        # Get the file info
+        rows = set()
+        for item in selected_items:
+            rows.add(item.row())
+            
+        files_to_share = []
+        for row in rows:
+            file_path = self.file_list.item(row, 0).data(Qt.UserRole)
+            file_name = self.file_list.item(row, 0).text()
+            files_to_share.append((file_path, file_name))
+        
+        # Create sharing dialog
+        from PyQt5.QtWidgets import QDialog, QVBoxLayout, QDialogButtonBox
+        
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Share Files")
+        dialog.setMinimumWidth(400)
+        layout = QVBoxLayout(dialog)
+        
+        # Add text
+        layout.addWidget(QLabel(f"Share {len(files_to_share)} selected file(s) with:"))
+        
+        # Get available devices
+        devices = []
+        for i in range(1, self.device_selector.count()):  # Skip local
+            device_text = self.device_selector.itemText(i)
+            device_id = self.device_selector.itemData(i)
+            devices.append((device_text, device_id))
+        
+        # Add device checkboxes
+        device_checkboxes = []
+        for device_text, _ in devices:
+            checkbox = QCheckBox(device_text)
+            layout.addWidget(checkbox)
+            device_checkboxes.append(checkbox)
+        
+        # Add share details
+        # NOTE: This would be expanded with permissions, expiry, etc.
+        layout.addWidget(QLabel("Access permissions:"))
+        
+        permission_combo = QComboBox()
+        permission_combo.addItems(["Read Only", "Read and Write", "Full Access"])
+        layout.addWidget(permission_combo)
+        
+        # Add buttons
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttons.accepted.connect(dialog.accept)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        
+        # Execute dialog
+        if dialog.exec_() == QDialog.Accepted:
+            # Get selected devices
+            selected_devices = []
+            for i, checkbox in enumerate(device_checkboxes):
+                if checkbox.isChecked():
+                    selected_devices.append(devices[i])
+            
+            if not selected_devices:
+                QMessageBox.warning(self, "Share Error", "No devices selected")
+                return
+                
+            # Get selected permission
+            permission = permission_combo.currentText()
+            
+            # For each file and device, create a share
+            for file_path, file_name in files_to_share:
+                for device_text, device_id in selected_devices:
+                    # Add to shared files list
+                    row = self.shared_list.rowCount()
+                    self.shared_list.insertRow(row)
+                    self.shared_list.setItem(row, 0, QTableWidgetItem(file_name))
+                    self.shared_list.setItem(row, 1, QTableWidgetItem(device_text))
+                    self.shared_list.setItem(row, 2, QTableWidgetItem(permission))
+                    
+                    # In a real implementation, this would register the share with the file service
+            
+            # Show success message
+            QMessageBox.information(
+                self,
+                "Files Shared",
+                f"Shared {len(files_to_share)} file(s) with {len(selected_devices)} device(s)"
+            )
+    
+    def _unshare_files(self):
+        """Stop sharing selected files"""
+        # Check if file is selected in shared list
+        selected_items = self.shared_list.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Unshare Error", "No shared file selected")
+            return
+            
+        # Confirm unshare
+        reply = QMessageBox.question(
+            self,
+            "Confirm Unshare",
+            "Are you sure you want to stop sharing the selected files?",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+        
+        if reply == QMessageBox.No:
+            return
+            
+        # Get the rows
+        rows = set()
+        for item in selected_items:
+            rows.add(item.row())
+            
+        # Remove in reverse order to keep indices valid
+        for row in sorted(rows, reverse=True):
+            self.shared_list.removeRow(row)
+        
+        # Show success message
+        QMessageBox.information(
+            self,
+            "Files Unshared",
+            f"Stopped sharing {len(rows)} file(s)"
+        )
+        
+    def cleanup(self):
+        """Cleanup resources before widget is destroyed"""
+        # Stop all active transfers
+        for file_name, thread in self.active_transfers.items():
+            if thread.isRunning():
+                thread.terminate()
+                thread.wait()
+        
+        # Stop refresh timer
+        if self.refresh_timer.isActive():
+            self.refresh_timer.stop()

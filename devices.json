@@ -1,812 +1,130 @@
 {
     "192.168.1.1": {
         "ip": "192.168.1.1",
+        "mac": "84-06-fa-db-5a-60",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:36:27",
-        "online": true
-    },
-    "192.168.1.5": {
-        "ip": "192.168.1.5",
-        "hostname": "",
-        "mac": "76-0d-be-77-b0-d3",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-28 23:10:59",
-        "online": true
-    },
-    "192.168.1.9": {
-        "ip": "192.168.1.9",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-28 23:11:39",
-        "online": true
-    },
-    "192.168.1.13": {
-        "ip": "192.168.1.13",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-28 23:12:17",
-        "online": true
-    },
-    "192.168.1.15": {
-        "ip": "192.168.1.15",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-29 12:54:21",
-        "online": true
-    },
-    "192.168.1.27": {
-        "ip": "192.168.1.27",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-28 23:14:02",
-        "online": true
-    },
-    "192.168.1.45": {
-        "ip": "192.168.1.45",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-28 23:16:19",
-        "online": true
-    },
-    "192.168.1.49": {
-        "ip": "192.168.1.49",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-28 23:16:58",
-        "online": true
-    },
-    "192.168.1.53": {
-        "ip": "192.168.1.53",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-28 23:17:36",
-        "online": true
-    },
-    "192.168.1.59": {
-        "ip": "192.168.1.59",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-28 23:18:28",
-        "online": true
-    },
-    "192.168.1.3": {
-        "ip": "192.168.1.3",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:36:54",
-        "online": true
-    },
-    "192.168.1.11": {
-        "ip": "192.168.1.11",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-29 12:54:14",
-        "online": true
-    },
-    "10.12.128.1": {
-        "ip": "10.12.128.1",
-        "hostname": "",
-        "mac": "00-09-0f-09-00-08",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:18:49",
-        "online": true
-    },
-    "10.12.128.3": {
-        "ip": "10.12.128.3",
-        "hostname": "",
-        "mac": "00-1a-1e-01-d0-08",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:19:12",
-        "online": true
-    },
-    "10.12.128.42": {
-        "ip": "10.12.128.42",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:23:57",
-        "online": true
-    },
-    "10.12.128.44": {
-        "ip": "10.12.128.44",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:24:21",
-        "online": true
-    },
-    "10.12.128.47": {
-        "ip": "10.12.128.47",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:24:52",
-        "online": true
-    },
-    "10.12.128.54": {
-        "ip": "10.12.128.54",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:25:52",
-        "online": true
-    },
-    "10.12.128.59": {
-        "ip": "10.12.128.59",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:26:38",
-        "online": true
-    },
-    "10.12.128.61": {
-        "ip": "10.12.128.61",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:27:02",
-        "online": true
-    },
-    "10.12.128.65": {
-        "ip": "10.12.128.65",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:27:40",
-        "online": true
-    },
-    "10.12.128.69": {
-        "ip": "10.12.128.69",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:28:19",
-        "online": true
-    },
-    "10.12.128.72": {
-        "ip": "10.12.128.72",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:28:50",
-        "online": true
-    },
-    "10.12.128.77": {
-        "ip": "10.12.128.77",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:29:36",
-        "online": true
-    },
-    "10.12.128.85": {
-        "ip": "10.12.128.85",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:30:43",
-        "online": true
-    },
-    "10.12.128.97": {
-        "ip": "10.12.128.97",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:32:17",
-        "online": true
-    },
-    "10.12.128.101": {
-        "ip": "10.12.128.101",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:32:56",
-        "online": true
-    },
-    "10.12.128.107": {
-        "ip": "10.12.128.107",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:33:48",
-        "online": true
-    },
-    "10.12.128.111": {
-        "ip": "10.12.128.111",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:34:26",
-        "online": true
-    },
-    "10.12.128.118": {
-        "ip": "10.12.128.118",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:35:26",
-        "online": true
-    },
-    "10.12.128.122": {
-        "ip": "10.12.128.122",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:36:04",
-        "online": true
-    },
-    "10.12.128.131": {
-        "ip": "10.12.128.131",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:37:18",
-        "online": true
-    },
-    "10.12.128.136": {
-        "ip": "10.12.128.136",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:38:03",
-        "online": true
-    },
-    "10.12.128.138": {
-        "ip": "10.12.128.138",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:38:28",
-        "online": true
-    },
-    "10.12.128.140": {
-        "ip": "10.12.128.140",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:38:53",
-        "online": true
-    },
-    "10.12.128.143": {
-        "ip": "10.12.128.143",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:39:24",
-        "online": true
-    },
-    "10.12.128.145": {
-        "ip": "10.12.128.145",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:39:48",
-        "online": true
-    },
-    "10.12.128.151": {
-        "ip": "10.12.128.151",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:40:42",
-        "online": true
-    },
-    "10.12.128.153": {
-        "ip": "10.12.128.153",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:41:07",
-        "online": true
-    },
-    "10.12.128.155": {
-        "ip": "10.12.128.155",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:41:32",
-        "online": true
-    },
-    "10.12.128.160": {
-        "ip": "10.12.128.160",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:42:17",
-        "online": true
-    },
-    "10.12.128.164": {
-        "ip": "10.12.128.164",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:42:56",
-        "online": true
-    },
-    "10.12.128.166": {
-        "ip": "10.12.128.166",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:43:20",
-        "online": true
-    },
-    "10.12.128.171": {
-        "ip": "10.12.128.171",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:44:05",
-        "online": true
-    },
-    "10.12.128.179": {
-        "ip": "10.12.128.179",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:45:15",
-        "online": true
-    },
-    "10.12.128.182": {
-        "ip": "10.12.128.182",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:45:46",
-        "online": true
-    },
-    "10.12.128.184": {
-        "ip": "10.12.128.184",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:46:12",
-        "online": true
-    },
-    "10.12.128.190": {
-        "ip": "10.12.128.190",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:47:05",
-        "online": true
-    },
-    "10.12.128.192": {
-        "ip": "10.12.128.192",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:47:29",
-        "online": true
-    },
-    "10.12.128.205": {
-        "ip": "10.12.128.205",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:49:11",
-        "online": true
-    },
-    "10.12.128.210": {
-        "ip": "10.12.128.210",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:49:56",
-        "online": true
-    },
-    "10.12.128.212": {
-        "ip": "10.12.128.212",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:50:21",
-        "online": true
-    },
-    "10.12.128.218": {
-        "ip": "10.12.128.218",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:51:13",
-        "online": true
-    },
-    "10.12.128.221": {
-        "ip": "10.12.128.221",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:51:45",
-        "online": true
-    },
-    "10.12.128.228": {
-        "ip": "10.12.128.228",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:52:45",
-        "online": true
-    },
-    "10.12.128.233": {
-        "ip": "10.12.128.233",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:53:30",
-        "online": true
-    },
-    "10.12.128.238": {
-        "ip": "10.12.128.238",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:54:16",
-        "online": true
-    },
-    "10.12.128.241": {
-        "ip": "10.12.128.241",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:54:47",
-        "online": true
-    },
-    "10.12.128.245": {
-        "ip": "10.12.128.245",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:55:26",
-        "online": true
-    },
-    "10.12.128.250": {
-        "ip": "10.12.128.250",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:56:11",
-        "online": true
-    },
-    "10.12.128.254": {
-        "ip": "10.12.128.254",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:56:49",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:04:43",
         "online": true
     },
-    "10.12.129.0": {
-        "ip": "10.12.129.0",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:57:14",
-        "online": true
-    },
-    "10.12.129.5": {
-        "ip": "10.12.129.5",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:58:00",
-        "online": true
-    },
-    "10.12.129.11": {
-        "ip": "10.12.129.11",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:58:52",
-        "online": true
-    },
-    "10.12.129.18": {
-        "ip": "10.12.129.18",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 17:59:51",
-        "online": true
-    },
-    "10.12.129.25": {
-        "ip": "10.12.129.25",
-        "hostname": "",
+    "192.168.1.20": {
+        "ip": "192.168.1.20",
         "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 18:00:51",
+        "hostname": "DESKTOP-NKODBR4",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:06:36",
         "online": true
     },
-    "10.12.129.28": {
-        "ip": "10.12.129.28",
+    "192.168.134.30": {
+        "ip": "192.168.134.30",
+        "mac": "4e-3f-4c-27-a0-7e",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 18:01:22",
-        "online": true
-    },
-    "10.12.129.34": {
-        "ip": "10.12.129.34",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 18:02:15",
-        "online": true
-    },
-    "10.12.129.39": {
-        "ip": "10.12.129.39",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 18:03:01",
-        "online": true
-    },
-    "10.12.129.41": {
-        "ip": "10.12.129.41",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 18:03:25",
+        "manufacturer": "",
+        "last_seen": "2025-05-12 13:23:30",
         "online": true
     },
-    "10.12.129.45": {
-        "ip": "10.12.129.45",
+    "192.168.134.231": {
+        "ip": "192.168.134.231",
+        "mac": "02-26-ff-a9-9b-a4",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 18:04:04",
+        "manufacturer": "",
+        "last_seen": "2025-05-12 13:23:39",
         "online": true
     },
-    "10.12.129.47": {
-        "ip": "10.12.129.47",
-        "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 18:04:28",
+    "192.168.134.243": {
+        "ip": "192.168.134.243",
+        "mac": "b0-a4-60-97-db-cd",
+        "hostname": "ASMAA",
+        "manufacturer": "",
+        "last_seen": "2025-05-12 13:23:44",
         "online": true
     },
-    "10.12.129.54": {
-        "ip": "10.12.129.54",
-        "hostname": "",
+    "192.168.134.41": {
+        "ip": "192.168.134.41",
         "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-04-30 18:05:27",
+        "hostname": "DESKTOP-NKODBR4",
+        "manufacturer": "",
+        "last_seen": "2025-05-12 13:23:46",
         "online": true
     },
     "192.168.1.2": {
         "ip": "192.168.1.2",
+        "mac": "4c-60-ba-6f-7e-d8",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:36:44",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:04:59",
         "online": true
     },
-    "192.168.1.7": {
-        "ip": "192.168.1.7",
+    "192.168.1.8": {
+        "ip": "192.168.1.8",
+        "mac": "18-d7-17-e7-49-a9",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:37:32",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:06:03",
         "online": true
     },
-    "192.168.1.24": {
-        "ip": "192.168.1.24",
+    "192.168.1.12": {
+        "ip": "192.168.1.12",
+        "mac": "be-68-cc-7e-e5-40",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:39:43",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 01:16:43",
         "online": true
     },
-    "192.168.1.29": {
-        "ip": "192.168.1.29",
+    "192.168.1.5": {
+        "ip": "192.168.1.5",
+        "mac": "70-c9-12-4c-9f-8b",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:40:28",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:05:47",
         "online": true
     },
-    "192.168.1.35": {
-        "ip": "192.168.1.35",
+    "192.168.1.14": {
+        "ip": "192.168.1.14",
+        "mac": "a2-cc-d0-38-f1-d8",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:41:28",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:06:19",
         "online": true
     },
-    "192.168.1.118": {
-        "ip": "192.168.1.118",
+    "192.168.1.17": {
+        "ip": "192.168.1.17",
+        "mac": "f6-a0-28-4e-97-29",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:31:30",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-12 21:27:45",
         "online": true
     },
-    "192.168.1.19": {
-        "ip": "192.168.1.19",
+    "192.168.1.22": {
+        "ip": "192.168.1.22",
+        "mac": "8c-19-b5-33-56-03",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:39:05",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-12 21:28:06",
         "online": true
     },
-    "192.168.1.34": {
-        "ip": "192.168.1.34",
+    "192.168.1.23": {
+        "ip": "192.168.1.23",
+        "mac": "42-3a-7f-0d-29-19",
         "hostname": "",
-        "mac": "",
-        "vendor": "",
-        "open_ports": [],
-        "status": "online",
-        "last_seen": "2025-05-04 16:41:12",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:06:35",
+        "online": true
+    },
+    "192.168.1.4": {
+        "ip": "192.168.1.4",
+        "mac": "72-e7-e7-7b-19-b2",
+        "hostname": "",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:05:31",
+        "online": true
+    },
+    "192.168.1.3": {
+        "ip": "192.168.1.3",
+        "mac": "7e-72-9e-42-8c-1d",
+        "hostname": "",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-05-13 02:05:15",
         "online": true
     }
 }

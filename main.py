@@ -1,102 +1,140 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 Network Scanner & Management Tool
+Main application entry point
+Current Date: 2025-05-10 13:29:32
 Author: AnoirELGUEDDAR
-Date: 2025-04-20
-Last Updated: 2025-05-04 14:31:20 UTC
-User: AnoirELGUEDDAR
-Version: 1.0.0
-
-A comprehensive tool for network scanning, device discovery, remote management,
-messaging, file searching and network monitoring on local networks.
 """
 
 import sys
 import os
 import logging
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPalette, QColor
+import logging.handlers
+import platform
 from datetime import datetime
 
-from utils.logging_utils import setup_logging
-from gui.main_window import MainWindow
-from config.settings import load_settings
+from PyQt5.QtWidgets import (
+    QApplication, QSplashScreen, QLabel, QCheckBox, 
+    QGroupBox, QRadioButton  # Added these imports
+)
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QPixmap, QFont
 
-def apply_dark_theme(app):
-    """Apply dark theme to the entire application"""
-    # Force the style to be the same on all OSs
-    app.setStyle("Fusion")
+# Import main window
+from gui.main_window import MainWindow
+from gui.style_manager import StyleManager
+
+# Set up logging
+def setup_logging():
+    """Configure application logging"""
+    log_dir = "logs"
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
     
-    # Set dark theme palette
-    dark_palette = QPalette()
-    dark_color = QColor(26, 38, 51)  # #1a2633
-    dark_palette.setColor(QPalette.Window, dark_color)
-    dark_palette.setColor(QPalette.WindowText, Qt.white)
-    dark_palette.setColor(QPalette.Base, QColor(18, 30, 43))
-    dark_palette.setColor(QPalette.AlternateBase, dark_color)
-    dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
-    dark_palette.setColor(QPalette.ToolTipText, Qt.white)
-    dark_palette.setColor(QPalette.Text, Qt.white)
-    dark_palette.setColor(QPalette.Button, dark_color)
-    dark_palette.setColor(QPalette.ButtonText, Qt.white)
-    dark_palette.setColor(QPalette.BrightText, Qt.red)
-    dark_palette.setColor(QPalette.Link, QColor(0, 120, 215))
-    dark_palette.setColor(QPalette.Highlight, QColor(0, 120, 215))
-    dark_palette.setColor(QPalette.HighlightedText, Qt.white)
+    log_file = os.path.join(log_dir, f"network_scanner_{datetime.now().strftime('%Y%m%d')}.log")
     
-    app.setPalette(dark_palette)
+    # Configure root logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
     
-    # Apply additional styling to ensure consistency
-    app.setStyleSheet("""
-        QToolTip {
-            color: white;
-            background-color: #2c3e50;
-            border: 1px solid #34495e;
-            border-radius: 3px;
-        }
-        QMessageBox {
-            background-color: #1a2633;
-            color: white;
-        }
-        QInputDialog {
-            background-color: #1a2633;
-            color: white;
-        }
-        QFileDialog {
-            background-color: #1a2633;
-            color: white;
-        }
-    """)
+    # File handler with rotation
+    file_handler = logging.handlers.RotatingFileHandler(
+        log_file, maxBytes=5*1024*1024, backupCount=3, encoding='utf-8'
+    )
+    file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(file_formatter)
+    logger.addHandler(file_handler)
+    
+    # Console handler
+    console_handler = logging.StreamHandler()
+    console_formatter = logging.Formatter('%(levelname)s: %(message)s')
+    console_handler.setFormatter(console_formatter)
+    logger.addHandler(console_handler)
+    
+    return logger
 
 def main():
-    # Setup logging
-    setup_logging()
-    logger = logging.getLogger('main')
-    logger.info("Starting Network Scanner & Management Tool")
-    logger.info(f"Application started by user: {os.getenv('USERNAME', 'AnoirELGUEDDAR')}")
-    logger.info(f"Start time: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
+    """Main application entry point"""
+    # Initialize logging
+    logger = setup_logging()
+    logger.info(f"Starting Network Scanner & Management Tool")
+    logger.info(f"Platform: {platform.platform()}, Python: {platform.python_version()}")
     
-    # Load application settings
-    settings = load_settings()
+    # Check OS permissions
+    if platform.system() == "Windows":
+        import ctypes
+        if not ctypes.windll.shell32.IsUserAnAdmin():
+            logger.warning("Application not running with admin privileges. Some features may be limited.")
+    elif platform.system() in ["Linux", "Darwin"]:
+        if os.geteuid() != 0:
+            logger.warning("Application not running with root privileges. Some features may be limited.")
     
-    # Start GUI application
+    # Initialize application
     app = QApplication(sys.argv)
     app.setApplicationName("Network Scanner & Management Tool")
-    app.setOrganizationName("NetworkTools")
+    app.setOrganizationName("AnoirELGUEDDAR")
     
-    # Apply dark theme to entire application
-    apply_dark_theme(app)
+    # Set default font
+    default_font = QFont("Segoe UI", 10)
+    app.setFont(default_font)
     
-    window = MainWindow(settings)
-    window.show()
+    # Show splash screen if available
+    splash = None
+    if os.path.exists("icons/splash.png"):
+        splash_pixmap = QPixmap("icons/splash.png")
+        splash = QSplashScreen(splash_pixmap, Qt.WindowStaysOnTopHint)
+        splash.show()
+        splash.showMessage("Loading...", Qt.AlignBottom | Qt.AlignCenter, Qt.white)
+        app.processEvents()
     
-    # Check for icons directory and create if it doesn't exist
-    if not os.path.exists("icons"):
-        os.makedirs("icons")
-        logger.info("Created icons directory")
+    # Apply style
+    StyleManager.apply_style(app)
     
-    sys.exit(app.exec_())
+    # CRITICAL FIX: Force white text on all standard widgets
+    # This will override any other styling and ensure text is visible
+    app.setStyleSheet(app.styleSheet() + """
+    QLabel { color: white !important; }
+    QGroupBox { color: white !important; }
+    QCheckBox { color: white !important; }
+    QRadioButton { color: white !important; }
+    QGroupBox::title { color: white !important; }
+    QTabBar::tab { color: white !important; }
+    """)
+    
+    # Create main window
+    main_window = MainWindow()
+    
+    # Direct label color fix for all tabs
+    def fix_all_labels():
+        for widget in main_window.findChildren(QLabel):
+            widget.setStyleSheet("color: white;")
+        for widget in main_window.findChildren(QCheckBox):
+            widget.setStyleSheet("color: white;")
+        for widget in main_window.findChildren(QGroupBox):
+            widget.setStyleSheet("color: white;")
+        for widget in main_window.findChildren(QRadioButton):
+            widget.setStyleSheet("color: white;")
+    
+    # Close splash and show main window
+    if splash:
+        QTimer.singleShot(1500, splash.close)
+        QTimer.singleShot(1500, main_window.show)
+        QTimer.singleShot(1600, fix_all_labels)  # Apply fix after window is shown
+    else:
+        main_window.show()
+        QTimer.singleShot(100, fix_all_labels)  # Apply fix after window is shown
+    
+    # Run the application event loop
+    exit_code = app.exec_()
+    
+    logger.info(f"Application exited with code {exit_code}")
+    return exit_code
 
 if __name__ == "__main__":
-    main()
+    try:
+        sys.exit(main())
+    except Exception as e:
+        logging.critical(f"Unhandled exception: {str(e)}", exc_info=True)
+        sys.exit(1)
