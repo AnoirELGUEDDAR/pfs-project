@@ -150,5 +150,21 @@
         "manufacturer": "Unknown",
         "last_seen": "2025-06-03 00:51:08",
         "online": true
+    },
+    "192.168.100.1": {
+        "ip": "192.168.100.1",
+        "mac": "e8-4d-74-f7-53-c1",
+        "hostname": "",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-06-03 14:38:59",
+        "online": true
+    },
+    "192.168.100.5": {
+        "ip": "192.168.100.5",
+        "mac": "",
+        "hostname": "DESKTOP-NKODBR4",
+        "manufacturer": "Unknown",
+        "last_seen": "2025-06-03 14:38:59",
+        "online": true
     }
 }

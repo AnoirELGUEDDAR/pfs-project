@@ -409,3 +409,51 @@ AttributeError: 'RemoteTab' object has no attribute '_update_device_status_slot'
 2025-06-03 03:06:12,450 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
 2025-06-03 03:06:12,917 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
 2025-06-03 03:06:22,184 - gui.devices_tab - INFO - Sauvegarde de 19 appareils dans devices.json
+2025-06-03 14:37:36,105 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-03 14:37:36,187 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-03 14:37:36,221 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-03 14:37:36,221 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-03 14:37:36,221 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-03 14:37:36,222 - core.messaging.message_service - INFO - MessageService started
+2025-06-03 14:37:36,223 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-03 14:37:36,224 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-03 14:37:36,854 - gui.devices_tab - INFO - Chargement de 19 appareils depuis devices.json
+2025-06-03 14:37:36,920 - gui.files_tab - INFO - Files Tab initialized
+2025-06-03 14:37:36,935 - gui.main_window - INFO - Main window initialized
+2025-06-03 14:37:36,935 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-03 14:38:36,864 - gui.devices_tab - INFO - Sauvegarde de 19 appareils dans devices.json
+2025-06-03 14:38:59,470 - gui.devices_tab - INFO - Sauvegarde de 20 appareils dans devices.json
+2025-06-03 14:38:59,470 - core.messaging.message_service - INFO - Device registered: 192.168.100.1
+2025-06-03 14:38:59,471 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-03 14:38:59,893 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:38:59,894 - core.messaging.message_service - INFO - Device registered: 192.168.100.5
+2025-06-03 14:38:59,894 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-03 14:39:36,866 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:40:36,872 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:41:36,874 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:42:36,876 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:42:39,229 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-03 14:42:39,861 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-03 14:43:36,874 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:44:36,874 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:45:36,883 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:46:36,882 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:47:36,882 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:47:42,242 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-03 14:47:42,877 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-03 14:48:36,872 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:49:36,880 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:50:36,874 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:51:36,884 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:52:36,871 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:52:45,249 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-03 14:52:45,881 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-03 14:53:36,879 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:54:36,882 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:55:36,882 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:56:36,874 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:57:36,871 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:57:48,258 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-03 14:57:48,886 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-03 14:58:36,884 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
+2025-06-03 14:59:36,880 - gui.devices_tab - INFO - Sauvegarde de 21 appareils dans devices.json
