@@ -1,0 +1,29 @@
+2025-04-28 22:16:34,576 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250428_221634.log
+2025-04-28 22:16:34,577 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-28 22:16:34,577 - main - INFO - Application started by user: pc
+2025-04-28 22:16:34,579 - main - INFO - Start time: 2025-04-28 21:16:34 UTC
+2025-04-28 22:16:34,581 - config.settings - INFO - Settings loaded successfully
+2025-04-28 22:16:34,598 - core.messaging.message_service - INFO - Message service started
+2025-04-28 22:16:35,121 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-28 22:16:35,135 - gui.devices_tab - INFO - Chargement de 14 appareils depuis devices.json
+2025-04-28 22:16:35,146 - gui.main_window - INFO - Main window initialized
+2025-04-28 22:17:35,164 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:18:35,151 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:19:35,150 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:20:35,150 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:21:35,155 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:22:35,159 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:23:35,158 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:24:35,176 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:25:35,178 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:26:35,169 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:27:35,166 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:28:35,193 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:29:35,183 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:30:35,185 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:31:35,190 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:32:35,182 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:33:35,195 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:34:35,195 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:35:35,185 - gui.devices_tab - INFO - Sauvegarde de 14 appareils dans devices.json
+2025-04-28 22:36:01,474 - core.messaging.message_service - INFO - Message service stopped

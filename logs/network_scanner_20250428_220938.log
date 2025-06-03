@@ -1,0 +1,9 @@
+2025-04-28 22:09:38,600 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250428_220938.log
+2025-04-28 22:09:38,600 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-28 22:09:38,601 - main - INFO - Application started by user: pc
+2025-04-28 22:09:38,603 - main - INFO - Start time: 2025-04-28 21:09:38 UTC
+2025-04-28 22:09:38,604 - config.settings - INFO - Settings loaded successfully
+2025-04-28 22:09:38,620 - core.messaging.message_service - INFO - Message service started
+2025-04-28 22:09:39,239 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-28 22:09:39,258 - gui.devices_tab - INFO - Chargement de 14 appareils depuis devices.json
+2025-04-28 22:09:39,266 - gui.main_window - INFO - Main window initialized

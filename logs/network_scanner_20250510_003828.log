@@ -1,0 +1,15 @@
+2025-05-10 00:38:28,971 - root - INFO - Logging initialized. Log file: logs/network_scanner_20250510_003828.log
+2025-05-10 00:38:28,971 - main - INFO - Starting Network Scanner & Management Tool
+2025-05-10 00:38:28,971 - main - INFO - Application started by user: asmaa
+2025-05-10 00:38:28,972 - main - INFO - Start time: 2025-05-09 23:38:28 UTC
+2025-05-10 00:38:28,972 - config.settings - INFO - Settings loaded successfully
+2025-05-10 00:38:29,141 - core.messaging.message_service - INFO - Message service started
+2025-05-10 00:38:29,142 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 00:38:29,142 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 00:38:29,227 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 00:38:29,266 - gui.devices_tab - INFO - Chargement de 81 appareils depuis devices.json
+2025-05-10 00:38:29,384 - gui.main_window - INFO - Main window initialized
+2025-05-10 00:38:29,460 - main - INFO - Created icons directory
+2025-05-10 00:39:29,580 - gui.devices_tab - INFO - Sauvegarde de 81 appareils dans devices.json
+2025-05-10 00:40:05,487 - core.messaging.message_service - INFO - Message service stopped
+2025-05-10 00:40:05,487 - core.messaging.message_server - INFO - Message server stopped

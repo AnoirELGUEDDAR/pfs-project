@@ -1,0 +1,19 @@
+2025-04-28 23:52:36,281 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250428_235236.log
+2025-04-28 23:52:36,282 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-28 23:52:36,282 - main - INFO - Application started by user: pc
+2025-04-28 23:52:36,286 - main - INFO - Start time: 2025-04-28 22:52:36 UTC
+2025-04-28 23:52:36,288 - config.settings - INFO - Settings loaded successfully
+2025-04-28 23:52:36,301 - core.messaging.message_service - INFO - Message service started
+2025-04-28 23:52:36,303 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-04-28 23:52:36,821 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-04-28 23:52:36,828 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-28 23:52:36,843 - gui.devices_tab - INFO - Chargement de 10 appareils depuis devices.json
+2025-04-28 23:52:36,862 - gui.main_window - INFO - Main window initialized
+2025-04-28 23:52:47,721 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49406
+2025-04-28 23:52:47,721 - core.messaging.message_server - INFO - Received command: register_client from 192.168.1.15
+2025-04-28 23:52:52,598 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49407
+2025-04-28 23:52:52,613 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-28 23:52:57,619 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49408
+2025-04-28 23:52:57,634 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15
+2025-04-28 23:53:02,637 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49409
+2025-04-28 23:53:02,652 - core.messaging.message_server - INFO - Received command: get_client_messages from 192.168.1.15

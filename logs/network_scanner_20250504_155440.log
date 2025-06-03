@@ -1,0 +1,26 @@
+2025-05-04 15:54:40,663 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250504_155440.log
+2025-05-04 15:54:40,664 - main - INFO - Starting Network Scanner & Management Tool
+2025-05-04 15:54:40,664 - main - INFO - Application started by user: pc
+2025-05-04 15:54:40,666 - main - INFO - Start time: 2025-05-04 14:54:40 UTC
+2025-05-04 15:54:40,667 - config.settings - INFO - Settings loaded successfully
+2025-05-04 15:54:40,688 - core.messaging.message_service - INFO - Message service started
+2025-05-04 15:54:40,689 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-04 15:54:40,692 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-04 15:54:41,108 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-04 15:54:41,128 - gui.devices_tab - INFO - Chargement de 73 appareils depuis devices.json
+2025-05-04 15:54:41,167 - gui.main_window - INFO - Main window initialized
+2025-05-04 15:54:48,594 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 15:54:55,484 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 15:54:58,898 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:55:01,519 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 15:55:04,127 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:55:07,184 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:55:07,994 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 15:55:12,210 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json
+2025-05-04 15:55:13,613 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json
+2025-05-04 15:55:15,840 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 15:55:15,937 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json
+2025-05-04 15:55:16,358 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 15:55:16,510 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, type=ping, timeout=1s
+2025-05-04 15:55:17,850 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json
+2025-05-04 15:55:18,886 - gui.devices_tab - INFO - Sauvegarde de 74 appareils dans devices.json

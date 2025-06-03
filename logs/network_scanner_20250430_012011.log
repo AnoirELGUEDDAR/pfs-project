@@ -1,0 +1,56 @@
+2025-04-30 01:20:11,780 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250430_012011.log
+2025-04-30 01:20:11,781 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-30 01:20:11,782 - main - INFO - Application started by user: pc
+2025-04-30 01:20:11,789 - main - INFO - Start time: 2025-04-30 00:20:11 UTC
+2025-04-30 01:20:11,790 - config.settings - INFO - Settings loaded successfully
+2025-04-30 01:20:11,821 - core.messaging.message_service - INFO - Message service started
+2025-04-30 01:20:11,823 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-04-30 01:20:11,825 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-04-30 01:20:12,406 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-04-30 01:20:12,434 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-04-30 01:20:12,455 - gui.main_window - INFO - Main window initialized
+2025-04-30 01:20:17,266 - gui.file_browser - INFO - Platform info: None
+2025-04-30 01:20:17,267 - gui.file_browser - INFO - Device name: WIN8
+2025-04-30 01:20:17,267 - gui.file_browser - INFO - Is Windows: True
+2025-04-30 01:20:17,268 - gui.file_browser - INFO - Using Windows paths for dropdown
+2025-04-30 01:20:17,270 - gui.file_browser - INFO - Listing files in: C:\
+2025-04-30 01:20:21,245 - gui.file_browser - INFO - Listing files in: C:\
+2025-04-30 01:20:22,289 - gui.file_browser - INFO - Listing files in: C:\Program Files\
+2025-04-30 01:20:27,441 - gui.file_browser - INFO - Listing files in: C:\Program Files\
+2025-04-30 01:20:27,658 - gui.file_browser - INFO - Listing files in: C:\Program Files\
+2025-04-30 01:20:27,945 - gui.file_browser - INFO - Listing files in: C:\Program Files\
+2025-04-30 01:20:28,145 - gui.file_browser - INFO - Listing files in: C:\Program Files\
+2025-04-30 01:20:32,371 - gui.file_browser - INFO - Listing files in: C:\Program Files\
+2025-04-30 01:20:33,796 - gui.file_browser - INFO - Listing files in: C:\Program Files\
+2025-04-30 01:20:34,738 - gui.file_browser - INFO - Listing files in: C:\Users\
+2025-04-30 01:20:40,408 - core.remote.device_manager - INFO - Sending file requirements.txt to 192.168.1.15:9877, size: 160 bytes
+2025-04-30 01:20:40,425 - core.remote.device_manager - INFO - Data sent to 192.168.1.15:9877, JSON size: 399 bytes
+2025-04-30 01:20:48,981 - gui.file_browser - INFO - Listing files in: C:\Users\
+2025-04-30 01:20:53,451 - gui.file_browser - INFO - Listing files in: C:\Users\
+2025-04-30 01:21:10,496 - core.remote.device_manager - INFO - Response received: False
+2025-04-30 01:21:12,448 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:22:12,435 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:23:12,439 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:24:12,460 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:25:11,836 - core.remote.device_manager - INFO - Device 192.168.1.15:9877 is online (ping response)
+2025-04-30 01:25:12,441 - core.remote.device_manager - INFO - Device 192.168.1.15:9877 is online (ping response)
+2025-04-30 01:25:12,459 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:26:12,459 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:27:12,461 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:28:12,464 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:29:12,466 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:30:12,480 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:30:13,884 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-04-30 01:30:14,488 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-04-30 01:31:12,485 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:32:12,492 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:33:12,506 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:34:12,528 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:35:12,525 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:35:15,949 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-04-30 01:35:16,542 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-04-30 01:36:12,523 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-04-30 01:36:38,407 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49218
+2025-04-30 01:36:38,408 - core.messaging.message_server - INFO - Received command: register_client from 192.168.1.15
+2025-04-30 01:36:38,410 - core.messaging.message_server - INFO - Connection from 192.168.1.15:49219
+2025-04-30 01:36:38,411 - core.messaging.message_server - INFO - Received command: client_message from 192.168.1.15

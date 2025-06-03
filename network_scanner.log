@@ -1,0 +1,409 @@
+2025-05-07 18:00:51,901 - core.messaging.message_service - INFO - Message service started
+2025-05-07 18:00:51,902 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-07 18:00:51,904 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-07 18:00:52,398 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-07 18:00:52,403 - gui.devices_tab - INFO - Chargement de 6 appareils depuis devices.json
+2025-05-07 18:00:52,434 - gui.main_window - INFO - Main window initialized
+2025-05-07 18:01:20,634 - core.messaging.message_service - INFO - Message service stopped
+2025-05-07 18:01:20,634 - core.messaging.message_server - INFO - Message server stopped
+2025-05-07 18:01:25,188 - core.messaging.message_service - INFO - Message service started
+2025-05-07 18:01:25,189 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-07 18:01:25,189 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-07 18:01:25,605 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-07 18:01:25,608 - gui.devices_tab - INFO - Chargement de 6 appareils depuis devices.json
+2025-05-07 18:01:25,628 - gui.main_window - INFO - Main window initialized
+2025-05-07 18:01:32,570 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-07 18:01:47,620 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, timeout=1s
+2025-05-07 18:01:57,008 - gui.devices_tab - INFO - Sauvegarde de 1 appareils dans devices.json
+2025-05-07 18:02:12,272 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-07 18:02:25,596 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-07 18:02:34,196 - gui.devices_tab - INFO - Sauvegarde de 3 appareils dans devices.json
+2025-05-07 18:02:56,324 - gui.devices_tab - INFO - Sauvegarde de 4 appareils dans devices.json
+2025-05-07 18:03:11,890 - gui.devices_tab - INFO - Sauvegarde de 5 appareils dans devices.json
+2025-05-07 18:03:25,589 - gui.devices_tab - INFO - Sauvegarde de 5 appareils dans devices.json
+2025-05-07 18:03:34,176 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:03:34,177 - gui.scanner_tab - INFO - Scan terminé: 6 appareils trouvés
+2025-05-07 18:04:25,594 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:05:25,602 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:06:25,612 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:06:28,204 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-07 18:06:28,620 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-07 18:07:25,609 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:08:25,603 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:09:25,613 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:10:25,620 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:11:25,619 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:11:31,208 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-07 18:11:31,632 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-07 18:12:25,630 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:13:25,634 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:14:25,641 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:15:25,655 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:16:25,654 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:16:34,223 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-07 18:16:34,648 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-07 18:17:25,654 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-07 18:18:03,416 - core.messaging.message_service - INFO - Message service stopped
+2025-05-07 18:18:03,416 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 12:51:18,316 - core.messaging.message_service - INFO - Message service started
+2025-05-10 12:51:18,317 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 12:51:18,330 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 12:51:18,995 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 12:51:19,007 - gui.devices_tab - INFO - Chargement de 6 appareils depuis devices.json
+2025-05-10 12:51:19,071 - gui.main_window - INFO - Main window initialized
+2025-05-10 12:51:39,472 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 12:52:19,009 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 12:53:18,998 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 12:54:19,002 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 12:55:19,000 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 12:56:19,002 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 12:56:21,326 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 12:56:22,014 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 12:57:19,000 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 12:58:19,010 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 12:59:19,005 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 13:00:19,008 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 13:01:19,002 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 13:01:24,330 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:01:25,020 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:02:18,999 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 13:03:19,000 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-10 13:03:25,566 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, timeout=1s
+2025-05-10 13:03:35,214 - gui.devices_tab - INFO - Sauvegarde de 1 appareils dans devices.json
+2025-05-10 13:03:51,066 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-10 13:04:13,509 - gui.devices_tab - INFO - Sauvegarde de 3 appareils dans devices.json
+2025-05-10 13:04:19,006 - gui.devices_tab - INFO - Sauvegarde de 3 appareils dans devices.json
+2025-05-10 13:04:43,314 - gui.devices_tab - INFO - Sauvegarde de 4 appareils dans devices.json
+2025-05-10 13:05:06,085 - gui.devices_tab - INFO - Sauvegarde de 5 appareils dans devices.json
+2025-05-10 13:05:19,004 - gui.devices_tab - INFO - Sauvegarde de 5 appareils dans devices.json
+2025-05-10 13:05:49,482 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-10 13:06:19,009 - gui.devices_tab - INFO - Sauvegarde de 6 appareils dans devices.json
+2025-05-10 13:06:26,963 - gui.devices_tab - INFO - Sauvegarde de 7 appareils dans devices.json
+2025-05-10 13:06:27,335 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:06:28,032 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:06:56,998 - gui.devices_tab - INFO - Sauvegarde de 8 appareils dans devices.json
+2025-05-10 13:07:07,081 - gui.devices_tab - INFO - Sauvegarde de 9 appareils dans devices.json
+2025-05-10 13:07:19,004 - gui.devices_tab - INFO - Sauvegarde de 9 appareils dans devices.json
+2025-05-10 13:07:30,424 - gui.devices_tab - INFO - Sauvegarde de 10 appareils dans devices.json
+2025-05-10 13:08:19,000 - gui.devices_tab - INFO - Sauvegarde de 10 appareils dans devices.json
+2025-05-10 13:08:28,077 - gui.devices_tab - INFO - Sauvegarde de 11 appareils dans devices.json
+2025-05-10 13:08:51,469 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:09:19,011 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:10:19,016 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:11:18,358 - gui.scanner_tab - INFO - Scan terminé: 12 appareils trouvés
+2025-05-10 13:11:19,015 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:11:30,338 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:11:31,034 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:11:32,624 - core.messaging.message_service - INFO - Message service stopped
+2025-05-10 13:11:32,625 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 13:12:01,906 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:12:01,906 - core.messaging.message_service - INFO - Message service started
+2025-05-10 13:12:01,907 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:12:01,908 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:12:02,450 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:12:02,453 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:14:23,255 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:14:23,255 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:14:23,255 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:14:23,258 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:14:23,260 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:14:23,261 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:14:23,795 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:14:23,799 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:14:23,830 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:14:23,840 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:14:23,840 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:15:23,803 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:16:23,804 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:17:23,809 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:18:23,814 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:19:23,816 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:19:26,271 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:19:26,801 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:20:23,827 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:21:23,837 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:21:41,904 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 13:21:41,904 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 13:21:43,480 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:21:43,480 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:21:43,480 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:21:43,481 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:21:43,481 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:21:43,483 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:21:43,834 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:21:43,839 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:21:43,907 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:21:43,913 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:21:43,913 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:21:52,167 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-05-10 13:21:52,268 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, timeout=1s
+2025-05-10 13:22:01,893 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:22:01,893 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-05-10 13:22:01,893 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 13:22:17,624 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:22:17,624 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-05-10 13:22:17,624 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 13:22:40,053 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:22:40,053 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-05-10 13:22:40,053 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 13:22:43,835 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:23:09,567 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:23:09,567 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-05-10 13:23:09,567 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 13:23:32,093 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:23:32,093 - core.messaging.message_service - INFO - Device registered: 192.168.1.9
+2025-05-10 13:23:32,094 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 13:23:43,836 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:24:15,479 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:24:15,479 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-05-10 13:24:15,479 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 13:24:31,530 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 13:24:31,530 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 13:25:16,925 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:25:16,925 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:25:16,925 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:25:16,927 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:25:16,927 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:25:16,932 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:25:17,430 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:25:17,437 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:25:17,477 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:25:17,482 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:25:17,482 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:26:17,437 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:27:17,441 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:28:17,441 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:29:17,446 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:30:17,449 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:30:19,937 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:30:20,451 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:31:17,450 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:32:17,462 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:33:17,457 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:34:17,460 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:35:17,461 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:35:22,952 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:35:23,459 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 13:35:43,093 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 13:35:43,094 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 13:35:45,417 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:35:45,417 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:35:45,418 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:35:45,418 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:35:45,418 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:35:45,420 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:35:45,911 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:35:45,915 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:35:45,955 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:38:21,245 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:38:21,245 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:38:21,245 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:38:21,246 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:38:21,246 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:38:21,248 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:38:21,875 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:38:21,880 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:38:21,916 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:39:14,919 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:39:14,919 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:39:14,919 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:39:14,920 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:39:14,920 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:39:14,922 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:39:15,449 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:39:15,453 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:39:15,488 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:44:29,499 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:44:29,500 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:44:29,500 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:44:29,500 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:44:29,500 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:44:29,502 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:44:30,197 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:44:30,202 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:44:30,239 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:44:30,244 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:44:30,244 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:45:30,206 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:45:35,429 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 13:45:35,429 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 13:48:43,686 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:48:43,686 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:48:43,686 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:48:43,687 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:48:43,687 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:48:43,689 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:48:44,238 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:48:44,242 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:48:44,276 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:48:44,282 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:48:44,282 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:49:44,239 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:50:44,234 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:51:44,247 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:52:44,251 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 13:53:19,551 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 13:53:19,551 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 13:56:12,341 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:56:12,346 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:56:30,673 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:56:30,679 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:56:43,654 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:56:43,654 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:56:43,654 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:56:43,655 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:56:43,655 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:56:44,355 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:56:44,362 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:56:44,369 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:56:44,438 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:56:44,444 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:56:44,444 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:57:35,671 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:57:35,671 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:57:35,671 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:57:35,672 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:57:35,674 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:57:35,674 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:57:36,267 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:57:36,271 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:57:36,313 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:57:36,319 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:57:36,319 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:57:52,518 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 13:57:52,518 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 13:57:56,421 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:57:56,421 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:57:56,421 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:57:56,421 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:57:56,422 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:57:56,424 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:57:57,215 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:57:57,219 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:57:57,253 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:57:57,258 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:57:57,258 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:58:12,583 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 13:58:12,583 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 13:58:14,470 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:58:14,470 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:58:14,470 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:58:14,471 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:58:14,471 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:58:15,019 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:58:15,030 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:58:15,035 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:58:15,070 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:58:15,075 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:58:15,075 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:58:30,481 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 13:58:30,481 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 13:58:30,481 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 13:58:30,482 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 13:58:30,482 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 13:58:30,484 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 13:58:31,220 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 13:58:31,226 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 13:58:31,276 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 13:58:31,281 - gui.main_window - INFO - Main window initialized
+2025-05-10 13:58:31,281 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 13:59:31,217 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:00:31,221 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:01:31,219 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:02:31,215 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:03:31,215 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:03:33,486 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:03:34,232 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:04:31,227 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:05:31,224 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:06:31,237 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:07:31,248 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:08:31,256 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:08:36,502 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:08:37,247 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:08:48,220 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 14:08:48,220 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 14:08:49,346 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:08:49,346 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:08:49,347 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:08:49,347 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:08:49,347 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:08:49,350 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:08:49,678 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:08:49,682 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:08:49,717 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:08:49,722 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:08:49,722 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:08:56,682 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-05-10 14:08:56,784 - gui.scanner_tab - INFO - Scan démarré: 192.168.1.0/24, timeout=1s
+2025-05-10 14:09:06,375 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:09:06,375 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-05-10 14:09:06,376 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 14:09:22,033 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:09:22,033 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-05-10 14:09:22,034 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-10 14:09:22,034 - gui.scanner_tab - INFO - Scan terminé: 1 appareils trouvés
+2025-05-10 14:09:49,695 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:10:49,686 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:11:46,362 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 14:11:46,362 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 14:15:14,326 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:15:14,326 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:15:14,326 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:15:14,329 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:15:14,331 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:15:14,332 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:15:14,677 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:15:14,681 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:15:14,713 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:15:14,718 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:15:14,718 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:16:14,688 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:17:14,708 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:18:14,703 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:19:14,706 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:20:14,703 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:20:17,333 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:20:17,689 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-10 14:21:14,728 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:21:51,731 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 14:21:51,732 - core.messaging.message_server - INFO - Message server stopped
+2025-05-10 14:21:53,959 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:21:53,959 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:21:53,959 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:21:53,963 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:21:53,965 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:21:53,968 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:21:54,623 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:21:54,632 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:21:54,670 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:21:54,675 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:21:54,675 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:22:30,454 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:22:30,454 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:22:30,454 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:22:30,455 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:22:30,455 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:22:30,458 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:22:30,913 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:22:30,918 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:22:30,955 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:22:30,960 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:22:30,960 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:23:30,908 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:24:30,913 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:26:22,433 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-10 14:26:22,433 - core.messaging.message_service - INFO - Username set to: AnoirELGUEDDAR
+2025-05-10 14:26:22,434 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-10 14:26:22,435 - core.messaging.message_service - INFO - MessageService started
+2025-05-10 14:26:22,435 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-10 14:26:22,436 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-10 14:26:23,219 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-10 14:26:23,224 - gui.devices_tab - INFO - Chargement de 12 appareils depuis devices.json
+2025-05-10 14:26:23,269 - gui.files_tab - INFO - Files Tab initialized
+2025-05-10 14:26:23,274 - gui.main_window - INFO - Main window initialized
+2025-05-10 14:26:23,274 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-10 14:27:23,236 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:28:23,255 - gui.devices_tab - INFO - Sauvegarde de 12 appareils dans devices.json
+2025-05-10 14:28:28,963 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-10 14:28:28,964 - core.messaging.message_server - INFO - Message server stopped

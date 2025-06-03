@@ -1,0 +1,311 @@
+2025-05-11 21:02:43,357 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-11 21:02:43,457 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-11 21:02:43,466 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-11 21:02:43,497 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-11 21:02:43,497 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-05-11 21:02:43,498 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-11 21:02:43,500 - core.messaging.message_service - INFO - MessageService started
+2025-05-11 21:02:43,500 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-11 21:02:43,502 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-11 21:02:44,208 - gui.devices_tab - ERROR - Erreur lors du chargement des appareils: Expecting value: line 1 column 1 (char 0)
+2025-05-11 21:02:46,885 - gui.files_tab - INFO - Files Tab initialized
+2025-05-11 21:02:46,961 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:02:46,983 - gui.main_window - INFO - Main window initialized
+2025-05-11 21:02:46,984 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-11 21:02:51,954 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:02:56,955 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:01,950 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:06,958 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:11,962 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:16,964 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:21,963 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:26,959 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:31,958 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:36,964 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:41,954 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:46,576 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-11 21:03:46,954 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:51,956 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:03:56,959 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:01,959 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:06,954 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:11,956 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:16,951 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:21,954 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:26,953 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:31,956 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:36,950 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:41,954 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:44,421 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:46,581 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-11 21:04:46,957 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:51,961 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:04:56,962 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:01,959 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:06,949 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:11,949 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:16,955 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:21,951 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:26,954 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:31,948 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:36,951 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:41,950 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:46,585 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-11 21:05:46,958 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:51,963 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:05:56,973 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:01,980 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:06,973 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:11,967 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:16,976 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:21,969 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:26,966 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:31,971 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:36,977 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:41,969 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:46,590 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-11 21:06:46,972 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:51,967 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:06:56,970 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:01,974 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:06,975 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:11,971 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:16,970 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:21,967 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:26,983 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:31,981 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:36,981 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:41,992 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:46,506 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-11 21:07:46,589 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-11 21:07:46,995 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:49,601 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-11 21:07:51,996 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:07:57,015 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:02,013 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:07,021 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:12,022 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:17,016 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:22,025 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:27,019 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:32,026 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:37,026 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:42,014 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:46,583 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-11 21:08:47,013 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:52,026 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:08:57,039 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:02,032 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:07,035 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:12,036 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:17,032 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:22,044 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:27,048 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:32,055 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:37,051 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:42,052 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:46,590 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-11 21:09:47,054 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:52,046 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:09:57,043 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:02,050 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:07,045 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:12,048 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:17,052 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:22,054 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:26,662 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:27,044 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:32,047 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:37,044 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:42,047 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:47,473 - gui.devices_tab - INFO - Sauvegarde de 0 appareils dans devices.json
+2025-05-11 21:10:47,790 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:52,058 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:10:57,073 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:02,061 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:07,072 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:08,205 - gui.devices_tab - INFO - Sauvegarde de 1 appareils dans devices.json
+2025-05-11 21:11:08,207 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-05-11 21:11:08,208 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-05-11 21:11:08,939 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:11:08,940 - core.messaging.message_service - INFO - Device registered: 192.168.1.20
+2025-05-11 21:11:08,941 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-05-11 21:11:12,068 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:17,067 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:22,073 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:27,078 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:32,087 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:37,077 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:42,076 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:46,588 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:11:47,080 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:52,075 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:11:57,096 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:02,090 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:07,091 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:12,110 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:17,111 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:22,114 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:27,110 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:32,114 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:37,122 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:42,141 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:46,590 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:12:47,143 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:49,514 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-11 21:12:52,144 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:12:52,609 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-11 21:12:57,142 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:02,141 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:07,144 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:12,141 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:17,140 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:22,139 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:27,144 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:32,138 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:37,142 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:42,147 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:46,585 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:13:47,151 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:52,151 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:13:57,139 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:02,139 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:07,145 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:12,139 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:17,147 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:22,148 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:27,145 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:32,144 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:37,141 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:42,138 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:46,582 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:14:47,140 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:52,142 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:14:57,143 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:02,142 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:07,143 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:12,139 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:17,138 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:22,150 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:27,151 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:32,136 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:37,141 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:42,145 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:46,589 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:15:47,148 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:52,142 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:15:57,140 - gui.monitoring_tab - WARNING - Invalid devices data received
+2025-05-11 21:16:00,459 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-11 21:16:00,460 - core.messaging.message_server - INFO - Message server stopped
+2025-05-11 21:16:00,600 - root - INFO - Application exited with code 0
+2025-05-11 21:16:06,512 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-11 21:16:06,643 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-11 21:16:06,653 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-11 21:16:06,682 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-11 21:16:06,683 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-05-11 21:16:06,683 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-11 21:16:06,702 - core.messaging.message_service - INFO - MessageService started
+2025-05-11 21:16:06,703 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-11 21:16:06,709 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-11 21:16:07,370 - gui.devices_tab - INFO - Chargement de 2 appareils depuis devices.json
+2025-05-11 21:16:07,486 - gui.files_tab - INFO - Files Tab initialized
+2025-05-11 21:16:07,495 - root - CRITICAL - Unhandled exception: MonitoringTab.__init__() got an unexpected keyword argument 'device_manager'
+Traceback (most recent call last):
+  File "C:\OLD Z\pfs-project-main\pfs-project-main\main.py", line 137, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\OLD Z\pfs-project-main\pfs-project-main\main.py", line 107, in main
+    main_window = MainWindow()
+  File "C:\OLD Z\pfs-project-main\pfs-project-main\gui\main_window.py", line 126, in __init__
+    self._setup_ui()
+    ~~~~~~~~~~~~~~^^
+  File "C:\OLD Z\pfs-project-main\pfs-project-main\gui\main_window.py", line 377, in _setup_ui
+    self.monitoring_tab = MonitoringTab(device_manager=self.device_manager)
+                          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: MonitoringTab.__init__() got an unexpected keyword argument 'device_manager'
+2025-05-11 21:16:11,791 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-11 21:16:11,943 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-11 21:16:11,952 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-11 21:16:11,987 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-11 21:16:11,987 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-05-11 21:16:11,988 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-11 21:16:11,990 - core.messaging.message_service - INFO - MessageService started
+2025-05-11 21:16:11,992 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-11 21:16:12,904 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-11 21:16:12,966 - gui.devices_tab - INFO - Chargement de 2 appareils depuis devices.json
+2025-05-11 21:16:13,098 - gui.files_tab - INFO - Files Tab initialized
+2025-05-11 21:16:13,110 - root - CRITICAL - Unhandled exception: MonitoringTab.__init__() got an unexpected keyword argument 'device_manager'
+Traceback (most recent call last):
+  File "C:\OLD Z\pfs-project-main\pfs-project-main\main.py", line 137, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\OLD Z\pfs-project-main\pfs-project-main\main.py", line 107, in main
+    main_window = MainWindow()
+  File "C:\OLD Z\pfs-project-main\pfs-project-main\gui\main_window.py", line 126, in __init__
+    self._setup_ui()
+    ~~~~~~~~~~~~~~^^
+  File "C:\OLD Z\pfs-project-main\pfs-project-main\gui\main_window.py", line 377, in _setup_ui
+    self.monitoring_tab = MonitoringTab(device_manager=self.device_manager)
+                          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: MonitoringTab.__init__() got an unexpected keyword argument 'device_manager'
+2025-05-11 21:26:19,324 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-11 21:26:19,456 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-11 21:26:19,465 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-11 21:26:19,499 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-11 21:26:19,499 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-05-11 21:26:19,500 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-11 21:26:19,502 - core.messaging.message_service - INFO - MessageService started
+2025-05-11 21:26:19,503 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-11 21:26:20,315 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-11 21:26:20,369 - gui.devices_tab - INFO - Chargement de 2 appareils depuis devices.json
+2025-05-11 21:26:20,476 - gui.files_tab - INFO - Files Tab initialized
+2025-05-11 21:26:20,491 - gui.monitoring_tab - INFO - Dashboard URL: https://anoirelgueddar.grafana.net
+2025-05-11 21:26:20,505 - gui.main_window - INFO - Main window initialized
+2025-05-11 21:26:20,506 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-11 21:27:20,360 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:28:20,371 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:28:48,495 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-11 21:28:48,496 - core.messaging.message_server - INFO - Message server stopped
+2025-05-11 21:28:48,683 - root - INFO - Application exited with code 0
+2025-05-11 21:30:02,124 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-11 21:30:02,570 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-11 21:30:02,598 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-11 21:30:02,700 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-11 21:30:02,702 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-05-11 21:30:02,704 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-11 21:30:02,709 - core.messaging.message_service - INFO - MessageService started
+2025-05-11 21:30:02,711 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-11 21:30:02,731 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-11 21:30:05,690 - gui.devices_tab - INFO - Chargement de 2 appareils depuis devices.json
+2025-05-11 21:30:06,188 - gui.files_tab - INFO - Files Tab initialized
+2025-05-11 21:30:06,262 - gui.monitoring_tab - INFO - Dashboard URL: https://anoirelgueddar.grafana.net
+2025-05-11 21:30:06,314 - gui.main_window - INFO - Main window initialized
+2025-05-11 21:30:06,316 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-11 21:30:45,737 - gui.monitoring_tab - INFO - Dashboard URL: https://anoirelgueddar.grafana.net/d/server-metrics/server-metrics?orgId=1&refresh=10s
+2025-05-11 21:30:49,591 - gui.monitoring_tab - INFO - Dashboard URL: https://anoirelgueddar.grafana.net
+2025-05-11 21:31:00,014 - gui.monitoring_tab - INFO - Dashboard URL: https://anoirelgueddar.grafana.net
+2025-05-11 21:31:05,380 - gui.monitoring_tab - INFO - Dashboard URL: https://anoirelgueddar.grafana.net
+2025-05-11 21:31:05,693 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:32:05,696 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:33:05,692 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:34:05,691 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:35:05,689 - gui.devices_tab - INFO - Sauvegarde de 2 appareils dans devices.json
+2025-05-11 21:35:05,716 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-11 21:35:08,705 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-11 21:55:12,354 - root - INFO - Starting Network Scanner & Management Tool
+2025-05-11 21:55:12,434 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-05-11 21:55:12,448 - root - WARNING - Application not running with admin privileges. Some features may be limited.
+2025-05-11 21:55:12,474 - core.messaging.message_service - INFO - MessageService initialized
+2025-05-11 21:55:12,474 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-05-11 21:55:12,475 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-05-11 21:55:12,488 - core.messaging.message_service - INFO - MessageService started
+2025-05-11 21:55:12,489 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-11 21:55:12,492 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-11 21:55:13,551 - gui.devices_tab - INFO - Chargement de 2 appareils depuis devices.json
+2025-05-11 21:55:13,638 - gui.files_tab - INFO - Files Tab initialized
+2025-05-11 21:55:13,648 - gui.monitoring_tab - INFO - Dashboard URL: https://anoirelgueddar.grafana.net
+2025-05-11 21:55:13,659 - gui.main_window - INFO - Main window initialized
+2025-05-11 21:55:13,660 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-05-11 21:55:29,549 - core.messaging.message_service - INFO - MessageService stopped
+2025-05-11 21:55:29,549 - core.messaging.message_server - INFO - Message server stopped
+2025-05-11 21:55:29,576 - root - INFO - Application exited with code 0

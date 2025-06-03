@@ -1,0 +1,35 @@
+2025-04-20 19:25:29,834 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250420_192529.log
+2025-04-20 19:25:29,835 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-20 19:25:29,836 - main - INFO - Application started by user: pc
+2025-04-20 19:25:29,839 - main - INFO - Start time: 2025-04-20 18:25:29 UTC
+2025-04-20 19:25:29,850 - config.settings - INFO - Settings loaded successfully
+2025-04-20 19:25:30,485 - gui.main_window - INFO - Main window initialized
+2025-04-20 19:25:33,189 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-20 19:25:33,191 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-20 19:25:40,471 - core.scanner.network_scanner - INFO - Scan completed in 7.28 seconds. Found 3 devices
+2025-04-20 19:25:40,475 - gui.scanner_tab - INFO - Scan completed. Found 3 devices
+2025-04-20 19:25:49,236 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-20 19:25:49,238 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-20 19:25:59,435 - core.scanner.network_scanner - INFO - Scan completed in 10.20 seconds. Found 2 devices
+2025-04-20 19:25:59,439 - gui.scanner_tab - INFO - Scan completed. Found 3 devices
+2025-04-20 19:26:49,975 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-20 19:26:49,978 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-20 19:26:59,966 - core.scanner.network_scanner - INFO - Scan completed in 9.99 seconds. Found 2 devices
+2025-04-20 19:26:59,969 - gui.scanner_tab - INFO - Scan completed. Found 3 devices
+2025-04-20 19:37:06,075 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-20 19:37:06,078 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-20 19:37:16,021 - core.scanner.network_scanner - INFO - Scan completed in 9.94 seconds. Found 2 devices
+2025-04-20 19:37:16,023 - gui.scanner_tab - INFO - Scan completed. Found 2 devices
+2025-04-20 19:43:50,620 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-20 19:43:50,623 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-20 19:43:59,003 - core.scanner.network_scanner - INFO - Scan completed in 8.38 seconds. Found 2 devices
+2025-04-20 19:43:59,005 - gui.scanner_tab - INFO - Scan completed. Found 2 devices
+2025-04-20 19:44:00,426 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-20 19:44:00,428 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-20 19:44:07,504 - core.scanner.network_scanner - INFO - Scan completed in 7.08 seconds. Found 3 devices
+2025-04-20 19:44:07,508 - gui.scanner_tab - INFO - Scan completed. Found 3 devices
+2025-04-20 19:44:18,421 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-20 19:44:18,423 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-20 19:44:25,510 - core.scanner.network_scanner - INFO - Scan completed in 7.09 seconds. Found 3 devices
+2025-04-20 19:44:25,511 - gui.scanner_tab - INFO - Scan completed. Found 3 devices
+2025-04-20 19:51:21,922 - gui.main_window - INFO - Application closing

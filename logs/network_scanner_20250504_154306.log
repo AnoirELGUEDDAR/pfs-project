@@ -1,0 +1,29 @@
+2025-05-04 15:43:06,618 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250504_154306.log
+2025-05-04 15:43:06,618 - main - INFO - Starting Network Scanner & Management Tool
+2025-05-04 15:43:06,619 - main - INFO - Application started by user: pc
+2025-05-04 15:43:06,622 - main - INFO - Start time: 2025-05-04 14:43:06 UTC
+2025-05-04 15:43:06,622 - config.settings - INFO - Settings loaded successfully
+2025-05-04 15:43:06,636 - core.messaging.message_service - INFO - Message service started
+2025-05-04 15:43:06,637 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-05-04 15:43:06,639 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-05-04 15:43:07,062 - gui.scanner_tab - INFO - Onglet Scanner initialisé
+2025-05-04 15:43:07,077 - gui.devices_tab - INFO - Chargement de 73 appareils depuis devices.json
+2025-05-04 15:43:07,104 - gui.main_window - INFO - Main window initialized
+2025-05-04 15:43:07,408 - main - INFO - Created icons directory
+2025-05-04 15:44:07,092 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:45:07,085 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:46:07,086 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:47:07,090 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:48:07,084 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:48:09,645 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 15:48:10,089 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 15:49:07,077 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:50:07,091 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:51:07,102 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:52:07,116 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:53:07,128 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:53:12,657 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 15:53:13,102 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-05-04 15:54:07,129 - gui.devices_tab - INFO - Sauvegarde de 73 appareils dans devices.json
+2025-05-04 15:54:31,904 - core.messaging.message_service - INFO - Message service stopped
+2025-05-04 15:54:31,904 - core.messaging.message_server - INFO - Message server stopped

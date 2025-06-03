@@ -1,0 +1,11 @@
+{
+    "192.168.1.15:9877": {
+        "name": "WIN8",
+        "ip": "192.168.1.15",
+        "port": 9877,
+        "token": "change_this_token_immediately",
+        "status": "offline",
+        "last_connected": "2025-04-30 03:05:38",
+        "agent_version": "1.0.1"
+    }
+}

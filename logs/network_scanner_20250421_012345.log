@@ -1,0 +1,14 @@
+2025-04-21 01:23:45,804 - root - INFO - Logging initialized. Log file: logs\network_scanner_20250421_012345.log
+2025-04-21 01:23:45,805 - main - INFO - Starting Network Scanner & Management Tool
+2025-04-21 01:23:45,805 - main - INFO - Application started by user: pc
+2025-04-21 01:23:45,809 - main - INFO - Start time: 2025-04-21 00:23:45 UTC
+2025-04-21 01:23:45,809 - config.settings - INFO - Settings loaded successfully
+2025-04-21 01:23:46,146 - gui.main_window - INFO - Main window initialized
+2025-04-21 01:23:49,249 - gui.scanner_tab - INFO - Starting scan of 192.168.1.0/24
+2025-04-21 01:23:49,251 - core.scanner.network_scanner - INFO - Starting network scan for 192.168.1.0/24
+2025-04-21 01:23:55,505 - core.scanner.network_scanner - INFO - Scan completed in 6.25 seconds. Found 4 devices
+2025-04-21 01:23:55,510 - gui.scanner_tab - INFO - Scan completed. Found 4 devices
+2025-04-21 01:26:46,320 - core.remote.device_manager - WARNING - Appareil WIN8 (192.168.1.36:9877) ajouté mais non connecté
+2025-04-21 01:32:25,040 - core.remote.device_manager - INFO - Appareil 192.168.1.36:9877 supprimé
+2025-04-21 01:33:47,489 - core.remote.device_manager - WARNING - Appareil WIN-FD5029S6D2K (192.168.1.36:9877) ajouté mais non connecté
+2025-04-21 01:41:46,189 - core.remote.device_manager - INFO - Appareil 192.168.1.36:9877 supprimé
