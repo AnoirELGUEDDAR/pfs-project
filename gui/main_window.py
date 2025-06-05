@@ -25,7 +25,7 @@ from gui.scanner_tab import ScannerTab
 from gui.devices_tab import DevicesTab
 from gui.remote_tab import RemoteTab
 from gui.monitoring_tab import MonitoringTab
-from gui.messaging_tab import MessagingTab, NewMessageDialog, ClientMessagingMode
+from gui.messaging_tab import MessagingTab
 from gui.files_tab import FilesTab
 
 from core.messaging.message_service import MessageService

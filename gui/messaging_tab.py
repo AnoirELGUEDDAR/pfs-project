@@ -1,9 +1,12 @@
 """
 Messaging tab for Network Scanner application
 Handles all messaging functionality including:
-- Conversations list
+- Conversations list (modified to be direct chat)
 - Message display
 - Composing/sending messages
+
+Current Date and Time (UTC): 2025-06-03 00:29:18
+Current User's Login: AnoirELGUEDDAR
 """
 
 import logging
@@ -26,12 +29,52 @@ from core.messaging.message import Message, MessageType
 
 logger = logging.getLogger(__name__)
 
+# Style global pour l'application
+APP_STYLE = """
+QInputDialog {
+    background-color: #1a2633;
+}
+QInputDialog QLabel {
+    color: white;
+}
+QInputDialog QLineEdit {
+    color: white;
+    background-color: #213243;
+    border: 1px solid #375a7f;
+}
+QInputDialog QPushButton {
+    color: white;
+    background-color: #2c3e50;
+}
+QInputDialog QPushButton:hover {
+    background-color: #34495e;
+}
+
+/* Style supplémentaire pour les tableaux */
+QTableView {
+    color: white;
+    selection-background-color: #0078d7;
+}
+QTableWidget::item {
+    color: white;
+}
+QHeaderView::section {
+    color: white;
+}
+"""
+
 class MessagingTab(QWidget):
     """Tab for messaging functionality"""
     
     def __init__(self, message_service, parent=None):
         super().__init__(parent)
         self.message_service = message_service
+        self.current_conversation_id = None # To keep track of the active chat
+        self.current_chat_partner_display_name = "No Client Selected" # To store the name of the person we are chatting with
+        
+        # Appliquer le style global
+        self.setStyleSheet(APP_STYLE)
+        
         self._setup_ui()
         
     def _setup_ui(self):
@@ -43,7 +86,7 @@ class MessagingTab(QWidget):
         self.tab_widget = QTabWidget()
         main_layout.addWidget(self.tab_widget)
         
-        # Messaging tab
+        # Messaging tab (now a direct chat interface)
         self.messages_widget = QWidget()
         self._setup_messages_ui(self.messages_widget)
         self.tab_widget.addTab(self.messages_widget, "Messages")
@@ -52,121 +95,23 @@ class MessagingTab(QWidget):
         self.clients_widget = QWidget()
         self._setup_clients_ui(self.clients_widget)
         self.tab_widget.addTab(self.clients_widget, "Connected Clients")
+
+        # Connect the message_received signal from MessageService
+        # This will allow the chat display to update when new messages arrive
+        self.message_service.message_received.connect(self._handle_incoming_message)
         
     def _setup_messages_ui(self, parent):
-        """Set up the messages UI"""
-        # Main layout
+        """Set up the direct chat UI"""
+        # Main layout for the chat interface
         main_layout = QVBoxLayout(parent)
         
-        # Create a horizontal splitter
-        splitter = QSplitter(Qt.Horizontal)
-        main_layout.addWidget(splitter)
-        
-        # Left side - conversations list
-        left_widget = QWidget()
-        left_layout = QVBoxLayout(left_widget)
-        
-        # List of conversations
-        conv_label = QLabel("Conversations")
-        conv_label.setStyleSheet("font-weight: bold; font-size: 14px;")
-        left_layout.addWidget(conv_label)
-        
-        self.conversations_list = QListWidget()
-        self.conversations_list.setMinimumWidth(250)
-        self.conversations_list.currentItemChanged.connect(self._conversation_selected)
-        self.conversations_list.setAlternatingRowColors(True)
-        self.conversations_list.setStyleSheet("""
-            QListWidget {
-                border: 1px solid #ddd;
-                background-color: #9eb8cf;
-            }
-            QListWidget::item {
-                padding: 5px;
-                border-bottom: 1px solid #eee;
-            }
-            QListWidget::item:selected {
-                background-color: #e6f2ff;
-                color: black;
-            }
-        """)
-        left_layout.addWidget(self.conversations_list)
-        
-        # Buttons - Updated to blue color
-        buttons_layout = QVBoxLayout()
-        
-        refresh_button = QPushButton("Refresh")
-        refresh_button.setStyleSheet("""
-            QPushButton {
-                padding: 5px; 
-                background-color: #0078d7; 
-                color: white;
-                border: none;
-                border-radius: 3px;
-            }
-            QPushButton:hover {
-                background-color: #0086f0;
-            }
-            QPushButton:pressed {
-                background-color: #0066b8;
-            }
-        """)
-        refresh_button.clicked.connect(self.refresh_conversations)
-        buttons_layout.addWidget(refresh_button)
-        
-        new_message_button = QPushButton("New Message")
-        new_message_button.setStyleSheet("""
-            QPushButton {
-                padding: 5px; 
-                background-color: #0078d7; 
-                color: white;
-                border: none;
-                border-radius: 3px;
-            }
-            QPushButton:hover {
-                background-color: #0086f0;
-            }
-            QPushButton:pressed {
-                background-color: #0066b8;
-            }
-        """)
-        new_message_button.clicked.connect(self._new_message)
-        buttons_layout.addWidget(new_message_button)
-        
-        broadcast_button = QPushButton("Broadcast Message")
-        broadcast_button.setStyleSheet("""
-            QPushButton {
-                padding: 5px; 
-                background-color: #0078d7; 
-                color: white;
-                border: none;
-                border-radius: 3px;
-            }
-            QPushButton:hover {
-                background-color: #0086f0;
-            }
-            QPushButton:pressed {
-                background-color: #0066b8;
-            }
-        """)
-        broadcast_button.clicked.connect(self._broadcast_message)
-        buttons_layout.addWidget(broadcast_button)
-        
-        left_layout.addLayout(buttons_layout)
-        
-        # Add the left side to the splitter
-        splitter.addWidget(left_widget)
-        
-        # Right side - message display and input
-        right_widget = QWidget()
-        right_layout = QVBoxLayout(right_widget)
-        
-        # Current conversation info - Changed from green to blue
-        self.conversation_info = QLabel("Select a conversation")
+        # Current conversation info (will show the selected client's name)
+        self.conversation_info = QLabel("Select a client from 'Connected Clients' to start chatting.")
         self.conversation_info.setStyleSheet("font-weight: bold; font-size: 14px; padding: 5px; background-color: #0078d7; color: white;")
         self.conversation_info.setWordWrap(True)
-        right_layout.addWidget(self.conversation_info)
+        main_layout.addWidget(self.conversation_info)
         
-        # Messages display
+        # Messages display area (the chat history)
         self.messages_display = QTextEdit()
         self.messages_display.setReadOnly(True)
         self.messages_display.setStyleSheet("""
@@ -174,13 +119,15 @@ class MessagingTab(QWidget):
                 background-color: #9eb8cf;
                 border: 1px solid #ddd;
                 font-size: 13px;
+                color: white;
             }
         """)
-        right_layout.addWidget(self.messages_display)
+        main_layout.addWidget(self.messages_display)
         
         # Message composition area
         message_input_label = QLabel("Type your message here:")
-        right_layout.addWidget(message_input_label)
+        message_input_label.setStyleSheet("color: white;")
+        main_layout.addWidget(message_input_label)
         
         self.message_input = QTextEdit()
         self.message_input.setPlaceholderText("Type your message here...")
@@ -191,11 +138,13 @@ class MessagingTab(QWidget):
                 border: 1px solid #ddd;
                 padding: 5px;
                 font-size: 13px;
+                color: white;
+                background-color: #213243;
             }
         """)
-        right_layout.addWidget(self.message_input)
+        main_layout.addWidget(self.message_input)
         
-        # Send button - Changed from green to blue
+        # Send button
         send_button = QPushButton("Send")
         send_button.setStyleSheet("""
             QPushButton {
@@ -214,17 +163,7 @@ class MessagingTab(QWidget):
             }
         """)
         send_button.clicked.connect(self._send_message)
-        right_layout.addWidget(send_button)
-        
-        # Add the right side to the splitter
-        splitter.addWidget(right_widget)
-        
-        # Set stretch factors
-        splitter.setStretchFactor(0, 1)  # Left side
-        splitter.setStretchFactor(1, 3)  # Right side
-        
-        # Initial load of conversations
-        self.refresh_conversations()
+        main_layout.addWidget(send_button)
         
     def _setup_clients_ui(self, parent):
         """Set up the clients UI"""
@@ -233,7 +172,7 @@ class MessagingTab(QWidget):
         
         # Header
         header = QLabel("Connected Client Devices")
-        header.setStyleSheet("font-size: 14px; font-weight: bold;")
+        header.setStyleSheet("font-size: 14px; font-weight: bold; color: white;")
         main_layout.addWidget(header)
         
         # Clients table
@@ -248,17 +187,25 @@ class MessagingTab(QWidget):
                 border: 1px solid #ddd;
                 gridline-color: #f0f0f0;
                 font-size: 13px;
+                color: white;
             }
             QHeaderView::section {
                 background-color: #0078d7;
                 padding: 5px;
                 border: 1px solid #ddd;
                 font-weight: bold;
+                color: white;
+            }
+            QTableView {
+                color: white;
+            }
+            QTableWidget::item {
+                color: white;
             }
         """)
         main_layout.addWidget(self.clients_table)
         
-        # Buttons - Updated to blue color
+        # Buttons
         buttons_layout = QHBoxLayout()
         
         refresh_clients_button = QPushButton("Refresh Clients")
@@ -325,56 +272,16 @@ class MessagingTab(QWidget):
         
         # Initial load of clients
         self.refresh_clients()
-        
+            
     def refresh_conversations(self):
-        """Refresh the conversations list"""
-        try:
-            # Get all conversations
-            conversations = self.message_service.get_conversations()
-            
-            # Save current selection
-            current_id = None
-            if self.conversations_list.currentItem():
-                current_id = self.conversations_list.currentItem().data(Qt.UserRole)
-                
-            # Clear the list
-            self.conversations_list.clear()
-            
-            # Add conversations to list
-            for conv in conversations:
-                # Create list item
-                item = QListWidgetItem()
-                
-                # Format participants
-                participants = ", ".join(conv["participants"])
-                
-                # Format timestamp and preview
-                timestamp = datetime.fromtimestamp(conv["timestamp"])
-                time_str = timestamp.strftime("%Y-%m-%d %H:%M")
-                
-                # Simplified display text like in the image
-                display_text = f"{participants}\n{time_str}\n{conv['last_message']}"
-                
-                # Add unread count if any
-                if conv["unread_count"] > 0:
-                    display_text += f" ({conv['unread_count']} unread)"
-                
-                item.setText(display_text)
-                item.setData(Qt.UserRole, conv["id"])
-                
-                # Add the item to the list
-                self.conversations_list.addItem(item)
-                
-            # Restore selection if possible
-            if current_id:
-                for i in range(self.conversations_list.count()):
-                    item = self.conversations_list.item(i)
-                    if item.data(Qt.UserRole) == current_id:
-                        self.conversations_list.setCurrentItem(item)
-                        break
-        except Exception as e:
-            logger.error(f"Error refreshing conversations: {e}")
-            
+        """This method is now essentially deprecated for the simplified chat view.
+        It will be triggered when a client is selected to load their history."""
+        if self.current_conversation_id:
+            self._display_conversation_messages(self.current_conversation_id)
+        else:
+            self.conversation_info.setText("Select a client from 'Connected Clients' to start chatting.")
+            self.messages_display.clear()
+
     def refresh_clients(self):
         """Refresh the clients table"""
         try:
@@ -390,54 +297,45 @@ class MessagingTab(QWidget):
                 
                 # Client ID
                 id_item = QTableWidgetItem(client_id)
+                id_item.setForeground(QBrush(QColor(255, 255, 255)))  # White text
                 self.clients_table.setItem(i, 0, id_item)
                 
                 # Username (may be same as ID if not available)
                 username = client_id.split('-')[0] if '-' in client_id else client_id
                 username_item = QTableWidgetItem(username)
+                username_item.setForeground(QBrush(QColor(255, 255, 255)))  # White text
                 self.clients_table.setItem(i, 1, username_item)
                 
                 # Last seen - may need to be fetched from message server
                 last_seen_item = QTableWidgetItem(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                last_seen_item.setForeground(QBrush(QColor(255, 255, 255)))  # White text
                 self.clients_table.setItem(i, 2, last_seen_item)
                 
                 # IP Address - may need to be fetched from message server
                 ip_item = QTableWidgetItem("N/A")
+                ip_item.setForeground(QBrush(QColor(255, 255, 255)))  # White text
                 self.clients_table.setItem(i, 3, ip_item)
                 
                 # Platform - may need to be fetched from message server
                 platform_item = QTableWidgetItem("N/A")
+                platform_item.setForeground(QBrush(QColor(255, 255, 255)))  # White text
                 self.clients_table.setItem(i, 4, platform_item)
                 
         except Exception as e:
             logger.error(f"Error refreshing clients: {e}")
             
-    def _conversation_selected(self, current, previous):
-        """Handle selection of a conversation"""
-        if not current:
-            self.conversation_info.setText("Select a conversation")
-            self.messages_display.clear()
-            return
-            
-        # Get conversation ID from the selected item
-        conversation_id = current.data(Qt.UserRole)
-        
+    def _display_conversation_messages(self, conversation_id):
+        """Helper to display messages for a given conversation ID."""
         try:
-            # Load conversation messages
-            messages = self.message_service.get_message_history(conversation_id=conversation_id)
+            # --- CHANGE START ---
+            messages = self.message_service.get_conversation(conversation_id=conversation_id)
+            # --- CHANGE END ---
             
-            # Display conversation info (simplified like in the image)
             if messages:
-                participants = set()
-                for msg in messages:
-                    if msg.sender:
-                        participants.add(msg.sender)
-                    if msg.recipient:
-                        participants.add(msg.recipient)
+                # Assuming the conversation_id *is* the client's ID for direct chats
+                # Or that self.current_chat_partner_display_name is already set.
+                self.conversation_info.setText(f"Chat with: {self.current_chat_partner_display_name}")
                 
-                self.conversation_info.setText(f"Conversation with: {', '.join(participants)}")
-                
-                # Format and display messages in a simplified format like in the image
                 self.messages_display.clear()
                 
                 # Create simplified HTML for messages
@@ -445,39 +343,45 @@ class MessagingTab(QWidget):
                 
                 for msg in messages:
                     # Format timestamp
-                    timestamp = datetime.fromtimestamp(msg.timestamp)
+                    # Ensure timestamp is a float (epoch) before converting
+                    if isinstance(msg.timestamp, datetime):
+                        timestamp = msg.timestamp
+                    else: # Assume it's an epoch if not datetime object
+                        timestamp = datetime.fromtimestamp(msg.timestamp)
+
                     time_str = timestamp.strftime("%H:%M")
                     
                     # Format sender name (simplified)
                     sender = msg.sender or "System"
                     
-                    # Format the message based on type and sender
-                    if sender == "ADMIN" or sender == "Administrator":
+                    # Determine if the message is from "You" (ADMIN) or the recipient
+                    if sender == self.message_service.username: # Use the actual username set in MessageService
                         sender_display = "You"
-                        align = "right" 
+                        align = "right"
+                        bg_color = "#0078d7"  # Blue for your messages
+                        text_color = "white"
                     else:
                         sender_display = sender
                         align = "left"
+                        bg_color = "#f5f5f5"  # Light background for others' messages
+                        text_color = "black"
                         
                     # Message formatting based on type
+                    content_style = ""
                     if msg.type == MessageType.WARNING:
                         # Warning - make it bold and red
                         content_style = "font-weight:bold; color:red;"
-                    else:
-                        # Normal information message
-                        content_style = ""
+                        if align == "left": # Ensure warning from others is still visible
+                            text_color = "red" # Keep the text red for warnings from others
                     
-                    # Add the message bubble - Updated to use blue for user messages
-                    bg_color = "#0078d7" if sender == "ADMIN" or sender == "Administrator" else "#f5f5f5"
-                    text_color = "white" if sender == "ADMIN" or sender == "Administrator" else "black"
-                    
+                    # Add the message bubble
                     html += f"""
                     <div style="text-align:{align}; margin:15px 5px;">
                         <div style="display:inline-block; max-width:80%;">
-                            <div style="font-weight:bold; color:{text_color if align == 'right' else 'black'};">{sender_display}</div>
+                            <div style="font-weight:bold; color:{text_color if align == 'right' else 'white'};">{sender_display}</div>
                             <div style="background-color:{bg_color}; padding:10px; border-radius:10px;">
                                 <div style="{content_style}; color:{text_color};">{msg.content}</div>
-                                <div style="font-size:10px; color:{'#ddd' if align == 'right' else '#888'}; text-align:right; margin-top:5px;">{time_str}</div>
+                                <div style="font-size:10px; color:{'#ddd' if align == 'right' else '#ddd'}; text-align:right; margin-top:5px;">{time_str}</div>
                             </div>
                         </div>
                     </div>
@@ -485,474 +389,214 @@ class MessagingTab(QWidget):
                 
                 html += "</body></html>"
                 self.messages_display.setHtml(html)
+                self.messages_display.verticalScrollBar().setValue(self.messages_display.verticalScrollBar().maximum()) # Scroll to bottom
                 
-                # Mark conversation as read
-                self.message_service.mark_conversation_read(conversation_id)
-                
+                # In your MessageService, you don't have a mark_conversation_read
+                # self.message_service.mark_conversation_read(conversation_id) 
             else:
-                self.conversation_info.setText("No messages in this conversation")
+                self.conversation_info.setText(f"Chat with: {self.current_chat_partner_display_name} (No messages yet)")
                 self.messages_display.clear()
         except Exception as e:
             logger.error(f"Error loading conversation: {e}")
-            self.conversation_info.setText(f"Error loading conversation: {str(e)}")
+            self.conversation_info.setText(f"Error loading chat: {str(e)}")
             self.messages_display.clear()
             
     def _send_message(self):
-        """Send a message in the current conversation"""
-        # Check if we have a selected conversation
-        if not self.conversations_list.currentItem():
-            QMessageBox.warning(self, "No Conversation Selected", 
-                              "Please select a conversation to send a message.")
+        """Send a message to the currently selected client in the chat view."""
+        if not self.current_conversation_id:
+            QMessageBox.warning(self, "No Client Selected",
+                                "Please select a client from 'Connected Clients' to send a message.")
             return
-        
-        # Get the message content
+            
         content = self.message_input.toPlainText().strip()
         if not content:
             return
             
-        # Get conversation ID
-        conversation_id = self.conversations_list.currentItem().data(Qt.UserRole)
-        
         try:
-            # Get the recipient from the conversation
-            messages = self.message_service.get_message_history(conversation_id=conversation_id)
+            # The recipient is the current conversation ID itself, as per your MessageService design
+            recipient = self.current_conversation_id
             
-            # Determine the recipient (first recipient that isn't us)
-            recipient = None
-            for msg in messages:
-                if msg.sender and msg.sender != "Administrator" and msg.sender != "ADMIN":
-                    recipient = msg.sender
-                    break
-                if msg.recipient and msg.recipient != "Administrator" and msg.recipient != "ADMIN":
-                    recipient = msg.recipient
-                    break
-            
-            if not recipient:
-                QMessageBox.warning(self, "Error", "Could not determine message recipient.")
-                return
-                
-            # Create and send the message - default to INFO type
             message = Message(
                 content=content,
-                msg_type=MessageType.INFO,
-                sender="ADMIN",
+                msg_type=MessageType.INFO, # Default to INFO for user sent messages
+                sender=self.message_service.username, # Use the actual username from the service
                 recipient=recipient,
-                conversation_id=conversation_id
+                conversation_id=self.current_conversation_id 
             )
             
             self.message_service.send_message(message)
             
-            # Clear the input field
             self.message_input.clear()
             
-            # Refresh the conversation display
-            self._conversation_selected(self.conversations_list.currentItem(), None)
+            # Refresh the current conversation display
+            self._display_conversation_messages(self.current_conversation_id)
             
         except Exception as e:
             logger.error(f"Error sending message: {e}")
             QMessageBox.critical(self, "Error", f"Could not send message: {str(e)}")
             
-    def _new_message(self):
-        """Create a new message"""
-        dialog = NewMessageDialog(self.message_service, self)
-        if dialog.exec_():
-            # Get message data from dialog
-            msg_data = dialog.get_message_data()
-            if not msg_data["content"]:
-                return
-                
-            # Create and send the message
-            message = Message(
-                content=msg_data["content"],
-                msg_type=msg_data["msg_type"],
-                sender="ADMIN",  
-                recipient=msg_data["recipient"],
-                is_broadcast=msg_data["is_broadcast"]
-            )
-            
-            self.message_service.send_message(message)
-            
-            # Refresh conversations and select the new one
-            self.refresh_conversations()
-            
-    def _broadcast_message(self):
-        """Broadcast a message to all clients"""
-        # FIXED: Using QInputDialog instead of QMessageBox
-        text, ok = QInputDialog.getText(
-            self, 
-            "Broadcast Message", 
-            "Enter message to broadcast to all devices:"
-        )
+    def _handle_incoming_message(self, message: Message):
+        """
+        Handles incoming messages and updates the current chat display if relevant.
+        This method is connected to message_service.message_received signal.
+        """
+        # If the incoming message's conversation ID matches the currently open one, refresh the display
+        if message.conversation_id == self.current_conversation_id:
+            self._display_conversation_messages(self.current_conversation_id)
+        # Also, if it's a broadcast and "broadcast" conversation is open, refresh
+        elif message.is_broadcast and self.current_conversation_id == "broadcast":
+             self._display_conversation_messages("broadcast")
         
-        if ok and text.strip():
-            # Create a dialog to select message type
+    def _new_message(self):
+        """This function is no longer directly used in the simplified chat interface,
+        as messaging is initiated by selecting a client from the table."""
+        QMessageBox.information(self, "Information", "Please select a client from the 'Connected Clients' tab to start a new message.")
+
+    def _broadcast_message(self):
+        """Broadcast a message to all clients with proper white text"""
+        # Créer un dialogue personnalisé au lieu d'utiliser QInputDialog.getText()
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Broadcast Message")
+        dialog.resize(400, 150)
+        
+        # Appliquer le style sombre avec texte blanc
+        dialog.setStyleSheet("""
+            QDialog {
+                background-color: #1a2633;
+            }
+            QLabel {
+                color: white;
+            }
+            QLineEdit {
+                color: white;
+                background-color: #213243;
+                border: 1px solid #375a7f;
+                padding: 5px;
+            }
+            QPushButton {
+                padding: 6px 12px;
+                color: white;
+            }
+        """)
+        
+        # Créer le layout et les widgets
+        layout = QVBoxLayout(dialog)
+        layout.addWidget(QLabel("Enter message to broadcast to all devices:"))
+        
+        text_edit = QLineEdit()
+        layout.addWidget(text_edit)
+        
+        # Boutons
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        
+        # Style pour les boutons
+        for button in buttons.buttons():
+            if buttons.buttonRole(button) == QDialogButtonBox.AcceptRole:
+                button.setStyleSheet("background-color: #0078d7;")
+                button.setText("OK")
+            else:
+                button.setStyleSheet("background-color: #2c3e50;")
+                button.setText("Cancel")
+        
+        buttons.accepted.connect(dialog.accept)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        
+        # Exécuter le dialogue
+        result = dialog.exec_()
+        text = text_edit.text().strip()
+        
+        if result == QDialog.Accepted and text:
+            # Créer un dialogue pour sélectionner le type de message
             msg_type_dialog = QDialog(self)
             msg_type_dialog.setWindowTitle("Message Type")
-            layout = QVBoxLayout(msg_type_dialog)
+            msg_type_layout = QVBoxLayout(msg_type_dialog)
             
-            # Radio buttons
+            # Style pour le dialogue de type de message
+            msg_type_dialog.setStyleSheet("""
+                QDialog {
+                    background-color: #1a2633;
+                }
+                QLabel {
+                    color: white;
+                }
+                QRadioButton {
+                    color: white;
+                }
+                QPushButton {
+                    padding: 6px 12px;
+                    color: white;
+                }
+            """)
+            
+            # Boutons radio
             info_radio = QRadioButton("Information")
             info_radio.setChecked(True)
             warning_radio = QRadioButton("Warning")
             
-            layout.addWidget(QLabel("Select message type:"))
-            layout.addWidget(info_radio)
-            layout.addWidget(warning_radio)
+            msg_type_layout.addWidget(QLabel("Select message type:"))
+            msg_type_layout.addWidget(info_radio)
+            msg_type_layout.addWidget(warning_radio)
             
-            # Buttons
+            # Boutons
             button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+            
+            # Style pour les boutons
+            for btn in button_box.buttons():
+                if button_box.buttonRole(btn) == QDialogButtonBox.AcceptRole:
+                    btn.setStyleSheet("background-color: #0078d7;")
+                else:
+                    btn.setStyleSheet("background-color: #2c3e50;")
+            
             button_box.accepted.connect(msg_type_dialog.accept)
             button_box.rejected.connect(msg_type_dialog.reject)
-            layout.addWidget(button_box)
+            msg_type_layout.addWidget(button_box)
             
             if msg_type_dialog.exec_():
-                # Determine message type
+                # Déterminer le type de message
                 msg_type = MessageType.WARNING if warning_radio.isChecked() else MessageType.INFO
                 
-                # Send the broadcast message
-                self.message_service.broadcast_message(
-                    content=text.strip(),
-                    msg_type=msg_type
-                )
-                
-                # Refresh conversations
-                self.refresh_conversations()
+                try:
+                    # Envoyer le message de diffusion
+                    self.message_service.broadcast_message(
+                        content=text,
+                        msg_type=msg_type
+                    )
+                    
+                    # Set the current conversation to 'broadcast' if it's not already
+                    # and refresh the display so broadcast messages show up in the chat area.
+                    self.current_conversation_id = "broadcast"
+                    self.current_chat_partner_display_name = "All Clients (Broadcast)"
+                    self.tab_widget.setCurrentWidget(self.messages_widget)
+                    self._display_conversation_messages("broadcast")
+                    
+                    QMessageBox.information(self, "Broadcast Sent", "Your broadcast message has been sent to all clients.")
+                    
+                except Exception as e:
+                    logger.error(f"Error broadcasting message: {e}")
+                    QMessageBox.critical(self, "Error", f"Could not broadcast message: {str(e)}")
             
     def _message_selected_client(self):
-        """Send a message to the selected client"""
-        # Get selected client
+        """Open a chat interface with the selected client."""
         selected_rows = self.clients_table.selectionModel().selectedRows()
         if not selected_rows:
-            QMessageBox.warning(self, "No Client Selected", 
-                              "Please select a client to message.")
+            QMessageBox.warning(self, "No Client Selected",
+                                "Please select a client to message.")
             return
             
         row = selected_rows[0].row()
         client_id = self.clients_table.item(row, 0).text()
+        client_username = self.clients_table.item(row, 1).text() # Get the username for display
         
-        # Show new message dialog
-        dialog = NewMessageDialog(self.message_service, self)
-        dialog.recipient_combo.setCurrentText(client_id)
-        dialog.recipient_combo.setEnabled(False)  # Lock to selected client
-        
-        if dialog.exec_():
-            # Get message data from dialog
-            msg_data = dialog.get_message_data()
-            if not msg_data["content"]:
-                return
-                
-            # Create and send the message
-            message = Message(
-                content=msg_data["content"],
-                msg_type=msg_data["msg_type"],
-                sender="ADMIN",
-                recipient=client_id,
-                is_broadcast=False
-            )
-            
-            self.message_service.send_message(message)
-            
-            # Refresh conversations
-            self.refresh_conversations()
+        # --- CHANGE START ---
+        # The conversation ID for direct messages is simply the client_id itself
+        # as per your MessageService's send_message logic
+        conversation_id = client_id 
+        # --- CHANGE END ---
 
-
-class NewMessageDialog(QDialog):
-    """Dialog for composing a new message"""
-    
-    def __init__(self, message_service, parent=None):
-        super().__init__(parent)
-        self.message_service = message_service
-        self.setWindowTitle("New Message")
-        self.resize(500, 400)
+        self.current_conversation_id = conversation_id
+        self.current_chat_partner_display_name = client_username # Store username for display
         
-        # Layout
-        layout = QVBoxLayout(self)
-        
-        # Form for recipient
-        form_layout = QFormLayout()
-        
-        # Recipient selection
-        self.recipient_combo = QComboBox()
-        self.recipient_combo.setStyleSheet("font-size: 13px; padding: 5px;")
-        form_layout.addRow("Recipient:", self.recipient_combo)
-        
-        # Populate recipients
-        self.populate_recipients()
-        
-        # Broadcast option
-        self.broadcast_check = QCheckBox("Broadcast to all devices")
-        self.broadcast_check.setStyleSheet("font-size: 13px;")
-        self.broadcast_check.toggled.connect(self._broadcast_toggled)
-        form_layout.addRow("", self.broadcast_check)
-        
-        layout.addLayout(form_layout)
-        
-        # Message type - REMOVED ERROR, KEPT ONLY INFO AND WARNING
-        type_group = QGroupBox("Message Type")
-        type_group.setStyleSheet("font-size: 13px;")
-        type_layout = QHBoxLayout()
-        
-        self.type_info = QRadioButton("Information")
-        self.type_info.setChecked(True)
-        type_layout.addWidget(self.type_info)
-        
-        self.type_warning = QRadioButton("Warning")
-        type_layout.addWidget(self.type_warning)
-        
-        type_group.setLayout(type_layout)
-        layout.addWidget(type_group)
-        
-        # Message content
-        layout.addWidget(QLabel("Message:"))
-        self.message_edit = QTextEdit()
-        self.message_edit.setStyleSheet("font-size: 13px;")
-        layout.addWidget(self.message_edit)
-        
-        # Buttons with blue style
-        button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        button_box.accepted.connect(self.accept)
-        button_box.rejected.connect(self.reject)
-        
-        # Apply blue styling to the buttons
-        for button in button_box.buttons():
-            if button_box.buttonRole(button) == QDialogButtonBox.AcceptRole:
-                button.setStyleSheet("""
-                    QPushButton {
-                        padding: 6px 12px;
-                        background-color: #0078d7;
-                        color: white;
-                        border: none;
-                        border-radius: 3px;
-                    }
-                    QPushButton:hover {
-                        background-color: #0086f0;
-                    }
-                    QPushButton:pressed {
-                        background-color: #0066b8;
-                    }
-                """)
-            else:
-                button.setStyleSheet("""
-                    QPushButton {
-                        padding: 6px 12px;
-                        background-color: #f0f0f0;
-                        border: 1px solid #ddd;
-                        border-radius: 3px;
-                    }
-                    QPushButton:hover {
-                        background-color: #e5e5e5;
-                    }
-                """)
-        
-        layout.addWidget(button_box)
-        
-    def populate_recipients(self):
-        """Populate the recipients dropdown"""
-        self.recipient_combo.clear()
-        
-        # Add system devices
-        devices = self.message_service.get_devices()
-        for device in devices:
-            self.recipient_combo.addItem(device, device)
-            
-        if not devices:
-            self.recipient_combo.addItem("No devices available", "")
-            
-    def _broadcast_toggled(self, checked):
-        """Handle toggling of broadcast option"""
-        self.recipient_combo.setEnabled(not checked)
-        
-    def get_message_data(self):
-        """Get the message data from the dialog"""
-        # Determine message type - only INFO or WARNING now
-        if self.type_warning.isChecked():
-            msg_type = MessageType.WARNING
-        else:
-            msg_type = MessageType.INFO
-            
-        # Determine recipient
-        is_broadcast = self.broadcast_check.isChecked()
-        recipient = "all" if is_broadcast else self.recipient_combo.currentData()
-        
-        return {
-            "recipient": recipient,
-            "is_broadcast": is_broadcast,
-            "msg_type": msg_type,
-            "content": self.message_edit.toPlainText().strip()
-        }
-
-
-class ClientMessagingMode(QDialog):
-    """Dialog to simulate being a client for testing"""
-    
-    def __init__(self, message_service, parent=None):
-        super().__init__(parent)
-        self.message_service = message_service
-        self.setWindowTitle("Client Messaging Mode")
-        self.resize(600, 500)
-        
-        # Layout
-        layout = QVBoxLayout(self)
-        
-        # Client identity
-        form = QFormLayout()
-        self.client_id = QLineEdit("TestClient-1")
-        form.addRow("Client ID:", self.client_id)
-        layout.addLayout(form)
-        
-        # Messages display
-        layout.addWidget(QLabel("Messages:"))
-        self.messages_display = QTextEdit()
-        self.messages_display.setReadOnly(True)
-        layout.addWidget(self.messages_display)
-        
-        # New message
-        layout.addWidget(QLabel("New Message:"))
-        self.message_edit = QTextEdit()
-        self.message_edit.setMaximumHeight(100)
-        layout.addWidget(self.message_edit)
-        
-        # Buttons with blue styling
-        buttons_layout = QHBoxLayout()
-        
-        send_button = QPushButton("Send Message")
-        send_button.setStyleSheet("""
-            QPushButton {
-                padding: 6px 12px;
-                background-color: #0078d7;
-                color: white;
-                border: none;
-                border-radius: 3px;
-            }
-            QPushButton:hover {
-                background-color: #0086f0;
-            }
-            QPushButton:pressed {
-                background-color: #0066b8;
-            }
-        """)
-        send_button.clicked.connect(self._send_message)
-        buttons_layout.addWidget(send_button)
-        
-        refresh_button = QPushButton("Refresh Messages")
-        refresh_button.setStyleSheet("""
-            QPushButton {
-                padding: 6px 12px;
-                background-color: #0078d7;
-                color: white;
-                border: none;
-                border-radius: 3px;
-            }
-            QPushButton:hover {
-                background-color: #0086f0;
-            }
-            QPushButton:pressed {
-                background-color: #0066b8;
-            }
-        """)
-        refresh_button.clicked.connect(self._refresh_messages)
-        buttons_layout.addWidget(refresh_button)
-        
-        close_button = QPushButton("Close")
-        close_button.setStyleSheet("""
-            QPushButton {
-                padding: 6px 12px;
-                background-color: #f0f0f0;
-                border: 1px solid #ddd;
-                border-radius: 3px;
-            }
-            QPushButton:hover {
-                background-color: #e5e5e5;
-            }
-        """)
-        close_button.clicked.connect(self.close)
-        buttons_layout.addWidget(close_button)
-        
-        layout.addLayout(buttons_layout)
-        
-        # Initial refresh
-        self._refresh_messages()
-        
-    def _send_message(self):
-        """Send a message as the client"""
-        content = self.message_edit.toPlainText().strip()
-        if not content:
-            return
-            
-        # Create a message
-        message = Message(
-            content=content,
-            msg_type=MessageType.INFO,
-            sender=self.client_id.text(),
-            recipient="Administrator"
-        )
-        
-        # Send the message
-        self.message_service.send_message(message)
-        
-        # Clear the input
-        self.message_edit.clear()
-        
-        # Refresh messages
-        self._refresh_messages()
-        
-    def _refresh_messages(self):
-        """Refresh messages for this client"""
-        try:
-            # Get messages where this client is involved
-            client_id = self.client_id.text()
-            messages = (
-                self.message_service.get_message_history(sender=client_id) + 
-                self.message_service.get_message_history(recipient=client_id)
-            )
-            
-            # Sort by timestamp
-            messages.sort(key=lambda x: x.timestamp)
-            
-            # Format and display messages
-            self.messages_display.clear()
-            html = "<html><body style='background-color:#9eb8cf;'>"
-            
-            for msg in messages:
-                # Format timestamp
-                timestamp = datetime.fromtimestamp(msg.timestamp)
-                time_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
-                
-                # Format message - simplified like in the image
-                sender = msg.sender or "System"
-                
-                # Message formatting based on type
-                if msg.type == MessageType.WARNING:
-                    content_style = "font-weight:bold; color:red;"
-                else:
-                    content_style = ""
-                
-                if sender == client_id:
-                    sender_display = "Me"
-                    color = "#0078d7"  # Blue background (was #e6f2ff)
-                    text_color = "white"  # White text for better contrast
-                    align = "right"
-                else:
-                    sender_display = sender
-                    color = "#f5f5f5"  # Light gray background
-                    text_color = "black"
-                    align = "left"
-                
-                html += f"""
-                <div style="text-align:{align}; margin:15px 5px;">
-                    <div style="display:inline-block; max-width:80%;">
-                        <div style="font-weight:bold; color:{text_color if align == 'right' else 'black'};">{sender_display}</div>
-                        <div style="background-color:{color}; padding:10px; border-radius:10px;">
-                            <div style="{content_style}; color:{text_color};">{msg.content}</div>
-                            <div style="font-size:10px; color:{'#ddd' if align == 'right' else '#888'}; text-align:right; margin-top:5px;">{time_str}</div>
-                        </div>
-                    </div>
-                </div>
-                """
-            
-            html += "</body></html>"
-            self.messages_display.setHtml(html)
-            
-        except Exception as e:
-            logger.error(f"Error refreshing client messages: {e}")
-            QMessageBox.critical(self, "Error", f"Could not refresh messages: {str(e)}")
+        # Switch to the Messages tab and display the conversation
+        self.tab_widget.setCurrentWidget(self.messages_widget)
+        self._display_conversation_messages(self.current_conversation_id)
