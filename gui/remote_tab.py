@@ -1,7 +1,5 @@
 """
-Onglet de gestion à distance des appareils avec corrections de texte blanc
-Current Date and Time (UTC): 2025-06-02 22:48:15
-Current User's Login: AnoirELGUEDDAR
+Onglet de gestion à distance des appareils
 """
 import logging
 import threading
@@ -24,152 +22,14 @@ from PyQt5.QtWidgets import (
     QTreeWidgetItem, QTextEdit, QComboBox, QGroupBox,
     QRadioButton, QProgressBar, QListWidget, QListWidgetItem,
     QSplitter, QScrollArea, QFrame, QButtonGroup, QCheckBox,
-    QDialogButtonBox, QStyledItemDelegate
+    QDialogButtonBox
 )
 from PyQt5.QtCore import Qt, pyqtSignal, QSize, QTimer, QObject
-from PyQt5.QtGui import QIcon, QColor, QBrush, QPixmap, QFont, QPalette
+from PyQt5.QtGui import QIcon, QColor, QBrush, QPixmap, QFont
 
 from core.remote.device_manager import DeviceManager
 
 logger = logging.getLogger(__name__)
-
-# Custom white text message box
-class WhiteTextMessageBox(QMessageBox):
-    """Message box with white text"""
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self._force_white_text()
-    
-    def _force_white_text(self):
-        # Set white text palette
-        palette = self.palette()
-        palette.setColor(QPalette.WindowText, QColor(255, 255, 255))
-        palette.setColor(QPalette.Text, QColor(255, 255, 255))
-        palette.setColor(QPalette.ButtonText, QColor(255, 255, 255))
-        self.setPalette(palette)
-        
-        # Apply white text stylesheet
-        self.setStyleSheet("""
-            QMessageBox {
-                background-color: #1a2633;
-            }
-            
-            QLabel {
-                color: white;
-            }
-            
-            QPushButton {
-                color: white;
-                background-color: #2c4a63;
-                border: none;
-                padding: 6px 12px;
-                border-radius: 3px;
-            }
-            
-            QPushButton:hover {
-                background-color: #375a7f;
-            }
-        """)
-        
-        # Force attribute that ensures stylesheet applies correctly
-        self.setAttribute(Qt.WA_StyledBackground, True)
-
-# Helper functions for showing message boxes with white text
-def show_information(parent, title, message):
-    """Show information message box with white text"""
-    msg_box = WhiteTextMessageBox(parent)
-    msg_box.setIcon(QMessageBox.Information)
-    msg_box.setWindowTitle(title)
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Ok)
-    return msg_box.exec_()
-
-def show_warning(parent, title, message):
-    """Show warning message box with white text"""
-    msg_box = WhiteTextMessageBox(parent)
-    msg_box.setIcon(QMessageBox.Warning)
-    msg_box.setWindowTitle(title)
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Ok)
-    return msg_box.exec_()
-
-def show_error(parent, title, message):
-    """Show error message box with white text"""
-    msg_box = WhiteTextMessageBox(parent)
-    msg_box.setIcon(QMessageBox.Critical)
-    msg_box.setWindowTitle(title)
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Ok)
-    return msg_box.exec_()
-
-def show_question(parent, title, message, default_button=QMessageBox.No):
-    """Show question message box with white text"""
-    msg_box = WhiteTextMessageBox(parent)
-    msg_box.setIcon(QMessageBox.Question)
-    msg_box.setWindowTitle(title)
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-    msg_box.setDefaultButton(default_button)
-    return msg_box.exec_()
-
-# Custom white text dialog class
-class WhiteTextDialog(QDialog):
-    """Dialog with white text"""
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self._force_white_text()
-    
-    def _force_white_text(self):
-        # Set white text palette
-        palette = self.palette()
-        palette.setColor(QPalette.WindowText, QColor(255, 255, 255))
-        palette.setColor(QPalette.Text, QColor(255, 255, 255))
-        palette.setColor(QPalette.ButtonText, QColor(255, 255, 255))
-        self.setPalette(palette)
-        
-        # Apply white text stylesheet
-        self.setStyleSheet("""
-            QDialog {
-                background-color: #1a2633;
-            }
-            
-            QLabel {
-                color: white;
-            }
-            
-            QLineEdit, QSpinBox {
-                color: white;
-                background-color: #213243;
-                border: 1px solid #324a5f;
-                selection-background-color: #375a7f;
-            }
-            
-            QPushButton {
-                color: white;
-                background-color: #2c4a63;
-                border: none;
-                padding: 6px 12px;
-                border-radius: 3px;
-            }
-            
-            QPushButton:hover {
-                background-color: #375a7f;
-            }
-            
-            QComboBox {
-                color: white;
-                background-color: #213243;
-                border: 1px solid #324a5f;
-            }
-            
-            QComboBox QAbstractItemView {
-                background-color: #1e3d59;
-                color: white;
-            }
-        """)
-        
-        # Force attribute that ensures stylesheet applies correctly
-        self.setAttribute(Qt.WA_StyledBackground, True)
 
 class SafeDialogSignals(QObject):
     """Signals for thread-safe dialog display"""
@@ -187,8 +47,8 @@ class SafeDialogSignals(QObject):
     def __init__(self):
         super().__init__()
 
-class AddDeviceDialog(WhiteTextDialog):
-    """Dialogue pour ajouter un appareil distant avec texte blanc"""
+class AddDeviceDialog(QDialog):
+    """Dialogue pour ajouter un appareil distant"""
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -244,8 +104,8 @@ class AddDeviceDialog(WhiteTextDialog):
             "token": self.token_input.text()
         }
 
-class WakeOnLANDialog(WhiteTextDialog):
-    """Dialogue pour Wake-on-LAN avec texte blanc"""
+class WakeOnLANDialog(QDialog):
+    """Dialogue pour Wake-on-LAN"""
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -293,8 +153,8 @@ class WakeOnLANDialog(WhiteTextDialog):
         }
 
 # Dialog for SSH configuration
-class SSHConfigDialog(WhiteTextDialog):
-    """Dialogue pour la configuration SSH avec texte blanc"""
+class SSHConfigDialog(QDialog):
+    """Dialogue pour la configuration SSH"""
     
     def __init__(self, parent=None, device_name="", ip="", is_linux=False):
         super().__init__(parent)
@@ -371,8 +231,6 @@ class RemoteTab(QWidget):
         
         # Variable pour stocker la référence à la boîte de dialogue de progression
         self.current_progress_dialog = None
-        self.progress_dialog_lock = threading.Lock()  # Add lock to prevent multiple dialogs
-        self.progress_dialog_active = False  # Flag to track active progress dialog
         
         # Initialize signal handler for thread-safe UI operations
         self.safe_dialog_signals = SafeDialogSignals()
@@ -470,90 +328,54 @@ class RemoteTab(QWidget):
     
     def _show_message_dialog(self, title, message, level="info"):
         """Show a message dialog safely on the main thread"""
-        # Always make sure to close any progress dialog first
-        self._close_progress_dialog()
-        
         if level == "error":
-            show_error(self, title, message)
+            QMessageBox.critical(self, title, message)
         elif level == "warning":
-            show_warning(self, title, message)
+            QMessageBox.warning(self, title, message)
         else:
-            show_information(self, title, message)
+            QMessageBox.information(self, title, message)
 
     def _show_progress_dialog(self, message):
         """Show a progress dialog safely on the main thread"""
-        with self.progress_dialog_lock:  # Use the lock to prevent multiple dialogs
-            # First close any existing dialog
-            if self.current_progress_dialog is not None:
-                try:
-                    self.current_progress_dialog.close()
-                    self.current_progress_dialog.deleteLater()
-                except:
-                    pass
-                self.current_progress_dialog = None
-                
-            # Create a new progress dialog if none is active
-            if not self.progress_dialog_active:
-                self.progress_dialog_active = True
-                
-                progress_dialog = WhiteTextMessageBox(self)
-                progress_dialog.setWindowTitle("Traitement en cours")
-                progress_dialog.setIcon(QMessageBox.Information)
-                progress_dialog.setText(message)
-                progress_dialog.setStandardButtons(QMessageBox.NoButton)
-                
-                # Store reference
-                self.current_progress_dialog = progress_dialog
-                
-                # Connect close event to reset active flag
-                progress_dialog.finished.connect(self._reset_progress_dialog)
-                
-                # Show the dialog non-modally
-                progress_dialog.show()
-    
-    def _reset_progress_dialog(self):
-        """Reset the progress dialog flag when closed"""
-        with self.progress_dialog_lock:
-            self.progress_dialog_active = False
-            self.current_progress_dialog = None
+        # First close any existing dialog
+        self._close_progress_dialog()
+            
+        progress_dialog = QMessageBox(self)
+        progress_dialog.setWindowTitle("Traitement en cours")
+        progress_dialog.setIcon(QMessageBox.Information)
+        progress_dialog.setText(message)
+        progress_dialog.setStandardButtons(QMessageBox.NoButton)
+        self.current_progress_dialog = progress_dialog
+        progress_dialog.show()
 
     def _close_progress_dialog(self):
-        """Close the progress dialog safely on the main thread"""
-        with self.progress_dialog_lock:
-            if self.current_progress_dialog is not None:
-                try:
-                    # Disconnect to avoid callbacks to deleted objects
-                    try:
-                        self.current_progress_dialog.finished.disconnect()
-                    except:
-                        pass
-                    
-                    # Close and schedule for deletion
-                    self.current_progress_dialog.close()
-                    self.current_progress_dialog.deleteLater()
-                except Exception as e:
-                    logger.error(f"Error closing progress dialog: {str(e)}")
-                finally:
-                    self.current_progress_dialog = None
-                    self.progress_dialog_active = False
+        """Close the progress dialog safely on the main thread, plus all other dialogs"""
+        if self.current_progress_dialog:
+            try:
+                self.current_progress_dialog.close()
+            except:
+                pass
+            self.current_progress_dialog = None
+        
+        # Force cleanup of any other potential dialogs
+        for child in self.children():
+            try:
+                if isinstance(child, QMessageBox) or isinstance(child, QDialog):
+                    child.close()
+            except:
+                pass
             
     def _show_info_message(self, title, message):
         """Afficher un message d'information"""
-        # Close any progress dialog first
-        self._close_progress_dialog()
-        show_information(self, title, message)
+        QMessageBox.information(self, title, message)
 
     def _show_error_message(self, message):
         """Afficher un message d'erreur"""
-        # Close any progress dialog first
-        self._close_progress_dialog()
-        show_warning(self, "Erreur", message)
+        QMessageBox.warning(self, "Erreur", message)
     
     def _show_transfer_success(self, device_name):
         """Afficher un message de succès après le transfert"""
-        # Close any progress dialog first
-        self._close_progress_dialog()
-        show_information(
+        QMessageBox.information(
             self,
             "Fichier Envoyé",
             f"Le fichier a été envoyé avec succès à {device_name}."
@@ -561,9 +383,7 @@ class RemoteTab(QWidget):
 
     def _show_transfer_error(self, device_name):
         """Afficher un message d'erreur après le transfert"""
-        # Close any progress dialog first
-        self._close_progress_dialog()
-        show_warning(
+        QMessageBox.warning(
             self,
             "Erreur",
             f"Impossible d'envoyer le fichier à {device_name}.\n"
@@ -572,16 +392,14 @@ class RemoteTab(QWidget):
         
     def _show_power_action_success(self, action, device_name, delay):
         """Afficher un message de succès après une action d'alimentation"""
-        # Close any progress dialog first
-        self._close_progress_dialog()
         if action == "shutdown":
-            show_information(
+            QMessageBox.information(
                 self,
                 "Arrêt Programmé",
                 f"L'arrêt de {device_name} a été programmé dans {delay} secondes."
             )
         else:
-            show_information(
+            QMessageBox.information(
                 self,
                 "Redémarrage Programmé",
                 f"Le redémarrage de {device_name} a été programmé dans {delay} secondes."
@@ -589,17 +407,15 @@ class RemoteTab(QWidget):
     
     def _show_power_action_error(self, action, device_name):
         """Afficher un message d'erreur après une action d'alimentation"""
-        # Close any progress dialog first
-        self._close_progress_dialog()
         if action == "shutdown":
-            show_warning(
+            QMessageBox.warning(
                 self,
                 "Erreur",
                 f"Impossible d'arrêter {device_name}.\n"
                 f"Vérifiez que l'appareil est en ligne et que l'agent a les permissions nécessaires."
             )
         else:
-            show_warning(
+            QMessageBox.warning(
                 self,
                 "Erreur",
                 f"Impossible de redémarrer {device_name}.\n"
@@ -626,7 +442,7 @@ class RemoteTab(QWidget):
             is_responsive = False
             
         if not is_responsive:
-            show_warning(self, "Erreur", 
+            QMessageBox.warning(self, "Erreur", 
                 f"L'appareil {device_name} ne répond pas aux commandes de base.\n"
                 "Vérifiez que l'agent est en cours d'exécution et correctement configuré.")
             return
@@ -650,7 +466,7 @@ class RemoteTab(QWidget):
                 message += f"\n\nErreur d'exécution: {str(e)}"
                 
         # Show the hardcoded results directly
-        show_information(self, f"Performances Debug - {device_name}", message)
+        QMessageBox.information(self, f"Performances Debug - {device_name}", message)
     
     def _test_agent_connection(self, device_id, device_name):
         """Test if the agent is working properly"""
@@ -669,13 +485,13 @@ class RemoteTab(QWidget):
                     message += f"PowerShell test: {'Success' if ps_result and 'PowerShell OK' in ps_result else 'Failed'}\n"
                     message += f"PowerShell response: {ps_result}\n"
                 
-                show_information(self, "Agent Test", message)
+                QMessageBox.information(self, "Agent Test", message)
             else:
-                show_warning(self, "Agent Test Failed", 
+                QMessageBox.warning(self, "Agent Test Failed", 
                     f"Agent response does not contain expected output.\n"
                     f"Response: {result}")
         except Exception as e:
-            show_error(self, "Agent Test Error", 
+            QMessageBox.critical(self, "Agent Test Error", 
                 f"Error testing agent connection: {str(e)}")
 
     def _debug_device_performance(self, device_id):
@@ -692,7 +508,7 @@ class RemoteTab(QWidget):
         message += "  C: 45.2%\n"
         message += "  D: 32.1%\n"
         
-        show_information(self, "Performance Debug", message)
+        QMessageBox.information(self, "Performance Debug", message)
         
     def _debug_performance_button_clicked(self):
         """Debug performance button handler"""
@@ -720,7 +536,7 @@ class RemoteTab(QWidget):
         """Force le statut de l'appareil sélectionné à 'online'"""
         selected_rows = self.devices_table.selectionModel().selectedRows()
         if not selected_rows:
-            show_information(self, "Sélection", "Sélectionnez d'abord un appareil")
+            self.safe_dialog_signals.show_message.emit("Sélection", "Sélectionnez d'abord un appareil", "info")
             return
         
         row = selected_rows[0].row()
@@ -743,58 +559,57 @@ class RemoteTab(QWidget):
         # Sauvegarder l'état
         self.device_manager.save_devices()
         
-        show_information(self, "Statut forcé", "Le statut de l'appareil a été forcé à 'online'")
+        self.safe_dialog_signals.show_message.emit("Statut forcé", "Le statut de l'appareil a été forcé à 'online'", "info")
     
     def force_refresh_statuses(self):
         """Force le rafraîchissement des statuts de tous les appareils"""
         devices = self.device_manager.get_devices()
         
         if not devices:
-            show_information(self, "Information", "Aucun appareil à rafraîchir")
+            self.safe_dialog_signals.show_message.emit("Information", "Aucun appareil à rafraîchir", "info")
             return
         
         # Montrer la progression
-        self._show_progress_dialog("Test des connexions en cours...")
+        self.safe_dialog_signals.show_progress.emit("Test des connexions en cours...")
         
         def refresh_thread():
-            try:
-                for device_id, device in devices.items():
-                    ip = device["ip"]
-                    port = device["port"]
+            for device_id, device in devices.items():
+                ip = device["ip"]
+                port = device["port"]
+                
+                # Vérifier directement si le port est ouvert
+                try:
+                    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    sock.settimeout(2)  # Timeout court
+                    result = sock.connect_ex((ip, int(port)))
+                    sock.close()
                     
-                    # Vérifier directement si le port est ouvert
-                    try:
-                        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        sock.settimeout(2)  # Timeout court
-                        result = sock.connect_ex((ip, int(port)))
-                        sock.close()
-                        
-                        if result == 0:
-                            # Port ouvert, mettre immédiatement l'appareil en ligne
-                            self.safe_dialog_signals.update_device_status_signal.emit(device_id, "online")
-                            self.device_manager.devices[device_id]["status"] = "online"
-                            self.device_manager.devices[device_id]["last_connected"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        else:
-                            # Port fermé, mettre hors ligne
-                            self.safe_dialog_signals.update_device_status_signal.emit(device_id, "offline")
-                            self.device_manager.devices[device_id]["status"] = "offline"
-                    except Exception as e:
-                        logger.error(f"Erreur de connexion: {str(e)}")
-                        # En cas d'erreur, mettre hors ligne
+                    if result == 0:
+                        # Port ouvert, mettre immédiatement l'appareil en ligne
+                        self.safe_dialog_signals.update_device_status_signal.emit(device_id, "online")
+                        self.device_manager.devices[device_id]["status"] = "online"
+                        self.device_manager.devices[device_id]["last_connected"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    else:
+                        # Port fermé, mettre hors ligne
                         self.safe_dialog_signals.update_device_status_signal.emit(device_id, "offline")
                         self.device_manager.devices[device_id]["status"] = "offline"
-                
-                # Sauvegarder les changements
-                self.device_manager.save_devices()
-            finally:
-                # Toujours fermer le dialogue, même en cas d'erreur
-                self.safe_dialog_signals.close_progress.emit()
-                self.safe_dialog_signals.show_message.emit(
-                    "Test terminé", 
-                    f"Test de connexion terminé pour {len(devices)} appareils.\n\n"
-                    "Les appareils accessibles sont marqués comme 'online'.",
-                    "info"
-                )
+                except Exception as e:
+                    logger.error(f"Erreur de connexion: {str(e)}")
+                    # En cas d'erreur, mettre hors ligne
+                    self.safe_dialog_signals.update_device_status_signal.emit(device_id, "offline")
+                    self.device_manager.devices[device_id]["status"] = "offline"
+            
+            # Sauvegarder les changements
+            self.device_manager.save_devices()
+            
+            # Terminer et fermer le dialogue de progression
+            self.safe_dialog_signals.close_progress.emit()
+            self.safe_dialog_signals.show_message.emit(
+                "Test terminé", 
+                f"Test de connexion terminé pour {len(devices)} appareils.\n\n"
+                "Les appareils accessibles sont marqués comme 'online'.",
+                "info"
+            )
         
         # Exécuter dans un thread
         threading.Thread(target=refresh_thread, daemon=True).start()
@@ -803,13 +618,14 @@ class RemoteTab(QWidget):
         """Supprimer tous les appareils"""
         devices = self.device_manager.get_devices()
         if not devices:
-            show_information(self, "Information", "Aucun appareil à supprimer")
+            self.safe_dialog_signals.show_message.emit("Information", "Aucun appareil à supprimer", "info")
             return
             
-        reply = show_question(
+        reply = QMessageBox.question(
             self,
             "Confirmation",
             f"Êtes-vous sûr de vouloir supprimer TOUS les appareils ({len(devices)}) ?",
+            QMessageBox.Yes | QMessageBox.No,
             QMessageBox.No
         )
         
@@ -821,7 +637,7 @@ class RemoteTab(QWidget):
             # Mettre à jour l'interface
             self.devices_table.setRowCount(0)
             
-            show_information(self, "Suppression", "Tous les appareils ont été supprimés")
+            self.safe_dialog_signals.show_message.emit("Suppression", "Tous les appareils ont été supprimés", "info")
             
     def _add_device(self):
         """Ajouter un appareil distant"""
@@ -831,10 +647,10 @@ class RemoteTab(QWidget):
             
             # Vérifier les entrées
             if not values["name"] or not values["ip"] or not values["token"]:
-                show_warning(
-                    self,
+                self.safe_dialog_signals.show_message.emit(
                     "Entrées manquantes",
-                    "Veuillez remplir tous les champs obligatoires (nom, IP, token)"
+                    "Veuillez remplir tous les champs obligatoires (nom, IP, token)",
+                    "warning"
                 )
                 return
             
@@ -853,24 +669,24 @@ class RemoteTab(QWidget):
             self._update_devices_table()
             
             if success:
-                show_information(
-                    self,
+                self.safe_dialog_signals.show_message.emit(
                     "Appareil Ajouté",
-                    f"L'appareil {values['name']} a été ajouté et connecté avec succès"
+                    f"L'appareil {values['name']} a été ajouté et connecté avec succès",
+                    "info"
                 )
             else:
-                show_warning(
-                    self,
+                self.safe_dialog_signals.show_message.emit(
                     "Erreur de Connexion",
                     f"L'appareil {values['name']} a été ajouté mais n'a pas pu être contacté.\n"
-                    f"Vérifiez l'adresse IP, le port et le token d'authentification."
+                    f"Vérifiez l'adresse IP, le port et le token d'authentification.",
+                    "warning"
                 )
     
     def _remove_device(self):
         """Supprimer un appareil sélectionné"""
         selected_rows = self.devices_table.selectionModel().selectedRows()
         if not selected_rows:
-            show_information(self, "Sélection", "Sélectionnez d'abord un appareil")
+            self.safe_dialog_signals.show_message.emit("Sélection", "Sélectionnez d'abord un appareil", "info")
             return
         
         row = selected_rows[0].row()
@@ -878,10 +694,11 @@ class RemoteTab(QWidget):
         port = int(self.devices_table.item(row, 2).text())
         device_id = f"{ip}:{port}"
         
-        reply = show_question(
+        reply = QMessageBox.question(
             self,
             "Confirmation",
             f"Voulez-vous vraiment supprimer l'appareil {self.devices_table.item(row, 0).text()}?",
+            QMessageBox.Yes | QMessageBox.No,
             QMessageBox.No
         )
         
@@ -896,41 +713,32 @@ class RemoteTab(QWidget):
             values = dialog.get_values()
             
             if not values["mac"]:
-                show_warning(self, "Entrée manquante", "Veuillez saisir l'adresse MAC")
+                self.safe_dialog_signals.show_message.emit("Entrée manquante", "Veuillez saisir l'adresse MAC", "warning")
                 return
             
             # Montrer la progression
-            self._show_progress_dialog(f"Envoi du paquet Wake-on-LAN à {values['mac']}...")
+            self.safe_dialog_signals.show_progress.emit(f"Envoi du paquet Wake-on-LAN à {values['mac']}...")
             
             # Exécuter l'opération dans un thread
             def wol_thread():
-                try:
-                    success = self.device_manager.wake_on_lan(
-                        values["mac"],
-                        values["ip"] if values["ip"] else None
-                    )
-                    
-                    # Fermer le dialogue et montrer le résultat
-                    self.safe_dialog_signals.close_progress.emit()
-                    if success:
-                        self.safe_dialog_signals.show_message.emit(
-                            "Wake-on-LAN",
-                            f"Paquet Wake-on-LAN envoyé à {values['mac']}",
-                            "info"
-                        )
-                    else:
-                        self.safe_dialog_signals.show_message.emit(
-                            "Erreur",
-                            f"Erreur lors de l'envoi du paquet Wake-on-LAN",
-                            "warning"
-                        )
-                except Exception as e:
-                    # Make sure to close the dialog even if there's an exception
-                    self.safe_dialog_signals.close_progress.emit()
+                success = self.device_manager.wake_on_lan(
+                    values["mac"],
+                    values["ip"] if values["ip"] else None
+                )
+                
+                # Fermer le dialogue et montrer le résultat
+                self.safe_dialog_signals.close_progress.emit()
+                if success:
                     self.safe_dialog_signals.show_message.emit(
-                        "Erreur", 
-                        f"Exception lors de l'envoi du paquet: {str(e)}",
-                        "error"
+                        "Wake-on-LAN",
+                        f"Paquet Wake-on-LAN envoyé à {values['mac']}",
+                        "info"
+                    )
+                else:
+                    self.safe_dialog_signals.show_message.emit(
+                        "Erreur",
+                        f"Erreur lors de l'envoi du paquet Wake-on-LAN",
+                        "warning"
                     )
             
             # Démarrer le thread
@@ -941,14 +749,19 @@ class RemoteTab(QWidget):
         devices = self.device_manager.get_devices()
         
         if not devices:
-            show_information(self, "Information", "Aucun appareil à rafraîchir")
+            self.safe_dialog_signals.show_message.emit("Information", "Aucun appareil à rafraîchir", "info")
             return
         
         # Montrer la progression
-        self._show_progress_dialog(f"Rafraîchissement des statuts en cours pour {len(devices)} appareil(s)...")
+        self.safe_dialog_signals.show_progress.emit(f"Rafraîchissement des statuts en cours pour {len(devices)} appareil(s)...")
         
-    # Exécuter le rafraîchissement dans un thread
-
+        # Montrer un message de confirmation
+        self.safe_dialog_signals.show_message.emit(
+            "Rafraîchissement",
+            f"Rafraîchissement des statuts lancé pour {len(devices)} appareil(s).\n"
+            f"Les résultats seront mis à jour dans quelques secondes.",
+            "info"
+        )
         
         # Exécuter le rafraîchissement dans un thread
         refresh_thread = threading.Thread(target=self._refresh_thread, args=(devices,), daemon=True)
@@ -956,15 +769,14 @@ class RemoteTab(QWidget):
         
     def _refresh_thread(self, devices):
         """Thread pour rafraîchir les statuts"""
-        try:
-            for device_id in devices:
-                # Tenter de ping chaque appareil
-                self._ping_device_thread(device_id)
-                # Petite pause pour éviter de surcharger le réseau
-                time.sleep(0.5)
-        finally:
-            # Fermer le dialogue de progression (même en cas d'erreur)
-            self.safe_dialog_signals.close_progress.emit()
+        for device_id in devices:
+            # Tenter de ping chaque appareil
+            self._ping_device_thread(device_id)
+            # Petite pause pour éviter de surcharger le réseau
+            time.sleep(0.5)
+        
+        # Fermer le dialogue de progression
+        self.safe_dialog_signals.close_progress.emit()
             
     def _ping_device_thread(self, device_id):
         """Thread pour ping d'un appareil"""
@@ -1067,7 +879,7 @@ class RemoteTab(QWidget):
             is_windows = "windows" in self.device_manager.devices[device_id].get("platform", "").lower()
             
         # Créer le menu
-        context_menu = QMenu(self) # Pass parent to ensure it inherits styling
+        context_menu = QMenu()
         
         # Actions principales
         ping_action = context_menu.addAction("Ping")
@@ -1104,21 +916,6 @@ class RemoteTab(QWidget):
         test_agent_action = context_menu.addAction("Test Agent")
         test_agent_action.triggered.connect(lambda: self._test_agent_connection(device_id, device_name))
         
-        # Force text color for context menu
-        context_menu.setStyleSheet("""
-            QMenu {
-                background-color: #1a2633;
-                color: white;
-            }
-            QMenu::item {
-                background-color: #1a2633;
-                color: white;
-            }
-            QMenu::item:selected {
-                background-color: #2c4a63;
-            }
-        """)
-        
         # Afficher le menu
         context_menu.exec_(self.devices_table.viewport().mapToGlobal(position))
     
@@ -1147,7 +944,7 @@ class RemoteTab(QWidget):
         password = values["password"]
         
         # Show connecting message
-        self._show_progress_dialog(f"Connexion SSH à {ip}:{ssh_port}...")
+        self.safe_dialog_signals.show_progress.emit(f"Connexion SSH à {ip}:{ssh_port}...")
         
         def connect_thread():
             try:
@@ -1196,8 +993,8 @@ class RemoteTab(QWidget):
                 # Update device SSH settings in the device manager
                 if hasattr(self.device_manager, 'update_device_ssh_settings'):
                     self.device_manager.update_device_ssh_settings(device_id, username, ssh_port)
+                
             except Exception as e:
-                # Always close progress dialog, even on error
                 self.safe_dialog_signals.close_progress.emit()
                 self.safe_dialog_signals.show_message.emit(
                     "Erreur SSH",
@@ -1213,32 +1010,23 @@ class RemoteTab(QWidget):
     def _ping_selected(self, device_id):
         """Ping l'appareil sélectionné"""
         # Montrer la progression
-        self._show_progress_dialog("Envoi du ping...")
+        self.safe_dialog_signals.show_progress.emit("Envoi du ping...")
         
         # Exécuter le ping dans un thread
         def ping_thread():
-            try:
-                result = self.device_manager.ping_device(device_id)
-                status = "online" if result else "offline"
-                
-                # Mettre à jour le statut et fermer le dialogue
-                self.safe_dialog_signals.update_device_status_signal.emit(device_id, status)
-                self.safe_dialog_signals.close_progress.emit()
-                
-                # Montrer le résultat
-                self.safe_dialog_signals.show_message.emit(
-                    "Ping",
-                    f"Résultat du ping: {'Succès' if result else 'Échec'}",
-                    "info"
-                )
-            except Exception as e:
-                # Always close progress dialog, even on error
-                self.safe_dialog_signals.close_progress.emit()
-                self.safe_dialog_signals.show_message.emit(
-                    "Erreur de ping", 
-                    f"Erreur lors du ping: {str(e)}",
-                    "error"
-                )
+            result = self.device_manager.ping_device(device_id)
+            status = "online" if result else "offline"
+            
+            # Mettre à jour le statut et fermer le dialogue
+            self.safe_dialog_signals.update_device_status_signal.emit(device_id, status)
+            self.safe_dialog_signals.close_progress.emit()
+            
+            # Montrer le résultat
+            self.safe_dialog_signals.show_message.emit(
+                "Ping",
+                f"Résultat du ping: {'Succès' if result else 'Échec'}",
+                "info"
+            )
         
         # Démarrer le thread
         threading.Thread(target=ping_thread, daemon=True).start()
@@ -1246,7 +1034,7 @@ class RemoteTab(QWidget):
     def _get_system_info(self, device_id, device_name):
         """Récupérer les informations système avec thread safety"""
         # Montrer la progression
-        self._show_progress_dialog("Récupération des informations système en cours...")
+        self.safe_dialog_signals.show_progress.emit("Récupération des informations système en cours...")
         
         # Exécuter dans un thread
         def info_thread():
@@ -1304,38 +1092,18 @@ class RemoteTab(QWidget):
     
     def _execute_command(self, device_id, device_name):
         """Exécuter une commande sur l'appareil sélectionné"""
-        dialog = QInputDialog(self)
-        dialog.setWindowTitle(f"Exécuter une commande sur {device_name}")
-        dialog.setLabelText("Entrez la commande à exécuter:")
-        dialog.setTextValue("")
-        
-        # Apply white text styling
-        dialog.setStyleSheet("""
-            QInputDialog {
-                background-color: #1a2633;
-            }
-            QLabel {
-                color: white;
-            }
-            QLineEdit {
-                color: white;
-                background-color: #213243;
-            }
-            QPushButton {
-                color: white;
-                background-color: #2c4a63;
-            }
-        """)
-        
-        # Execute the dialog and check result
-        ok = dialog.exec_()
-        command = dialog.textValue()
+        command, ok = QInputDialog.getText(
+            self,
+            f"Exécuter une commande sur {device_name}",
+            "Entrez la commande à exécuter:",
+            text=""
+        )
         
         if not ok or not command:
             return
         
         # Montrer la progression
-        self._show_progress_dialog("Exécution de la commande en cours...")
+        self.safe_dialog_signals.show_progress.emit("Exécution de la commande en cours...")
         
         # Exécuter dans un thread
         def execute_thread():
@@ -1370,45 +1138,26 @@ class RemoteTab(QWidget):
     def _shutdown_selected(self, device_id, device_name):
         """Arrêter l'appareil sélectionné"""
         # Demander confirmation
-        reply = show_question(
+        reply = QMessageBox.question(
             self,
             "Confirmation",
             f"Voulez-vous vraiment arrêter l'appareil {device_name}?",
+            QMessageBox.Yes | QMessageBox.No,
             QMessageBox.No
         )
         
         if reply == QMessageBox.Yes:
-            # Create custom input dialog for delay
-            dialog = QInputDialog(self)
-            dialog.setWindowTitle("Délai d'arrêt")
-            dialog.setLabelText("Délai avant arrêt (secondes):")
-            dialog.setInputMode(QInputDialog.IntInput)
-            dialog.setIntRange(0, 3600)
-            dialog.setIntValue(0)
+            # Demander un délai
+            delay, ok = QInputDialog.getInt(
+                self,
+                "Délai d'arrêt",
+                "Délai avant arrêt (secondes):",
+                0, 0, 3600
+            )
             
-            # Apply white text styling
-            dialog.setStyleSheet("""
-                QInputDialog {
-                    background-color: #1a2633;
-                }
-                QLabel {
-                    color: white;
-                }
-                QSpinBox {
-                    color: white;
-                    background-color: #213243;
-                }
-                QPushButton {
-                    color: white;
-                    background-color: #2c4a63;
-                }
-            """)
-            
-            if dialog.exec_():
-                delay = dialog.intValue()
-                
+            if ok:
                 # Montrer la progression
-                self._show_progress_dialog("Envoi de la commande d'arrêt...")
+                self.safe_dialog_signals.show_progress.emit("Envoi de la commande d'arrêt...")
                 
                 # Exécuter dans un thread
                 def shutdown_thread():
@@ -1434,11 +1183,7 @@ class RemoteTab(QWidget):
                         # Handle errors
                         logger.error(f"Error shutting down device: {e}")
                         self.safe_dialog_signals.close_progress.emit()
-                        self.safe_dialog_signals.show_message.emit(
-                            "Erreur",
-                            f"Exception lors de l'arrêt: {str(e)}",
-                            "error"
-                        )
+                        self.safe_dialog_signals.show_message.emit("Erreur", f"Exception: {str(e)}", "error")
                 
                 # Start the thread
                 threading.Thread(target=shutdown_thread, daemon=True).start()
@@ -1446,45 +1191,26 @@ class RemoteTab(QWidget):
     def _restart_selected(self, device_id, device_name):
         """Redémarrer l'appareil sélectionné"""
         # Demander confirmation
-        reply = show_question(
+        reply = QMessageBox.question(
             self,
             "Confirmation",
             f"Voulez-vous vraiment redémarrer l'appareil {device_name}?",
+            QMessageBox.Yes | QMessageBox.No,
             QMessageBox.No
         )
         
         if reply == QMessageBox.Yes:
-            # Create custom input dialog for delay
-            dialog = QInputDialog(self)
-            dialog.setWindowTitle("Délai de redémarrage")
-            dialog.setLabelText("Délai avant redémarrage (secondes):")
-            dialog.setInputMode(QInputDialog.IntInput)
-            dialog.setIntRange(0, 3600)
-            dialog.setIntValue(0)
+            # Demander un délai
+            delay, ok = QInputDialog.getInt(
+                self,
+                "Délai de redémarrage",
+                "Délai avant redémarrage (secondes):",
+                0, 0, 3600
+            )
             
-            # Apply white text styling
-            dialog.setStyleSheet("""
-                QInputDialog {
-                    background-color: #1a2633;
-                }
-                QLabel {
-                    color: white;
-                }
-                QSpinBox {
-                    color: white;
-                    background-color: #213243;
-                }
-                QPushButton {
-                    color: white;
-                    background-color: #2c4a63;
-                }
-            """)
-            
-            if dialog.exec_():
-                delay = dialog.intValue()
-                
+            if ok:
                 # Montrer la progression
-                self._show_progress_dialog("Envoi de la commande de redémarrage...")
+                self.safe_dialog_signals.show_progress.emit("Envoi de la commande de redémarrage...")
                 
                 # Exécuter dans un thread
                 def restart_thread():
@@ -1510,18 +1236,14 @@ class RemoteTab(QWidget):
                         # Handle errors
                         logger.error(f"Error restarting device: {e}")
                         self.safe_dialog_signals.close_progress.emit()
-                        self.safe_dialog_signals.show_message.emit(
-                            "Erreur",
-                            f"Exception lors du redémarrage: {str(e)}",
-                            "error"
-                        )
+                        self.safe_dialog_signals.show_message.emit("Erreur", f"Exception: {str(e)}", "error")
                 
                 # Start the thread
                 threading.Thread(target=restart_thread, daemon=True).start()
     
     def _send_file(self, device_id, device_name):
         """Envoyer un fichier à l'appareil sélectionné"""
-        # Choose file to send
+        # Demander le fichier à envoyer
         file_path, _ = QFileDialog.getOpenFileName(
             self,
             f"Sélectionner un fichier à envoyer à {device_name}",
@@ -1532,80 +1254,58 @@ class RemoteTab(QWidget):
         if not file_path:
             return
             
-        # Ask for destination directory
+        # Demander le dossier de destination
         if device_id in self.device_manager.devices:
             device_info = self.device_manager.devices[device_id]
             is_windows = "windows" in device_info.get("platform", "").lower()
             
             if is_windows:
-                # Probably Windows system
+                # Probablement un système Windows
                 default_path = "C:\\Temp"
             else:
-                # Probably Linux/Mac system
+                # Probablement un système Linux/Mac
                 default_path = "/tmp"
         else:
-            default_path = "/tmp"  # Default value
+            default_path = "/tmp"  # Valeur par défaut
             
-        # Create custom input dialog for remote path
-        dialog = QInputDialog(self)
-        dialog.setWindowTitle("Dossier de destination")
-        dialog.setLabelText("Entrez le chemin du dossier de destination:")
-        dialog.setTextValue(default_path)
+        remote_path, ok = QInputDialog.getText(
+            self,
+            "Dossier de destination",
+            "Entrez le chemin du dossier de destination:",
+            text=default_path
+        )
         
-        # Apply white text styling
-        dialog.setStyleSheet("""
-            QInputDialog {
-                background-color: #1a2633;
-            }
-            QLabel {
-                color: white;
-            }
-            QLineEdit {
-                color: white;
-                background-color: #213243;
-            }
-            QPushButton {
-                color: white;
-                background-color: #2c4a63;
-            }
-        """)
+        if not ok or not remote_path:
+            return
         
-        if dialog.exec_():
-            remote_path = dialog.textValue()
-            
-            # Show progress
-            self._show_progress_dialog(f"Envoi du fichier vers {device_name}...")
-            
-            # Execute in thread
-            def transfer_thread():
-                try:
-                    success = self.device_manager.send_file(device_id, file_path, remote_path)
-                    
-                    # Show appropriate message
-                    self.safe_dialog_signals.close_progress.emit()
-                    if success:
-                        self.safe_dialog_signals.show_message.emit(
-                            "Fichier Envoyé",
-                            f"Le fichier a été envoyé avec succès à {device_name}.",
-                            "info"
-                        )
-                    else:
-                        self.safe_dialog_signals.show_message.emit(
-                            "Erreur",
-                            f"Impossible d'envoyer le fichier à {device_name}.\n"
-                            f"Vérifiez que l'appareil est en ligne et que l'agent a les permissions nécessaires.",
-                            "warning"
-                        )
-                except Exception as e:
-                    # Handle errors
-                    logger.error(f"Error sending file: {e}")
-                    self.safe_dialog_signals.close_progress.emit()
+        # Montrer la progression
+        self.safe_dialog_signals.show_progress.emit(f"Envoi du fichier vers {device_name}...")
+        
+        # Exécuter dans un thread
+        def transfer_thread():
+            try:
+                success = self.device_manager.send_file(device_id, file_path, remote_path)
+                
+                # Show appropriate message
+                self.safe_dialog_signals.close_progress.emit()
+                if success:
+                    self.safe_dialog_signals.show_message.emit(
+                        "Fichier Envoyé",
+                        f"Le fichier a été envoyé avec succès à {device_name}.",
+                        "info"
+                    )
+                else:
                     self.safe_dialog_signals.show_message.emit(
                         "Erreur",
-                        f"Exception lors de l'envoi du fichier: {str(e)}",
-                        "error"
+                        f"Impossible d'envoyer le fichier à {device_name}.\n"
+                        f"Vérifiez que l'appareil est en ligne et que l'agent a les permissions nécessaires.",
+                        "warning"
                     )
-            
-            # Start the thread
-            threading.Thread(target=transfer_thread, daemon=True).start()
-                                
+            except Exception as e:
+                # Handle errors
+                logger.error(f"Error sending file: {e}")
+                self.safe_dialog_signals.close_progress.emit()
+                self.safe_dialog_signals.show_message.emit("Erreur", f"Exception: {str(e)}", "error")
+        
+        # Start the thread
+        threading.Thread(target=transfer_thread, daemon=True).start()

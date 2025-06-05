@@ -1,7 +1,7 @@
 """
-Module for managing discovered network devices with white text message boxes
-Current Date and Time (UTC): 2025-06-02 20:01:51
-Current User's Login: AnoirELGUEDDAR
+Module for managing discovered network devices
+Current Date: 2025-05-07 15:54:34
+Author: AnoirELGUEDDAR
 """
 import logging
 import os
@@ -16,80 +16,8 @@ from PyQt5.QtWidgets import (
     QLineEdit, QDialog, QFormLayout
 )
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QTimer
-from PyQt5.QtGui import QPalette, QColor
 
 logger = logging.getLogger(__name__)
-
-# Custom white text message box
-class WhiteTextMessageBox(QMessageBox):
-    """Message box with white text"""
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self._force_white_text()
-    
-    def _force_white_text(self):
-        # Set white text palette
-        palette = self.palette()
-        palette.setColor(QPalette.WindowText, QColor(255, 255, 255))
-        palette.setColor(QPalette.Text, QColor(255, 255, 255))
-        palette.setColor(QPalette.ButtonText, QColor(255, 255, 255))
-        self.setPalette(palette)
-        
-        # Apply white text stylesheet
-        self.setStyleSheet("""
-            QMessageBox {
-                background-color: #1a2633;
-                color: white;
-            }
-            
-            QLabel {
-                color: white;
-            }
-            
-            QPushButton {
-                color: white;
-                background-color: #2c4a63;
-                border: none;
-                padding: 6px 12px;
-                border-radius: 3px;
-            }
-            
-            QPushButton:hover {
-                background-color: #375a7f;
-            }
-        """)
-        
-        # Force attribute that ensures stylesheet applies correctly
-        self.setAttribute(Qt.WA_StyledBackground, True)
-
-# Custom information, warning, question message boxes
-def show_information(parent, title, message):
-    """Show information message box with white text"""
-    msg_box = WhiteTextMessageBox(parent)
-    msg_box.setIcon(QMessageBox.Information)
-    msg_box.setWindowTitle(title)
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Ok)
-    return msg_box.exec_()
-
-def show_warning(parent, title, message):
-    """Show warning message box with white text"""
-    msg_box = WhiteTextMessageBox(parent)
-    msg_box.setIcon(QMessageBox.Warning)
-    msg_box.setWindowTitle(title)
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Ok)
-    return msg_box.exec_()
-
-def show_question(parent, title, message, default_button=QMessageBox.No):
-    """Show question message box with white text"""
-    msg_box = WhiteTextMessageBox(parent)
-    msg_box.setIcon(QMessageBox.Question)
-    msg_box.setWindowTitle(title)
-    msg_box.setText(message)
-    msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-    msg_box.setDefaultButton(default_button)
-    return msg_box.exec_()
 
 class DeviceDetailsDialog(QDialog):
     def __init__(self, device_data: Dict, parent=None, edit_mode=False):
@@ -102,7 +30,6 @@ class DeviceDetailsDialog(QDialog):
         self.resize(500, 400)
         
         self._setup_ui()
-        self._force_white_text()  # Add white text fixing
         
     def _setup_ui(self):
         layout = QVBoxLayout(self)
@@ -161,51 +88,6 @@ class DeviceDetailsDialog(QDialog):
         
         layout.addLayout(buttons_layout)
         
-    def _force_white_text(self):
-        """Force white text on all elements in the dialog"""
-        # Apply white text styling to the dialog
-        self.setStyleSheet("""
-            QDialog {
-                background-color: #1a2633;
-            }
-            
-            QLabel {
-                color: white !important;
-            }
-            
-            QLineEdit {
-                color: white !important;
-                background-color: #213243;
-                border: 1px solid #324a5f;
-            }
-            
-            QPushButton {
-                color: white !important;
-                background-color: #2c4a63;
-                border: none;
-                padding: 6px 12px;
-            }
-        """)
-        
-        # Set white text palette
-        palette = self.palette()
-        palette.setColor(QPalette.WindowText, QColor(255, 255, 255))
-        palette.setColor(QPalette.Text, QColor(255, 255, 255))
-        palette.setColor(QPalette.ButtonText, QColor(255, 255, 255))
-        self.setPalette(palette)
-        
-        # Force white text for each field
-        for field in [self.ip_field, self.mac_field, self.name_field, 
-                     self.type_field, self.vendor_field, self.description_field,
-                     self.location_field, self.ports_field]:
-            field.setStyleSheet("color: white !important; background-color: #213243;")
-            
-            # Set palette for each field
-            field_palette = field.palette()
-            field_palette.setColor(QPalette.Text, QColor(255, 255, 255))
-            field_palette.setColor(QPalette.HighlightedText, QColor(255, 255, 255))
-            field.setPalette(field_palette)
-    
     def get_updated_data(self) -> Dict:
         if not self.edit_mode:
             return self.device_data
@@ -220,7 +102,6 @@ class DeviceDetailsDialog(QDialog):
             self.device_data['mac'] = self.mac_field.text()
             
         return self.device_data
-
 
 class DevicesTab(QWidget):
     scan_request = pyqtSignal(str)
@@ -311,7 +192,7 @@ class DevicesTab(QWidget):
                     logger.info(f"Chargement de {len(self.devices)} appareils depuis {self.devices_file}")
             except Exception as e:
                 logger.error(f"Erreur lors du chargement des appareils: {e}")
-                show_warning(self, "Erreur de chargement", f"Impossible de charger les appareils: {str(e)}")
+                QMessageBox.warning(self, "Erreur de chargement", f"Impossible de charger les appareils: {str(e)}")
     
     def _save_devices(self):
         try:
@@ -366,15 +247,14 @@ class DevicesTab(QWidget):
     def _show_device_details(self):
         selected_rows = self.devices_table.selectionModel().selectedRows()
         if not selected_rows:
-            # Replace standard QMessageBox with our custom white text version
-            show_information(self, "Sélection", "Sélectionnez d'abord un appareil")
+            QMessageBox.information(self, "Sélection", "Sélectionnez d'abord un appareil")
             return
             
         row = selected_rows[0].row()
         ip = self.devices_table.item(row, 0).text()
         
         if ip not in self.devices:
-            show_warning(self, "Erreur", f"Appareil {ip} introuvable")
+            QMessageBox.warning(self, "Erreur", f"Appareil {ip} introuvable")
             return
             
         dialog = DeviceDetailsDialog(self.devices[ip], self)
@@ -383,14 +263,14 @@ class DevicesTab(QWidget):
     def _edit_device(self):
         selected_rows = self.devices_table.selectionModel().selectedRows()
         if not selected_rows:
-            show_information(self, "Sélection", "Sélectionnez d'abord un appareil")
+            QMessageBox.information(self, "Sélection", "Sélectionnez d'abord un appareil")
             return
             
         row = selected_rows[0].row()
         ip = self.devices_table.item(row, 0).text()
         
         if ip not in self.devices:
-            show_warning(self, "Erreur", f"Appareil {ip} introuvable")
+            QMessageBox.warning(self, "Erreur", f"Appareil {ip} introuvable")
             return
             
         dialog = DeviceDetailsDialog(self.devices[ip], self, edit_mode=True)
@@ -402,7 +282,7 @@ class DevicesTab(QWidget):
     def _scan_selected(self):
         selected_rows = self.devices_table.selectionModel().selectedRows()
         if not selected_rows:
-            show_information(self, "Sélection", "Sélectionnez d'abord un appareil")
+            QMessageBox.information(self, "Sélection", "Sélectionnez d'abord un appareil")
             return
             
         row = selected_rows[0].row()
@@ -412,7 +292,7 @@ class DevicesTab(QWidget):
     def _scan_ports_of_selected(self):
         selected_rows = self.devices_table.selectionModel().selectedRows()
         if not selected_rows:
-            show_information(self, "Sélection", "Sélectionnez d'abord un appareil")
+            QMessageBox.information(self, "Sélection", "Sélectionnez d'abord un appareil")
             return
             
         row = selected_rows[0].row()
@@ -424,18 +304,15 @@ class DevicesTab(QWidget):
     def _remove_selected(self):
         selected_rows = self.devices_table.selectionModel().selectedRows()
         if not selected_rows:
-            show_information(self, "Sélection", "Sélectionnez d'abord un appareil")
+            QMessageBox.information(self, "Sélection", "Sélectionnez d'abord un appareil")
             return
             
         row = selected_rows[0].row()
         ip = self.devices_table.item(row, 0).text()
         
-        reply = show_question(
-            self, 
-            "Confirmation", 
-            f"Voulez-vous vraiment supprimer l'appareil {ip} de la liste?",
-            QMessageBox.No
-        )
+        reply = QMessageBox.question(self, "Confirmation", 
+                                    f"Voulez-vous vraiment supprimer l'appareil {ip} de la liste?",
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         
         if reply == QMessageBox.Yes:
             if ip in self.devices:
@@ -444,7 +321,7 @@ class DevicesTab(QWidget):
                 self._save_devices()
     
     def _export_devices(self):
-        msg_box = WhiteTextMessageBox(self)
+        msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Type d'export")
         msg_box.setText("Comment souhaitez-vous exporter les appareils?")
         csv_button = msg_box.addButton("CSV", QMessageBox.ActionRole)
@@ -487,12 +364,12 @@ class DevicesTab(QWidget):
                 with open(file_path, 'w') as f:
                     json.dump(self.devices, f, indent=4)
                     
-            show_information(self, "Export réussi", 
-                           f"Les appareils ont été exportés avec succès vers {file_path}")
+            QMessageBox.information(self, "Export réussi", 
+                                  f"Les appareils ont été exportés avec succès vers {file_path}")
         except Exception as e:
             logger.error(f"Erreur lors de l'export des appareils: {e}")
-            show_warning(self, "Erreur d'export", 
-                      f"Impossible d'exporter les appareils: {str(e)}")
+            QMessageBox.warning(self, "Erreur d'export", 
+                              f"Impossible d'exporter les appareils: {str(e)}")
     
     def save_devices(self):
         self._save_devices()
@@ -519,18 +396,15 @@ class DevicesTab(QWidget):
 
     def _delete_all_devices(self):
         if not self.devices:
-            show_information(self, "Information", "Aucun appareil à supprimer")
+            QMessageBox.information(self, "Information", "Aucun appareil à supprimer")
             return
         
-        reply = show_question(
-            self, 
-            "Confirmation",
-            f"Êtes-vous sûr de vouloir supprimer TOUS les appareils ({len(self.devices)}) ?",
-            QMessageBox.No
-        )
+        reply = QMessageBox.question(self, "Confirmation",
+                                    f"Êtes-vous sûr de vouloir supprimer TOUS les appareils ({len(self.devices)}) ?",
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         
         if reply == QMessageBox.Yes:
             self.devices.clear()
             self._save_devices()
             self._update_devices_table()
-            show_information(self, "Succès", "Tous les appareils ont été supprimés")
+            QMessageBox.information(self, "Succès", "Tous les appareils ont été supprimés")
