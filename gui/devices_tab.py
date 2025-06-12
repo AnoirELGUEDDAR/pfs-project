@@ -140,7 +140,9 @@ class DevicesTab(QWidget):
         
         self.devices_table = QTableWidget()
         self.devices_table.setColumnCount(6)
-        self.devices_table.setHorizontalHeaderLabels(["IP", "MAC", "Nom", "Type", "Fabricant", "Dernière activité"])
+        self.devices_table.setHorizontalHeaderLabels([
+            "IP", "MAC", "Nom", "Type", "Fabricant", "Dernière activité"
+        ])
         self.devices_table.horizontalHeader().setSectionResizeMode(QHeaderView.Interactive)
         self.devices_table.horizontalHeader().setStretchLastSection(True)
         self.devices_table.setSelectionBehavior(QTableWidget.SelectRows)
@@ -215,6 +217,7 @@ class DevicesTab(QWidget):
             row = self.devices_table.rowCount()
             self.devices_table.insertRow(row)
             
+            # Ajout des données dans les cellules du tableau
             self.devices_table.setItem(row, 0, QTableWidgetItem(ip))
             self.devices_table.setItem(row, 1, QTableWidgetItem(device.get('mac', '')))
             self.devices_table.setItem(row, 2, QTableWidgetItem(device.get('name', '')))
@@ -298,7 +301,13 @@ class DevicesTab(QWidget):
         row = selected_rows[0].row()
         ip = self.devices_table.item(row, 0).text()
         
-        common_ports = [21, 22, 23, 25, 53, 80, 110, 123, 143, 443, 445, 993, 995, 3306, 3389, 5900, 8080, 8443]
+        common_ports = [
+            21, 22, 23, 25, 53, 80, 110, 123, 143, 443, 445, 993, 995, 3306, 3389, 5900, 8080, 8443,
+            # Ports Android
+            5555, 5554, 7000, 8081,
+            # Ports iOS
+            62078, 49152, 1999, 9418
+        ]
         self.port_scan_request.emit(ip, common_ports)
     
     def _remove_selected(self):

@@ -1,5 +1,7 @@
 """
 Onglet de gestion à distance des appareils
+Current Date: 2025-06-09 23:05:29
+Author: AnoirELGUEDDAR
 """
 import logging
 import threading
@@ -22,7 +24,7 @@ from PyQt5.QtWidgets import (
     QTreeWidgetItem, QTextEdit, QComboBox, QGroupBox,
     QRadioButton, QProgressBar, QListWidget, QListWidgetItem,
     QSplitter, QScrollArea, QFrame, QButtonGroup, QCheckBox,
-    QDialogButtonBox
+    QDialogButtonBox, QApplication
 )
 from PyQt5.QtCore import Qt, pyqtSignal, QSize, QTimer, QObject
 from PyQt5.QtGui import QIcon, QColor, QBrush, QPixmap, QFont
@@ -30,6 +32,41 @@ from PyQt5.QtGui import QIcon, QColor, QBrush, QPixmap, QFont
 from core.remote.device_manager import DeviceManager
 
 logger = logging.getLogger(__name__)
+
+class NonBlockingDialog(QDialog):
+    """Dialogue non-modal pour l'affichage de progression sans bloquer l'interface"""
+    
+    def __init__(self, parent=None, message="Traitement en cours..."):
+        super().__init__(parent, Qt.WindowStaysOnTopHint)
+        self.setWindowTitle("Traitement")
+        self.setWindowModality(Qt.NonModal)
+        self.setWindowFlags(Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
+        self.setFixedSize(300, 100)
+        
+        # Layout du dialogue
+        layout = QVBoxLayout(self)
+        
+        # Icône d'information et texte
+        info_layout = QHBoxLayout()
+        icon_label = QLabel()
+        icon = QMessageBox.standardIcon(QMessageBox.Information)
+        scaled_icon = icon.scaled(32, 32, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        icon_label.setPixmap(scaled_icon)
+        info_layout.addWidget(icon_label)
+        
+        self.message_label = QLabel(message)
+        self.message_label.setWordWrap(True)
+        info_layout.addWidget(self.message_label, 1)
+        layout.addLayout(info_layout)
+        
+        # Optionnel: Ajouter une barre de progression indéterminée
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setRange(0, 0)  # Indéterminé
+        layout.addWidget(self.progress_bar)
+        
+    def set_message(self, message):
+        """Mettre à jour le message affiché"""
+        self.message_label.setText(message)
 
 class SafeDialogSignals(QObject):
     """Signals for thread-safe dialog display"""
@@ -336,34 +373,29 @@ class RemoteTab(QWidget):
             QMessageBox.information(self, title, message)
 
     def _show_progress_dialog(self, message):
-        """Show a progress dialog safely on the main thread"""
-        # First close any existing dialog
+        """Affiche un dialogue de progression non-bloquant"""
+        # Fermer tout dialogue existant
         self._close_progress_dialog()
-            
-        progress_dialog = QMessageBox(self)
-        progress_dialog.setWindowTitle("Traitement en cours")
-        progress_dialog.setIcon(QMessageBox.Information)
-        progress_dialog.setText(message)
-        progress_dialog.setStandardButtons(QMessageBox.NoButton)
-        self.current_progress_dialog = progress_dialog
-        progress_dialog.show()
+        
+        # Créer le nouveau dialogue non-bloquant
+        self.current_progress_dialog = NonBlockingDialog(self, message)
+        self.current_progress_dialog.show()
+        
+        # Force l'interface à se mettre à jour immédiatement
+        QApplication.processEvents()
 
     def _close_progress_dialog(self):
-        """Close the progress dialog safely on the main thread, plus all other dialogs"""
+        """Ferme proprement le dialogue de progression"""
         if self.current_progress_dialog:
             try:
                 self.current_progress_dialog.close()
+                self.current_progress_dialog.deleteLater()  # Important pour libérer correctement les ressources
             except:
                 pass
             self.current_progress_dialog = None
         
-        # Force cleanup of any other potential dialogs
-        for child in self.children():
-            try:
-                if isinstance(child, QMessageBox) or isinstance(child, QDialog):
-                    child.close()
-            except:
-                pass
+        # Force l'interface à se mettre à jour immédiatement
+        QApplication.processEvents()
             
     def _show_info_message(self, title, message):
         """Afficher un message d'information"""
@@ -573,43 +605,47 @@ class RemoteTab(QWidget):
         self.safe_dialog_signals.show_progress.emit("Test des connexions en cours...")
         
         def refresh_thread():
-            for device_id, device in devices.items():
-                ip = device["ip"]
-                port = device["port"]
-                
-                # Vérifier directement si le port est ouvert
-                try:
-                    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    sock.settimeout(2)  # Timeout court
-                    result = sock.connect_ex((ip, int(port)))
-                    sock.close()
+            try:
+                for device_id, device in devices.items():
+                    ip = device["ip"]
+                    port = device["port"]
                     
-                    if result == 0:
-                        # Port ouvert, mettre immédiatement l'appareil en ligne
-                        self.safe_dialog_signals.update_device_status_signal.emit(device_id, "online")
-                        self.device_manager.devices[device_id]["status"] = "online"
-                        self.device_manager.devices[device_id]["last_connected"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    else:
-                        # Port fermé, mettre hors ligne
+                    # Vérifier directement si le port est ouvert
+                    try:
+                        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        sock.settimeout(2)  # Timeout court
+                        result = sock.connect_ex((ip, int(port)))
+                        sock.close()
+                        
+                        if result == 0:
+                            # Port ouvert, mettre immédiatement l'appareil en ligne
+                            self.safe_dialog_signals.update_device_status_signal.emit(device_id, "online")
+                            self.device_manager.devices[device_id]["status"] = "online"
+                            self.device_manager.devices[device_id]["last_connected"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        else:
+                            # Port fermé, mettre hors ligne
+                            self.safe_dialog_signals.update_device_status_signal.emit(device_id, "offline")
+                            self.device_manager.devices[device_id]["status"] = "offline"
+                    except Exception as e:
+                        logger.error(f"Erreur de connexion: {str(e)}")
+                        # En cas d'erreur, mettre hors ligne
                         self.safe_dialog_signals.update_device_status_signal.emit(device_id, "offline")
                         self.device_manager.devices[device_id]["status"] = "offline"
-                except Exception as e:
-                    logger.error(f"Erreur de connexion: {str(e)}")
-                    # En cas d'erreur, mettre hors ligne
-                    self.safe_dialog_signals.update_device_status_signal.emit(device_id, "offline")
-                    self.device_manager.devices[device_id]["status"] = "offline"
-            
-            # Sauvegarder les changements
-            self.device_manager.save_devices()
-            
-            # Terminer et fermer le dialogue de progression
-            self.safe_dialog_signals.close_progress.emit()
-            self.safe_dialog_signals.show_message.emit(
-                "Test terminé", 
-                f"Test de connexion terminé pour {len(devices)} appareils.\n\n"
-                "Les appareils accessibles sont marqués comme 'online'.",
-                "info"
-            )
+                
+                # Sauvegarder les changements
+                self.device_manager.save_devices()
+                
+            except Exception as e:
+                logger.error(f"Erreur dans le thread de rafraîchissement: {str(e)}")
+            finally:
+                # Toujours fermer le dialogue, même en cas d'erreur
+                self.safe_dialog_signals.close_progress.emit()
+                self.safe_dialog_signals.show_message.emit(
+                    "Test terminé", 
+                    f"Test de connexion terminé pour {len(devices)} appareils.\n\n"
+                    "Les appareils accessibles sont marqués comme 'online'.",
+                    "info"
+                )
         
         # Exécuter dans un thread
         threading.Thread(target=refresh_thread, daemon=True).start()

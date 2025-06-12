@@ -1,5 +1,7 @@
 """
 Device Manager for Remote Management
+Current Date: 2025-06-10 00:12:11
+Author: AnoirELGUEDDAR
 """
 import os
 import json
@@ -27,12 +29,37 @@ class DeviceManager:
         self.devices = {}
         self.load_devices()
         self.device_change_callbacks = []
+        self.connection_test_callbacks = {}
         
         # Start periodic check thread
         self._running = True
         self._check_thread = threading.Thread(target=self._periodic_check, daemon=True)
         self._check_thread.start()
         
+        # Important: Register messaging client if not present
+        self._register_default_messaging_client()
+        
+    def _register_default_messaging_client(self):
+        """Register the default messaging client if not present"""
+        client_ip = "192.168.100.24"  # IP fixe du client
+        client_port = 9877           # Port standard de l'agent
+        client_id = f"client_{client_ip.replace('.', '_')}"
+        token = "change_this_token_immediately"
+        
+        if client_id not in self.devices:
+            logger.info(f"Registering default messaging client {client_id} at {client_ip}:{client_port}")
+            self.devices[client_id] = {
+                "name": f"Agent sur {client_ip}",
+                "ip": client_ip,
+                "port": client_port,
+                "token": token,
+                "status": "online",  # Set as online by default
+                "last_connected": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "type": "messaging_client",
+                "messaging_enabled": True
+            }
+            self.save_devices()
+            
     def _periodic_check(self):
         """Periodically check device status"""
         while self._running:
@@ -40,7 +67,7 @@ class DeviceManager:
                 time.sleep(300)  # Check every 5 minutes
                 devices_copy = self.devices.copy()
                 for device_id in devices_copy:
-                    self.ping_device(device_id)
+                    self.ping_device_async(device_id)
             except Exception as e:
                 logger.error(f"Error during periodic check: {e}")
     
@@ -67,7 +94,7 @@ class DeviceManager:
         return True
     
     def add_device(self, name, ip, port, token):
-        """Add a new device"""
+        """Add a new device with non-blocking connection test"""
         device_id = f"{ip}:{port}"
         
         # Update if device exists, otherwise create new entry
@@ -86,12 +113,14 @@ class DeviceManager:
                 "last_connected": ""
             }
         
-        # Ping device to verify connection
-        success = self.ping_device(device_id)
+        # Save first without waiting for ping
         self.save_devices()
         self._notify_device_change()
         
-        return success
+        # Ping device in background thread to verify connection
+        self.ping_device_async(device_id)
+        
+        return True  # Return immediately, don't wait for ping
     
     def remove_device(self, device_id):
         """Remove a device"""
@@ -106,8 +135,45 @@ class DeviceManager:
         """Get the list of devices"""
         return self.devices
     
+    def ping_device_async(self, device_id, callback=None):
+        """
+        Check if a device is online asynchronously
+        
+        Args:
+            device_id: ID of the device to ping
+            callback: Optional callback function called with result (bool)
+        """
+        if device_id not in self.devices:
+            logger.warning(f"Device {device_id} not found")
+            if callback:
+                callback(False)
+            return False
+        
+        # Start the ping in a separate thread
+        def ping_thread():
+            success = self.ping_device_internal(device_id)
+            # Call the callback if provided
+            if callback:
+                callback(success)
+            # Notify all listeners that device status changed
+            self._notify_device_change()
+            
+        threading.Thread(target=ping_thread, daemon=True).start()
+        return True
+    
     def ping_device(self, device_id):
-        """Check if a device is online"""
+        """
+        Backward compatibility wrapper for ping_device_internal
+        This function is now deprecated as it blocks the calling thread
+        """
+        logger.warning("ping_device is deprecated, use ping_device_async instead")
+        return self.ping_device_internal(device_id)
+    
+    def ping_device_internal(self, device_id):
+        """
+        Internal implementation to check if a device is online
+        This method blocks the calling thread
+        """
         if device_id not in self.devices:
             logger.warning(f"Device {device_id} not found")
             return False
@@ -122,7 +188,7 @@ class DeviceManager:
         try:
             # Check if port is open
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(3)
+            sock.settimeout(3)  # Reduced timeout for better responsiveness
             result = sock.connect_ex((ip, int(port)))
             
             if result == 0:
@@ -180,6 +246,328 @@ class DeviceManager:
             self.devices[device_id]["status"] = "offline"
             self.save_devices()
             return False
+    
+    # === Messaging-specific methods ===
+    
+    def register_messaging_client(self, name, ip, port, token):
+        """Register a specific messaging client"""
+        device_id = f"client_{ip.replace('.', '_')}"
+        
+        # Add client with messaging-specific properties
+        self.devices[device_id] = {
+            "name": name,
+            "ip": ip,
+            "port": port,
+            "token": token,
+            "status": "unknown",
+            "last_connected": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "type": "messaging_client",
+            "messaging_enabled": True
+        }
+        
+        self.save_devices()
+        self._notify_device_change()
+        
+        # Ping device in background thread to verify connection
+        self.ping_device_async(device_id)
+        
+        return device_id
+    
+    def send_message_to_client(self, client_id, message_text, sender="Administrator", priority="normal", require_ack=False):
+        """Send a message to a messaging client"""
+        if client_id not in self.devices:
+            # Try resolving by IP address
+            client_ip = client_id
+            for device_id, device in self.devices.items():
+                if device.get("ip") == client_ip:
+                    client_id = device_id
+                    break
+                    
+            # If still not found, check if it's an IP address that can be registered
+            if client_id not in self.devices and re.match(r'^\d+\.\d+\.\d+\.\d+$', client_id):
+                # Auto-register the device
+                device_id = self.register_messaging_client(
+                    f"Agent sur {client_id}",
+                    client_id,
+                    9877,
+                    "change_this_token_immediately"
+                )
+                client_id = device_id
+        
+        # If still not found after resolution attempts
+        if client_id not in self.devices:
+            logger.error(f"Client {client_id} not found for messaging")
+            return False
+        
+        device = self.devices[client_id]
+        
+        try:
+            # Create socket connection
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(10)
+            sock.connect((device["ip"], int(device["port"])))
+            
+            # Prepare message 
+            message_params = {
+                "type": "send",
+                "text": message_text,
+                "sender": sender,
+                "priority": priority,
+                "require_ack": require_ack,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            
+            message_data = {
+                "auth_token": device["token"],
+                "command": "message",
+                "params": message_params
+            }
+            
+            # Send message
+            sock.sendall(json.dumps(message_data).encode('utf-8'))
+            
+            # Get response
+            response_data = sock.recv(4096)
+            sock.close()
+            
+            # Process response
+            if response_data:
+                try:
+                    response = json.loads(response_data.decode('utf-8'))
+                    success = response.get("status") == "success"
+                    
+                    if success:
+                        logger.info(f"Message sent successfully to client {client_id}")
+                        # Update last_connected time
+                        self.devices[client_id]["last_connected"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        self.devices[client_id]["status"] = "online"
+                        self.save_devices()
+                    else:
+                        logger.error(f"Error sending message to client {client_id}: {response.get('message', 'Unknown error')}")
+                        
+                    return success
+                except json.JSONDecodeError:
+                    logger.error(f"Invalid response from client {client_id}")
+                    return False
+            
+            return False
+            
+        except Exception as e:
+            logger.error(f"Error sending message to client {client_id}: {str(e)}")
+            return False
+    
+    def get_client_messages(self, client_id, include_read=True):
+        """Get messages stored on a client"""
+        if client_id not in self.devices:
+            logger.error(f"Client {client_id} not found for retrieving messages")
+            return None
+        
+        device = self.devices[client_id]
+        
+        try:
+            # Create socket connection
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(10)
+            sock.connect((device["ip"], int(device["port"])))
+            
+            # Prepare request
+            message_data = {
+                "auth_token": device["token"],
+                "command": "message",
+                "params": {
+                    "type": "list",
+                    "include_read": include_read
+                }
+            }
+            
+            # Send request
+            sock.sendall(json.dumps(message_data).encode('utf-8'))
+            
+            # Get response with potential chunking for large responses
+            response_data = b""
+            while True:
+                try:
+                    chunk = sock.recv(4096)
+                    if not chunk:
+                        break
+                    response_data += chunk
+                    if chunk.endswith(b'}'):  # Potential JSON end
+                        break
+                except socket.timeout:
+                    break
+            
+            sock.close()
+            
+            # Process response
+            if response_data:
+                try:
+                    response = json.loads(response_data.decode('utf-8'))
+                    if response.get("status") == "success":
+                        messages = response.get("data", {}).get("messages", [])
+                        
+                        # Update last_connected time
+                        self.devices[client_id]["last_connected"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        self.devices[client_id]["status"] = "online"
+                        self.save_devices()
+                        
+                        return messages
+                    else:
+                        logger.error(f"Error retrieving messages from client {client_id}: {response.get('message', 'Unknown error')}")
+                        return None
+                except json.JSONDecodeError:
+                    logger.error(f"Invalid response from client {client_id}")
+                    return None
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error retrieving messages from client {client_id}: {str(e)}")
+            return None
+    
+    def mark_message_read_on_client(self, client_id, message_id):
+        """Mark a message as read on a client"""
+        if client_id not in self.devices:
+            logger.error(f"Client {client_id} not found for marking message as read")
+            return False
+        
+        device = self.devices[client_id]
+        
+        try:
+            # Create socket connection
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(10)
+            sock.connect((device["ip"], int(device["port"])))
+            
+            # Prepare request
+            message_data = {
+                "auth_token": device["token"],
+                "command": "message",
+                "params": {
+                    "type": "mark_read",
+                    "message_id": message_id
+                }
+            }
+            
+            # Send request
+            sock.sendall(json.dumps(message_data).encode('utf-8'))
+            
+            # Get response
+            response_data = sock.recv(4096)
+            sock.close()
+            
+            # Process response
+            if response_data:
+                try:
+                    response = json.loads(response_data.decode('utf-8'))
+                    success = response.get("status") == "success"
+                    
+                    if success:
+                        logger.info(f"Message {message_id} marked as read on client {client_id}")
+                    else:
+                        logger.error(f"Error marking message as read on client {client_id}: {response.get('message', 'Unknown error')}")
+                        
+                    return success
+                except json.JSONDecodeError:
+                    logger.error(f"Invalid response from client {client_id}")
+                    return False
+            
+            return False
+            
+        except Exception as e:
+            logger.error(f"Error marking message as read on client {client_id}: {str(e)}")
+            return False
+
+    def test_device_connection(self, name, ip, port, token, callback=None):
+        """
+        Test connection to a device without adding it to the device list.
+        Non-blocking implementation that keeps UI responsive.
+        """
+        logger.info(f"Testing connection to {name} at {ip}:{port}")
+        
+        # Generate a test ID to track this test
+        test_id = f"{ip}:{port}:{time.time()}"
+        
+        # Function executed in separate thread
+        def test_thread():
+            success = False
+            error_message = ""
+            
+            try:
+                # Check if port is open
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(3)  # Short timeout for UI responsiveness
+                
+                logger.debug(f"Connecting to {ip}:{port}...")
+                result = sock.connect_ex((ip, int(port)))
+                
+                if result == 0:
+                    logger.debug(f"TCP connection to {ip}:{port} successful")
+                    # Port is open, try to ping the agent
+                    try:
+                        # Prepare JSON message
+                        message = {
+                            "auth_token": token,
+                            "command": "ping"
+                        }
+                        
+                        # Send ping
+                        logger.debug(f"Sending ping to {ip}:{port}")
+                        sock.sendall(json.dumps(message).encode('utf-8'))
+                        
+                        # Receive response with timeout
+                        sock.settimeout(5)
+                        response_data = sock.recv(1024)
+                        
+                        if response_data:
+                            try:
+                                response = json.loads(response_data.decode('utf-8'))
+                                if response.get("status") == "success":
+                                    success = True
+                                    logger.info(f"Ping successful to {ip}:{port}")
+                                else:
+                                    error_message = f"Réponse de l'agent: {response.get('message', 'Erreur inconnue')}"
+                                    logger.warning(f"Ping failed with response: {error_message}")
+                            except json.JSONDecodeError:
+                                error_message = "Réponse non-JSON reçue de l'agent"
+                                logger.warning(f"Invalid JSON response from {ip}:{port}")
+                        else:
+                            error_message = "Aucune réponse de l'agent"
+                            logger.warning(f"No response from {ip}:{port}")
+                    except socket.timeout:
+                        error_message = "Délai de réponse dépassé"
+                        logger.warning(f"Socket timeout waiting for response from {ip}:{port}")
+                    except Exception as e:
+                        error_message = f"Erreur de communication: {str(e)}"
+                        logger.error(f"Communication error with {ip}:{port}: {e}")
+                else:
+                    error_message = f"Le port {port} est fermé (code {result})"
+                    logger.warning(f"Port {port} closed on {ip}, error code: {result}")
+                
+                # Close socket
+                try:
+                    sock.close()
+                except:
+                    pass
+                    
+            except socket.timeout:
+                error_message = "Délai de connexion dépassé"
+                logger.warning(f"Connection timeout to {ip}:{port}")
+            except Exception as e:
+                error_message = f"Erreur: {str(e)}"
+                logger.error(f"Test connection error to {ip}:{port}: {e}")
+            
+            # Call callback with results
+            if callback:
+                try:
+                    callback(success, error_message)
+                except Exception as e:
+                    logger.error(f"Error in test connection callback: {e}")
+        
+        # Start test thread
+        thread = threading.Thread(target=test_thread, daemon=True)
+        thread.start()
+        
+        return test_id
     
     def _execute_command_with_socket(self, device_id, command, params=None, timeout=30):
         """
@@ -240,9 +628,94 @@ class DeviceManager:
             logger.error(f"Error executing command {command}: {str(e)}")
             return None
     
+    def execute_command_async(self, device_id, command, params=None, callback=None, timeout=30):
+        """
+        Execute a command asynchronously to prevent UI blocking
+        
+        Args:
+            device_id: Device identifier
+            command: Command to execute
+            params: Parameters for the command
+            callback: Function called with result when complete
+            timeout: Timeout in seconds
+        """
+        if device_id not in self.devices:
+            if callback:
+                callback(None)
+            return False
+            
+        device = self.devices[device_id]
+        
+        # Execute in thread
+        def execute_thread():
+            result = None
+            try:
+                # Create socket
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(timeout)
+                sock.connect((device["ip"], int(device["port"])))
+                
+                # Prepare message
+                message = {
+                    "auth_token": device["token"],
+                    "command": command
+                }
+                if params:
+                    message["params"] = params
+                    
+                # Send command
+                sock.sendall(json.dumps(message).encode('utf-8'))
+                
+                # Receive response
+                response_data = b""
+                start_time = time.time()
+                while time.time() - start_time < timeout:
+                    try:
+                        chunk = sock.recv(4096)
+                        if not chunk:
+                            break
+                        response_data += chunk
+                        if chunk.endswith(b'}'):  # Probable end of JSON
+                            break
+                    except socket.timeout:
+                        break
+                
+                sock.close()
+                
+                # Parse response
+                if response_data:
+                    try:
+                        response = json.loads(response_data.decode('utf-8'))
+                        if response.get("status") == "success":
+                            if command == "execute":
+                                result = response.get("data", {}).get("output", "")
+                            else:
+                                result = response.get("data", {})
+                    except json.JSONDecodeError:
+                        pass
+            except Exception as e:
+                logger.error(f"Error in async command execution: {str(e)}")
+            
+            # Call callback with result
+            if callback:
+                try:
+                    callback(result)
+                except Exception as e:
+                    logger.error(f"Error in execute command callback: {e}")
+        
+        # Start execution thread
+        thread = threading.Thread(target=execute_thread, daemon=True)
+        thread.start()
+        
+        return True
+    
     def get_system_info(self, device_id):
         """Get system information from a remote device"""
         return self._execute_command_with_socket(device_id, "system_info", timeout=10)
+    
+    def get_system_info_async(self, device_id, callback=None):
+        """Get system information asynchronously"""
+        return self.execute_command_async(device_id, "system_info", callback=callback, timeout=10)
     
     def execute_command(self, device_id, command):
         """Execute a command on a remote device"""
@@ -270,6 +743,135 @@ class DeviceManager:
         
         # Execute command
         return self._execute_command_with_socket(device_id, "execute", params={"cmd": command}, timeout=30)
+    
+    def send_file_async(self, device_id, local_file_path, remote_directory, callback=None):
+        """
+        Send a file to a remote device asynchronously
+        
+        Args:
+            device_id: ID of the device
+            local_file_path: Path to the local file
+            remote_directory: Target directory on the remote device
+            callback: Function called with success flag (bool) when complete
+        """
+        if device_id not in self.devices:
+            logger.error(f"Device {device_id} unknown")
+            if callback:
+                callback(False)
+            return False
+        
+        # Validate file exists
+        if not os.path.isfile(local_file_path):
+            logger.error(f"File {local_file_path} not found")
+            if callback:
+                callback(False)
+            return False
+        
+        # Execute in thread
+        def upload_thread():
+            success = False
+            try:
+                device = self.devices[device_id]
+                
+                # Read file content
+                with open(local_file_path, 'rb') as f:
+                    file_content = f.read()
+                
+                # Get filename
+                file_name = os.path.basename(local_file_path)
+                
+                # Debug info
+                file_size = len(file_content)
+                logger.info(f"Sending file {file_name} to {device_id}, size: {file_size} bytes")
+                
+                # Use base64 encoding
+                content_b64 = base64.b64encode(file_content).decode('ascii')
+                
+                # Create socket
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(60)  # Longer timeout for file transfers
+                
+                try:
+                    sock.connect((device["ip"], int(device["port"])))
+                except socket.error as e:
+                    logger.error(f"Socket error connecting to {device_id}: {str(e)}")
+                    sock.close()
+                    if callback:
+                        callback(False)
+                    return
+                
+                # Send command
+                try:
+                    message = {
+                        "auth_token": device["token"],
+                        "command": "upload_file",
+                        "params": {
+                            "file_name": file_name,
+                            "directory": remote_directory,
+                            "encoding": "base64",
+                            "content": content_b64
+                        }
+                    }
+                    
+                    # Serialize and send
+                    json_data = json.dumps(message).encode('utf-8')
+                    sock.sendall(json_data)
+                    logger.info(f"Data sent to {device_id}, JSON size: {len(json_data)} bytes")
+                    
+                except Exception as e:
+                    logger.error(f"Error sending to {device_id}: {str(e)}")
+                    sock.close()
+                    if callback:
+                        callback(False)
+                    return
+                
+                # Receive response
+                try:
+                    response_data = b""
+                    sock.settimeout(60)
+                    try:
+                        response_data = sock.recv(4096)
+                    except socket.timeout:
+                        logger.error("Timeout waiting for response")
+                        sock.close()
+                        if callback:
+                            callback(False)
+                        return
+                    
+                    sock.close()
+                    
+                    # Parse response
+                    if response_data:
+                        try:
+                            response = json.loads(response_data.decode('utf-8'))
+                            success = response.get("status") == "success"
+                            logger.info(f"Response received: {success}")
+                        except json.JSONDecodeError as e:
+                            logger.error(f"JSON error in response: {str(e)}")
+                            success = False
+                    else:
+                        logger.error("No response received")
+                        success = False
+                        
+                except Exception as e:
+                    logger.error(f"Error receiving response: {str(e)}")
+                    success = False
+            except Exception as e:
+                logger.error(f"General error in file upload: {str(e)}")
+                success = False
+            
+            # Call callback with result
+            if callback:
+                try:
+                    callback(success)
+                except Exception as e:
+                    logger.error(f"Error in send file callback: {e}")
+        
+        # Start upload thread
+        thread = threading.Thread(target=upload_thread, daemon=True)
+        thread.start()
+        
+        return True  # Return success of starting the thread
     
     def send_file(self, device_id, local_file_path, remote_directory):
         """Send a file to a remote device"""
@@ -370,6 +972,65 @@ class DeviceManager:
             logger.error(f"General error: {str(e)}")
             return False
 
+    def _device_power_action_async(self, device_id, action, delay=0, callback=None):
+        """
+        Helper for device power actions (shutdown/restart) with async execution
+        """
+        if device_id not in self.devices:
+            if callback:
+                callback(False)
+            return False
+        
+        device = self.devices[device_id]
+        
+        # Execute in thread
+        def power_action_thread():
+            success = False
+            try:
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(10)
+                sock.connect((device["ip"], int(device["port"])))
+                
+                message = {
+                    "auth_token": device["token"],
+                    "command": action,
+                    "params": {
+                        "delay": delay
+                    }
+                }
+                sock.sendall(json.dumps(message).encode('utf-8'))
+                
+                # Receive response
+                response_data = b""
+                try:
+                    response_data = sock.recv(4096)
+                except socket.timeout:
+                    pass
+                
+                sock.close()
+                
+                if response_data:
+                    try:
+                        response = json.loads(response_data.decode('utf-8'))
+                        success = response.get("status") == "success"
+                    except json.JSONDecodeError:
+                        pass
+            except Exception as e:
+                logger.error(f"Error performing {action} on device: {str(e)}")
+            
+            # Call callback with result
+            if callback:
+                try:
+                    callback(success)
+                except Exception as e:
+                    logger.error(f"Error in power action callback: {e}")
+        
+        # Start thread
+        thread = threading.Thread(target=power_action_thread, daemon=True)
+        thread.start()
+        
+        return True
+    
     def _device_power_action(self, device_id, action, delay=0):
         """Helper for device power actions (shutdown/restart)"""
         if device_id not in self.devices:
@@ -417,9 +1078,17 @@ class DeviceManager:
         """Shutdown a remote device"""
         return self._device_power_action(device_id, "shutdown", delay)
     
+    def shutdown_device_async(self, device_id, delay=0, callback=None):
+        """Shutdown a remote device asynchronously"""
+        return self._device_power_action_async(device_id, "shutdown", delay, callback)
+    
     def restart_device(self, device_id, delay=0):
         """Restart a remote device"""
         return self._device_power_action(device_id, "restart", delay)
+    
+    def restart_device_async(self, device_id, delay=0, callback=None):
+        """Restart a remote device asynchronously"""
+        return self._device_power_action_async(device_id, "restart", delay, callback)
     
     def wake_on_lan(self, mac_address, broadcast_ip=None):
         """Send Wake-on-LAN packet"""
@@ -487,6 +1156,9 @@ class DeviceManager:
                 })
         return result
 
+    # Remaining methods in the class are kept as they were...
+    # (The rest of the class with all other methods should be preserved)
+
     # === REMOTE MANAGEMENT MODULES ===
     
     # === Windows Management Instrumentation (WMI) ===
@@ -523,6 +1195,55 @@ class DeviceManager:
         except Exception as e:
             logger.error(f"Error executing WMI query: {str(e)}")
             return None
+    
+    def query_wmi_async(self, device_id, wmi_query, namespace="root\\\\cimv2", callback=None):
+        """
+        Execute WMI query on remote Windows device asynchronously
+        """
+        if device_id not in self.devices:
+            logger.error(f"Device {device_id} not found")
+            if callback:
+                callback(None)
+            return False
+            
+        device = self.devices[device_id]
+        
+        # Check if device is Windows
+        if "windows" not in device.get("platform", "").lower():
+            logger.error(f"Device {device_id} is not a Windows machine")
+            if callback:
+                callback(None)
+            return False
+            
+        # Execute in thread
+        def wmi_thread():
+            result = None
+            try:
+                # Execute WMI query via PowerShell
+                ps_command = f'powershell "Get-WmiObject -Query \'{wmi_query}\' -Namespace \'{namespace}\' | ConvertTo-Json -Depth 3"'
+                output = self.execute_command(device_id, ps_command)
+                
+                if output:
+                    try:
+                        # Parse JSON result
+                        result = json.loads(output)
+                    except json.JSONDecodeError:
+                        logger.error(f"Error parsing WMI query result: {output[:200]}...")
+            except Exception as e:
+                logger.error(f"Error executing WMI query: {str(e)}")
+            
+            # Call callback with result
+            if callback:
+                try:
+                    callback(result)
+                except Exception as e:
+                    logger.error(f"Error in WMI query callback: {e}")
+        
+        # Start thread
+        thread = threading.Thread(target=wmi_thread, daemon=True)
+        thread.start()
+        
+        return True
 
     # === Registry Management ===
     
@@ -664,6 +1385,76 @@ class DeviceManager:
             logger.error(f"Error listing services: {str(e)}")
             return None
     
+    def list_services_async(self, device_id, callback=None):
+        """List services asynchronously"""
+        if device_id not in self.devices:
+            if callback:
+                callback(None)
+            return False
+            
+        device = self.devices[device_id]
+        is_windows = "windows" in device.get("platform", "").lower()
+        
+        # Execute in thread
+        def services_thread():
+            result = None
+            try:
+                if is_windows:
+                    # Windows services via PowerShell
+                    ps_command = 'powershell "Get-Service | Select-Object Name, DisplayName, Status | ConvertTo-Json"'
+                    output = self.execute_command(device_id, ps_command)
+                else:
+                    # Linux services via systemctl
+                    output = self.execute_command(device_id, "systemctl list-units --type=service --all")
+                
+                if output:
+                    if is_windows:
+                        try:
+                            # Parse Windows JSON output
+                            services = json.loads(output)
+                            
+                            # Handle both single service and multiple services
+                            if isinstance(services, dict):
+                                services = [services]
+                            
+                            result = [{
+                                "name": svc.get("Name"),
+                                "display_name": svc.get("DisplayName"),
+                                "status": svc.get("Status")
+                            } for svc in services]
+                        except json.JSONDecodeError:
+                            logger.error(f"Error parsing service list: {output[:200]}...")
+                    else:
+                        # Parse Linux systemctl output
+                        services = []
+                        for line in output.strip().split("\n"):
+                            if "not-found" not in line and ".service" in line:
+                                parts = line.split()
+                                if len(parts) >= 5:
+                                    status = parts[3]
+                                    name = parts[0].strip()
+                                    services.append({
+                                        "name": name,
+                                        "display_name": name,
+                                        "status": status
+                                    })
+                        result = services
+            except Exception as e:
+                logger.error(f"Error listing services: {str(e)}")
+            
+            # Call callback with result
+            if callback:
+                try:
+                    callback(result)
+                except Exception as e:
+                    logger.error(f"Error in list services callback: {e}")
+        
+        # Start thread
+        thread = threading.Thread(target=services_thread, daemon=True)
+        thread.start()
+        
+        return True
+    
     def _control_service(self, device_id, service_name, action):
         """Helper for service control (start/stop/restart)"""
         if device_id not in self.devices:
@@ -688,17 +1479,69 @@ class DeviceManager:
             logger.error(f"Error {action.lower()}ing service {service_name}: {str(e)}")
             return False
     
+    def _control_service_async(self, device_id, service_name, action, callback=None):
+        """Helper for asynchronous service control"""
+        if device_id not in self.devices:
+            if callback:
+                callback(False)
+            return False
+            
+        device = self.devices[device_id]
+        is_windows = "windows" in device.get("platform", "").lower()
+        
+        # Execute in thread
+        def service_thread():
+            success = False
+            try:
+                if is_windows:
+                    # Windows service action via PowerShell
+                    ps_command = f'powershell "{action}-Service -Name \'{service_name}\' -ErrorAction SilentlyContinue -Force; $?"'
+                    result = self.execute_command(device_id, ps_command)
+                    success = result and "True" in result
+                else:
+                    # Linux service action via systemctl
+                    result = self.execute_command(device_id, f"sudo systemctl {action.lower()} {service_name}")
+                    # Usually no output means success
+                    success = result is not None  # Even empty string is ok
+            except Exception as e:
+                logger.error(f"Error {action.lower()}ing service {service_name}: {str(e)}")
+            
+            # Call callback with result
+            if callback:
+                try:
+                    callback(success)
+                except Exception as e:
+                    logger.error(f"Error in service control callback: {e}")
+        
+        # Start thread
+        thread = threading.Thread(target=service_thread, daemon=True)
+        thread.start()
+        
+        return True
+    
     def start_service(self, device_id, service_name):
         """Start a service on a remote device"""
         return self._control_service(device_id, service_name, "Start")
+    
+    def start_service_async(self, device_id, service_name, callback=None):
+        """Start a service asynchronously"""
+        return self._control_service_async(device_id, service_name, "Start", callback)
     
     def stop_service(self, device_id, service_name):
         """Stop a service on a remote device"""
         return self._control_service(device_id, service_name, "Stop")
     
+    def stop_service_async(self, device_id, service_name, callback=None):
+        """Stop a service asynchronously"""
+        return self._control_service_async(device_id, service_name, "Stop", callback)
+    
     def restart_service(self, device_id, service_name):
         """Restart a service on a remote device"""
         return self._control_service(device_id, service_name, "Restart")
+    
+    def restart_service_async(self, device_id, service_name, callback=None):
+        """Restart a service asynchronously"""
+        return self._control_service_async(device_id, service_name, "Restart", callback)
     
     # === File Management ===
     
@@ -778,6 +1621,95 @@ class DeviceManager:
             logger.error(f"Error listing files: {str(e)}")
             return None
     
+    def list_files_async(self, device_id, directory_path, callback=None):
+        """List files asynchronously"""
+        if device_id not in self.devices:
+            if callback:
+                callback(None)
+            return False
+            
+        device = self.devices[device_id]
+        is_windows = "windows" in device.get("platform", "").lower()
+        
+        # Execute in thread
+        def files_thread():
+            result = None
+            try:
+                if is_windows:
+                    # Windows path handling
+                    if len(directory_path) == 2 and directory_path[1] == ':':
+                        # Add trailing backslash to drive root
+                        directory_path = f"{directory_path}\\"
+                    
+                    # Windows file listing via PowerShell
+                    ps_command = (
+                        f'powershell "Get-ChildItem -Path \'{directory_path}\' | '
+                        f'Select-Object Name, LastWriteTime, Length, @{{Name=\'Type\';Expression={{if($_.PSIsContainer) {{\'Directory\'}} else {{\'File\'}}}}}} | '
+                        f'ConvertTo-Json"'
+                    )
+                    output = self.execute_command(device_id, ps_command)
+                else:
+                    # Linux file listing
+                    output = self.execute_command(device_id, f"ls -la {directory_path}")
+                
+                if output:
+                    files = []
+                    
+                    if is_windows:
+                        try:
+                            items = json.loads(output)
+                            
+                            # Handle both single item and array
+                            if isinstance(items, dict):
+                                items = [items]
+                            
+                            for item in items:
+                                files.append({
+                                    "name": item.get("Name"),
+                                    "size": item.get("Length", 0),
+                                    "modified": item.get("LastWriteTime"),
+                                    "type": item.get("Type"),
+                                    "is_dir": item.get("Type") == "Directory"
+                                })
+                        except json.JSONDecodeError:
+                            logger.error(f"Error parsing file list: {output[:200]}...")
+                    else:
+                        # Parse Linux ls output
+                        lines = output.strip().split("\n")
+                        
+                        for line in lines[1:]:  # Skip first line (total)
+                            parts = line.split()
+                            if len(parts) >= 9:
+                                name = " ".join(parts[8:])
+                                if name not in [".", ".."]:
+                                    is_dir = parts[0].startswith("d")
+                                    size = int(parts[4])
+                                    
+                                    files.append({
+                                        "name": name,
+                                        "size": size,
+                                        "modified": f"{parts[5]} {parts[6]} {parts[7]}",
+                                        "type": "Directory" if is_dir else "File",
+                                        "is_dir": is_dir
+                                    })
+                    
+                    result = files
+            except Exception as e:
+                logger.error(f"Error listing files: {str(e)}")
+            
+            # Call callback with result
+            if callback:
+                try:
+                    callback(result)
+                except Exception as e:
+                    logger.error(f"Error in list files callback: {e}")
+        
+        # Start thread
+        thread = threading.Thread(target=files_thread, daemon=True)
+        thread.start()
+        
+        return True
+    
     def download_file(self, device_id, remote_path, local_path):
         """Download file from remote device to local system"""
         if device_id not in self.devices:
@@ -819,9 +1751,64 @@ class DeviceManager:
             logger.error(f"Error downloading file: {str(e)}")
             return False
     
+    def download_file_async(self, device_id, remote_path, local_path, callback=None):
+        """Download file asynchronously"""
+        if device_id not in self.devices:
+            if callback:
+                callback(False)
+            return False
+            
+        device = self.devices[device_id]
+        
+        # Execute in thread
+        def download_thread():
+            success = False
+            try:
+                # Get file content in base64
+                is_windows = "windows" in device.get("platform", "").lower()
+                
+                if is_windows:
+                    ps_command = f'powershell "[Convert]::ToBase64String([System.IO.File]::ReadAllBytes(\'{remote_path}\'))"'
+                    file_content_b64 = self.execute_command(device_id, ps_command)
+                else:
+                    file_content_b64 = self.execute_command(device_id, f"base64 -w 0 '{remote_path}'")
+                
+                if not file_content_b64:
+                    logger.error(f"Failed to read file {remote_path} from device {device_id}")
+                else:
+                    # Decode base64 content
+                    try:
+                        file_content = base64.b64decode(file_content_b64)
+                        
+                        # Write to local file
+                        with open(local_path, 'wb') as f:
+                            f.write(file_content)
+                        success = True
+                    except Exception as e:
+                        logger.error(f"Error processing file content: {str(e)}")
+            except Exception as e:
+                logger.error(f"Error downloading file: {str(e)}")
+            
+            # Call callback with result
+            if callback:
+                try:
+                    callback(success)
+                except Exception as e:
+                    logger.error(f"Error in download file callback: {e}")
+        
+        # Start thread
+        thread = threading.Thread(target=download_thread, daemon=True)
+        thread.start()
+        
+        return True
+    
     def upload_file(self, device_id, local_path, remote_path):
         """Upload file from local system to remote device"""
         return self.send_file(device_id, local_path, remote_path)
+    
+    def upload_file_async(self, device_id, local_path, remote_path, callback=None):
+        """Upload file asynchronously"""
+        return self.send_file_async(device_id, local_path, remote_path, callback)
     
     def delete_file(self, device_id, file_path):
         """Delete file on remote device"""

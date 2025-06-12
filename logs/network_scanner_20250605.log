@@ -1441,3 +1441,48 @@
 2025-06-05 14:34:43,787 - core.messaging.message_service - INFO - MessageService stopped
 2025-06-05 14:34:43,788 - core.messaging.message_server - INFO - Message server stopped
 2025-06-05 14:34:44,800 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 14:59:03,280 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-05 14:59:03,385 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-05 14:59:03,476 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-05 14:59:03,476 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-05 14:59:03,477 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-05 14:59:03,477 - core.messaging.message_service - INFO - MessageService started
+2025-06-05 14:59:03,478 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-05 14:59:03,491 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-05 14:59:04,295 - gui.devices_tab - INFO - Chargement de 253 appareils depuis devices.json
+2025-06-05 14:59:04,357 - gui.files_tab - INFO - Files Tab initialized
+2025-06-05 14:59:04,374 - gui.main_window - INFO - Main window initialized
+2025-06-05 14:59:04,375 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-05 15:00:04,307 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:00:07,437 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:00:07,438 - core.messaging.message_service - INFO - Device registered: 192.168.100.1
+2025-06-05 15:00:07,438 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-05 15:00:07,927 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:00:07,928 - core.messaging.message_service - INFO - Device registered: 192.168.100.5
+2025-06-05 15:00:07,928 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-05 15:00:40,747 - core.messaging.message_service - INFO - Message sent to 192.168.100.1: HELLO...
+2025-06-05 15:01:04,332 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:02:04,338 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:03:04,330 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:04:04,326 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:04:06,499 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-05 15:04:07,300 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-05 15:04:29,176 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-05 15:04:29,176 - core.messaging.message_server - INFO - Message server stopped
+2025-06-05 15:04:29,202 - root - INFO - Application exited with code 0
+2025-06-05 15:22:40,454 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-05 15:22:40,533 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-05 15:22:40,553 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-05 15:22:40,553 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-05 15:22:40,553 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-05 15:22:40,554 - core.messaging.message_service - INFO - MessageService started
+2025-06-05 15:22:40,555 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-05 15:22:40,558 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-05 15:22:41,145 - gui.devices_tab - INFO - Chargement de 253 appareils depuis devices.json
+2025-06-05 15:22:41,222 - gui.files_tab - INFO - Files Tab initialized
+2025-06-05 15:22:41,243 - gui.main_window - INFO - Main window initialized
+2025-06-05 15:22:41,243 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-05 15:23:41,138 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:24:41,138 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:25:41,149 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-05 15:26:41,155 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json

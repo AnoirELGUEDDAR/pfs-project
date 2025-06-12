@@ -1,0 +1,927 @@
+2025-06-06 15:19:50,182 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 15:19:50,266 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 15:19:50,330 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 15:19:50,331 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 15:19:50,331 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 15:19:50,333 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 15:19:50,334 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 15:19:50,345 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 15:19:51,130 - gui.devices_tab - INFO - Chargement de 253 appareils depuis devices.json
+2025-06-06 15:19:51,236 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 15:19:51,261 - gui.main_window - INFO - Main window initialized
+2025-06-06 15:19:51,262 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 15:20:51,138 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:21:51,135 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:22:51,130 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:23:51,127 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:24:51,122 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:24:53,340 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:24:54,140 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:25:51,128 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:26:51,126 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:27:51,132 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:28:51,131 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:29:51,134 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:29:56,355 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:29:57,150 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:30:51,126 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:31:51,135 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:32:51,128 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:33:51,148 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:34:51,163 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:34:59,362 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:35:00,153 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:35:51,171 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:36:51,165 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:37:51,161 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:38:51,154 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:39:51,159 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:40:02,388 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:40:03,169 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:40:51,155 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:41:51,157 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:42:51,232 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:43:51,157 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:44:51,152 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:45:05,397 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:45:06,186 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:45:51,171 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:46:51,164 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:47:51,162 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:48:51,158 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:49:51,156 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:50:08,406 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:50:09,197 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:50:51,163 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:51:51,162 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:52:51,155 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:53:51,167 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:54:51,162 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:55:11,413 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:55:12,239 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 15:55:51,171 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:56:51,170 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:57:51,157 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:58:51,167 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 15:59:51,156 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:00:14,424 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:00:15,249 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:00:51,167 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:01:51,178 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:02:51,181 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:03:51,174 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:04:51,170 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:05:17,438 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:05:18,267 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:05:51,193 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:06:51,201 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:07:51,201 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:08:51,188 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:09:51,199 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:10:20,452 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:10:21,276 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:10:51,193 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:11:51,192 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:12:51,195 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:13:51,190 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:14:51,188 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:15:23,456 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:15:24,292 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:15:51,189 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:16:51,187 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:17:51,191 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:18:51,187 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:19:51,191 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:20:26,468 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:20:27,298 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:20:51,209 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:21:51,216 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:22:51,213 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:23:51,225 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:24:51,235 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:25:29,501 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:25:30,313 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:25:51,239 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:26:51,237 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:27:51,250 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:28:51,236 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:29:51,256 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:30:32,505 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:30:33,327 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:30:51,231 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:31:51,247 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:32:51,240 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:33:51,238 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:34:51,241 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:35:35,513 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:35:36,340 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:35:51,237 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:36:51,238 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:37:51,242 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:38:51,248 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:39:51,237 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:40:38,525 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:40:39,346 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:40:51,232 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:41:51,235 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:42:51,247 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:43:51,255 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:44:51,272 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:45:41,537 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:45:42,351 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:45:51,279 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:46:51,299 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:47:51,294 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:48:51,289 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:49:51,286 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:50:44,548 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:50:45,370 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:50:51,278 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:51:51,281 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:52:51,277 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:53:51,292 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:54:51,292 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:55:47,559 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:55:48,390 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 16:55:51,299 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:56:51,295 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:57:51,290 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:58:51,286 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 16:59:51,299 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:00:50,566 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:00:51,285 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:00:51,400 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:01:51,289 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:02:51,301 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:03:51,300 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:04:51,307 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:05:51,299 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:05:53,570 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:05:54,408 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:06:51,294 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:07:51,302 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:08:51,306 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:09:51,306 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:10:51,304 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:10:56,582 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:10:57,421 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:11:51,307 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:12:51,307 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:13:51,305 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:14:51,305 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:15:51,302 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:15:59,590 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:16:00,431 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:16:51,330 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:17:51,314 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:18:51,322 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:19:51,333 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:20:51,316 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:21:02,602 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:21:03,444 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:21:51,329 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:22:51,324 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:23:51,319 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:24:51,334 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:25:51,331 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:26:05,618 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:26:06,462 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:26:51,326 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:27:51,334 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:28:51,335 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:29:51,341 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:30:51,357 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:31:08,638 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:31:09,470 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:31:51,379 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:32:51,428 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:33:51,362 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:34:51,366 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:35:51,379 - gui.devices_tab - INFO - Sauvegarde de 253 appareils dans devices.json
+2025-06-06 17:36:03,668 - gui.devices_tab - INFO - Sauvegarde de 254 appareils dans devices.json
+2025-06-06 17:36:03,671 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 17:36:03,672 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:36:03,689 - gui.devices_tab - INFO - Sauvegarde de 255 appareils dans devices.json
+2025-06-06 17:36:03,709 - core.messaging.message_service - INFO - Device registered: 192.168.1.254
+2025-06-06 17:36:03,710 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:36:05,348 - gui.devices_tab - INFO - Sauvegarde de 256 appareils dans devices.json
+2025-06-06 17:36:05,349 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-06-06 17:36:05,349 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:36:05,376 - gui.devices_tab - INFO - Sauvegarde de 257 appareils dans devices.json
+2025-06-06 17:36:05,377 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-06-06 17:36:05,377 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:36:05,392 - gui.devices_tab - INFO - Sauvegarde de 258 appareils dans devices.json
+2025-06-06 17:36:05,394 - core.messaging.message_service - INFO - Device registered: 192.168.1.9
+2025-06-06 17:36:05,394 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:36:11,644 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:36:12,485 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10035
+2025-06-06 17:36:52,374 - gui.devices_tab - INFO - Sauvegarde de 258 appareils dans devices.json
+2025-06-06 17:37:51,375 - gui.devices_tab - INFO - Sauvegarde de 258 appareils dans devices.json
+2025-06-06 17:37:56,495 - gui.devices_tab - INFO - Sauvegarde de 259 appareils dans devices.json
+2025-06-06 17:37:56,495 - core.messaging.message_service - INFO - Device registered: 192.168.11.1
+2025-06-06 17:37:56,495 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: Srepeat...
+2025-06-06 17:38:25,018 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 17:38:25,018 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 17:38:25,062 - root - INFO - Application exited with code 0
+2025-06-06 17:38:32,851 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 17:38:32,961 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 17:38:32,990 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 17:38:32,991 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 17:38:32,992 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 17:38:33,005 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 17:38:33,006 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 17:38:33,008 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 17:38:33,587 - gui.devices_tab - INFO - Chargement de 259 appareils depuis devices.json
+2025-06-06 17:38:33,646 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 17:38:33,675 - gui.main_window - INFO - Main window initialized
+2025-06-06 17:38:33,676 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 17:38:36,030 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-06-06 17:38:43,153 - gui.devices_tab - INFO - Sauvegarde de 259 appareils dans devices.json
+2025-06-06 17:38:43,154 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 17:38:43,154 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:38:43,176 - gui.devices_tab - INFO - Sauvegarde de 259 appareils dans devices.json
+2025-06-06 17:38:43,177 - core.messaging.message_service - INFO - Device registered: 192.168.1.254
+2025-06-06 17:38:43,177 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:38:43,201 - gui.devices_tab - INFO - Sauvegarde de 259 appareils dans devices.json
+2025-06-06 17:38:43,201 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-06-06 17:38:43,202 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:38:43,222 - gui.devices_tab - INFO - Sauvegarde de 259 appareils dans devices.json
+2025-06-06 17:38:43,222 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-06-06 17:38:43,222 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:38:43,238 - gui.devices_tab - INFO - Sauvegarde de 260 appareils dans devices.json
+2025-06-06 17:38:43,239 - core.messaging.message_service - INFO - Device registered: 192.168.1.8
+2025-06-06 17:38:43,239 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:38:44,730 - gui.devices_tab - INFO - Sauvegarde de 261 appareils dans devices.json
+2025-06-06 17:38:44,731 - core.messaging.message_service - INFO - Device registered: 192.168.1.12
+2025-06-06 17:38:44,731 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:39:44,496 - gui.devices_tab - INFO - Sauvegarde de 261 appareils dans devices.json
+2025-06-06 17:40:05,363 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 17:40:05,366 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 17:40:05,397 - root - INFO - Application exited with code 0
+2025-06-06 17:40:59,174 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 17:40:59,279 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 17:40:59,304 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 17:40:59,304 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 17:40:59,305 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 17:40:59,306 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 17:40:59,307 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 17:40:59,308 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 17:41:00,055 - gui.devices_tab - INFO - Chargement de 261 appareils depuis devices.json
+2025-06-06 17:41:00,104 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 17:41:00,120 - gui.main_window - INFO - Main window initialized
+2025-06-06 17:41:00,120 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 17:41:11,520 - gui.devices_tab - INFO - Sauvegarde de 261 appareils dans devices.json
+2025-06-06 17:41:11,521 - core.messaging.message_service - INFO - Device registered: 192.168.11.1
+2025-06-06 17:41:11,521 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: Srepeat...
+2025-06-06 17:42:00,049 - gui.devices_tab - INFO - Sauvegarde de 261 appareils dans devices.json
+2025-06-06 17:43:00,053 - gui.devices_tab - INFO - Sauvegarde de 261 appareils dans devices.json
+2025-06-06 17:43:52,774 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 17:43:52,775 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 17:43:52,795 - root - INFO - Application exited with code 0
+2025-06-06 17:44:45,987 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 17:44:46,091 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 17:44:46,123 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 17:44:46,124 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 17:44:46,124 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 17:44:46,125 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 17:44:46,126 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 17:44:46,131 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 17:44:46,784 - gui.devices_tab - INFO - Chargement de 261 appareils depuis devices.json
+2025-06-06 17:44:46,833 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 17:44:46,850 - gui.main_window - INFO - Main window initialized
+2025-06-06 17:44:46,851 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 17:45:22,758 - gui.devices_tab - INFO - Sauvegarde de 261 appareils dans devices.json
+2025-06-06 17:45:22,759 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 17:45:22,760 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:45:22,949 - gui.devices_tab - INFO - Sauvegarde de 262 appareils dans devices.json
+2025-06-06 17:45:22,950 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 17:45:22,950 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 17:45:46,791 - gui.devices_tab - INFO - Sauvegarde de 262 appareils dans devices.json
+2025-06-06 17:46:46,785 - gui.devices_tab - INFO - Sauvegarde de 262 appareils dans devices.json
+2025-06-06 17:47:46,789 - gui.devices_tab - INFO - Sauvegarde de 262 appareils dans devices.json
+2025-06-06 17:48:46,790 - gui.devices_tab - INFO - Sauvegarde de 262 appareils dans devices.json
+2025-06-06 17:49:46,786 - gui.devices_tab - INFO - Sauvegarde de 262 appareils dans devices.json
+2025-06-06 17:49:48,166 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 17:49:48,830 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 17:50:46,781 - gui.devices_tab - INFO - Sauvegarde de 262 appareils dans devices.json
+2025-06-06 17:51:12,745 - gui.devices_tab - INFO - Sauvegarde de 262 appareils dans devices.json
+2025-06-06 17:51:12,746 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 17:51:12,747 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:51:22,207 - gui.devices_tab - INFO - Sauvegarde de 263 appareils dans devices.json
+2025-06-06 17:51:22,207 - core.messaging.message_service - INFO - Device registered: 192.168.1.3
+2025-06-06 17:51:22,208 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:51:31,660 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:51:31,661 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-06-06 17:51:31,662 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 17:51:31,958 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:51:31,958 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 17:51:31,958 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 17:51:48,548 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:52:46,793 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:53:51,092 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:54:46,834 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:54:50,214 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 17:54:50,858 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 17:55:46,845 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:56:46,836 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:57:46,850 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:58:46,848 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:59:46,849 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 17:59:52,255 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 17:59:52,892 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:00:46,853 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:01:46,843 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:02:46,859 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:03:46,843 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:04:46,848 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:04:54,288 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:04:54,921 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:05:46,841 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:06:46,844 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:07:46,843 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:08:46,864 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:09:46,871 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:09:56,336 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:09:56,957 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:10:46,881 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:11:46,879 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:12:46,884 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:13:46,900 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:14:46,900 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:14:58,356 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:14:58,995 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:15:46,905 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:16:46,924 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:17:46,941 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:18:46,936 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:19:46,948 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:20:00,383 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:20:01,030 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:20:46,942 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:21:46,946 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:22:46,945 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:23:46,946 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:24:46,942 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:25:02,440 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:25:03,091 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:25:46,939 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:26:46,952 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:27:46,977 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:28:46,980 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:29:46,984 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:30:04,491 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:30:05,161 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:30:47,003 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:31:47,027 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:32:47,016 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:33:47,020 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:34:47,029 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:35:06,546 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:35:07,200 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:35:47,052 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:36:47,057 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:37:47,047 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:38:47,048 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:39:47,050 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:40:08,584 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:40:09,236 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:40:47,048 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:41:47,050 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:42:47,065 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:43:47,073 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:44:47,074 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:45:10,644 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:45:11,276 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:45:47,062 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:46:47,066 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:47:47,069 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:48:47,060 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:49:47,063 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:50:12,683 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:50:13,300 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:50:47,068 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:51:47,076 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:52:47,075 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:53:47,078 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:54:47,074 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:55:14,727 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:55:15,322 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 18:55:47,074 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:56:47,080 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:57:47,079 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:58:47,061 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 18:59:47,060 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:00:16,760 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:00:17,348 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:00:47,063 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:01:47,087 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:02:47,078 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:03:47,077 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:04:47,087 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:05:18,798 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:05:19,397 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:05:47,082 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:06:47,097 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:07:47,092 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:08:47,116 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:09:47,113 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:10:20,822 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:10:21,432 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:10:47,114 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:11:47,112 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:12:47,114 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:13:47,119 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:14:47,122 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:15:22,839 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:15:23,494 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:15:47,125 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:16:47,117 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:17:47,119 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:18:47,118 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:19:47,122 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:20:24,877 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:20:25,534 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:20:47,124 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:21:47,115 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:22:47,117 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:23:47,136 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:24:47,139 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:25:26,905 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:25:27,554 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:25:47,137 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:26:47,130 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:27:47,138 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:28:47,150 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:29:47,147 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:30:28,944 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:30:29,586 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:30:47,146 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:31:47,144 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:32:47,148 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:33:47,153 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:34:47,167 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:35:30,981 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:35:31,627 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:35:47,157 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:36:47,164 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:37:47,173 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:38:47,159 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:39:47,161 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:40:33,005 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:40:33,650 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 19:40:47,177 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:41:47,189 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:42:47,208 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 19:43:18,135 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 19:43:18,136 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 19:43:18,206 - root - INFO - Application exited with code 0
+2025-06-06 22:00:29,033 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 22:00:29,127 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 22:00:29,158 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 22:00:29,158 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 22:00:29,158 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 22:00:29,160 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 22:00:29,161 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 22:00:29,165 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 22:00:29,899 - gui.devices_tab - INFO - Chargement de 264 appareils depuis devices.json
+2025-06-06 22:00:29,952 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 22:00:29,967 - gui.main_window - INFO - Main window initialized
+2025-06-06 22:00:29,968 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 22:00:32,716 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-06-06 22:00:46,146 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 22:00:46,147 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 22:00:46,147 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:00:55,592 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 22:00:55,592 - core.messaging.message_service - INFO - Device registered: 192.168.1.3
+2025-06-06 22:00:55,592 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:01:05,096 - gui.devices_tab - INFO - Sauvegarde de 264 appareils dans devices.json
+2025-06-06 22:01:05,097 - core.messaging.message_service - INFO - Device registered: 192.168.1.8
+2025-06-06 22:01:05,097 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:01:14,577 - gui.devices_tab - INFO - Sauvegarde de 265 appareils dans devices.json
+2025-06-06 22:01:14,577 - core.messaging.message_service - INFO - Device registered: 192.168.1.13
+2025-06-06 22:01:14,577 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:01:24,082 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:01:24,083 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-06-06 22:01:24,084 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:01:24,485 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:01:24,486 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 22:01:24,487 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 22:01:30,001 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:02:32,894 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:03:29,915 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:04:29,909 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:05:29,907 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:05:31,190 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:05:31,935 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:06:29,910 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:07:21,053 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 22:07:21,053 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 22:07:21,094 - root - INFO - Application exited with code 0
+2025-06-06 22:07:23,885 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 22:07:24,007 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 22:07:24,034 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 22:07:24,036 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 22:07:24,038 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 22:07:24,040 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 22:07:24,041 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 22:07:24,044 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 22:07:24,757 - gui.devices_tab - INFO - Chargement de 266 appareils depuis devices.json
+2025-06-06 22:07:24,813 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 22:07:24,827 - gui.main_window - INFO - Main window initialized
+2025-06-06 22:07:24,835 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 22:07:26,978 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 22:07:26,979 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 22:07:26,986 - root - INFO - Application exited with code 0
+2025-06-06 22:16:05,680 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 22:16:05,764 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 22:16:05,799 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 22:16:05,799 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 22:16:05,800 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 22:16:05,801 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 22:16:05,802 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 22:16:05,806 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 22:16:06,222 - gui.devices_tab - INFO - Chargement de 266 appareils depuis devices.json
+2025-06-06 22:16:06,267 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 22:16:06,282 - gui.main_window - INFO - Main window initialized
+2025-06-06 22:16:06,282 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 22:16:08,078 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-06-06 22:16:29,505 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 22:16:29,580 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 22:16:29,603 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 22:16:29,603 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 22:16:29,603 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 22:16:29,604 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 22:16:29,604 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 22:16:29,606 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 22:16:30,233 - gui.devices_tab - INFO - Chargement de 266 appareils depuis devices.json
+2025-06-06 22:16:30,285 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 22:16:30,303 - gui.main_window - INFO - Main window initialized
+2025-06-06 22:16:30,304 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 22:16:45,914 - gui.devices_tab - INFO - Sauvegarde de 266 appareils dans devices.json
+2025-06-06 22:16:45,914 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 22:16:45,914 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:16:55,378 - gui.devices_tab - INFO - Sauvegarde de 267 appareils dans devices.json
+2025-06-06 22:16:55,378 - core.messaging.message_service - INFO - Device registered: 192.168.1.5
+2025-06-06 22:16:55,379 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:17:04,849 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:17:04,850 - core.messaging.message_service - INFO - Device registered: 192.168.1.6
+2025-06-06 22:17:04,850 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:17:14,342 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:17:14,343 - core.messaging.message_service - INFO - Device registered: 192.168.1.8
+2025-06-06 22:17:14,343 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:17:23,786 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:17:23,787 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-06-06 22:17:23,788 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:17:23,936 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:17:23,937 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 22:17:23,937 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 22:17:30,491 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:18:36,966 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:19:30,234 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:20:30,242 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:21:30,250 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:21:31,629 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:21:32,262 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:22:30,262 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:23:30,255 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:23:37,485 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 22:23:37,486 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 22:23:37,521 - root - INFO - Application exited with code 0
+2025-06-06 22:23:55,760 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 22:23:55,839 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 22:23:55,869 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 22:23:55,869 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 22:23:55,870 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 22:23:55,871 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 22:23:55,871 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 22:23:55,874 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 22:23:56,664 - gui.devices_tab - INFO - Chargement de 268 appareils depuis devices.json
+2025-06-06 22:23:56,793 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 22:23:56,823 - gui.main_window - INFO - Main window initialized
+2025-06-06 22:23:56,834 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 22:24:14,745 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:24:14,746 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 22:24:14,746 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:24:24,234 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:24:24,234 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-06-06 22:24:24,234 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:24:33,723 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:24:33,724 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-06-06 22:24:33,724 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:24:43,179 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:24:43,180 - core.messaging.message_service - INFO - Device registered: 192.168.1.5
+2025-06-06 22:24:43,180 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:24:52,645 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:24:52,645 - core.messaging.message_service - INFO - Device registered: 192.168.1.6
+2025-06-06 22:24:52,645 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:24:56,698 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:25:02,121 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:25:02,122 - core.messaging.message_service - INFO - Device registered: 192.168.1.8
+2025-06-06 22:25:02,122 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:25:11,600 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:25:11,601 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-06-06 22:25:11,601 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 22:25:11,928 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:25:11,929 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 22:25:11,929 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 22:26:04,531 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:26:56,702 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:27:56,719 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:28:56,725 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:28:57,918 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:28:58,752 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:29:56,743 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:30:56,747 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:31:56,736 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:32:56,744 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:33:56,738 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:33:59,946 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:34:00,780 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:34:56,750 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:35:56,748 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:36:56,762 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:37:56,760 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:38:56,763 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:39:01,971 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:39:02,792 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 22:39:56,786 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 22:40:16,239 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 22:40:16,240 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 22:40:16,286 - root - INFO - Application exited with code 0
+2025-06-06 23:26:19,340 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 23:26:19,425 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 23:26:19,515 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 23:26:19,515 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 23:26:19,516 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 23:26:19,517 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 23:26:19,518 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 23:26:19,524 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 23:26:20,229 - gui.devices_tab - INFO - Chargement de 268 appareils depuis devices.json
+2025-06-06 23:26:20,294 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 23:26:20,315 - gui.main_window - INFO - Main window initialized
+2025-06-06 23:26:20,317 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 23:26:32,701 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:26:32,702 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 23:26:32,702 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:26:32,724 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:26:32,725 - core.messaging.message_service - INFO - Device registered: 192.168.1.254
+2025-06-06 23:26:32,725 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:26:32,749 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:26:32,749 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-06-06 23:26:32,749 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:26:32,764 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:26:32,764 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-06-06 23:26:32,765 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:26:34,571 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:26:34,572 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 23:26:34,572 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:27:27,401 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:27:48,302 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 23:27:48,415 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 23:27:48,436 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 23:27:48,437 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 23:27:48,438 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 23:27:48,438 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 23:27:48,439 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 23:27:48,441 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 23:27:48,940 - gui.devices_tab - INFO - Chargement de 268 appareils depuis devices.json
+2025-06-06 23:27:49,022 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 23:27:49,038 - gui.main_window - INFO - Main window initialized
+2025-06-06 23:27:49,039 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 23:27:51,968 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-06-06 23:28:05,586 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:28:05,586 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 23:28:05,586 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:28:05,949 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:28:05,950 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 23:28:05,950 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 23:28:48,952 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:29:48,955 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:30:48,963 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:31:48,965 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:32:48,980 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:32:50,487 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 23:32:50,978 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 23:33:12,434 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 23:33:12,434 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 23:33:12,468 - root - INFO - Application exited with code 0
+2025-06-06 23:33:20,194 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 23:33:20,309 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 23:33:20,333 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 23:33:20,333 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 23:33:20,333 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 23:33:20,335 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 23:33:20,335 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 23:33:20,338 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 23:33:20,913 - gui.devices_tab - INFO - Chargement de 268 appareils depuis devices.json
+2025-06-06 23:33:20,966 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 23:33:20,986 - gui.main_window - INFO - Main window initialized
+2025-06-06 23:33:20,987 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 23:33:23,871 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-06-06 23:33:37,862 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:33:37,863 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 23:33:37,863 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:33:47,319 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:33:47,319 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-06-06 23:33:47,319 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:33:58,392 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:33:58,393 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-06-06 23:33:58,393 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:34:07,903 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:34:07,903 - core.messaging.message_service - INFO - Device registered: 192.168.1.5
+2025-06-06 23:34:07,904 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:34:17,373 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:34:17,374 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-06-06 23:34:17,374 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:34:20,904 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:34:26,839 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:34:26,840 - core.messaging.message_service - INFO - Device registered: 192.168.1.8
+2025-06-06 23:34:26,840 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:34:36,299 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:34:36,299 - core.messaging.message_service - INFO - Device registered: 192.168.1.12
+2025-06-06 23:34:36,299 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:34:45,780 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:34:45,781 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-06-06 23:34:45,781 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:34:45,936 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:34:45,936 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 23:34:45,936 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 23:35:21,885 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:36:10,088 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 23:36:10,089 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 23:36:10,123 - root - INFO - Application exited with code 0
+2025-06-06 23:37:10,387 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 23:37:10,498 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 23:37:10,528 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 23:37:10,528 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 23:37:10,529 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 23:37:10,531 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 23:37:10,532 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 23:37:10,536 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 23:37:11,124 - root - CRITICAL - Unhandled exception: 'ScannerTab' object has no attribute '_add_device_to_results'
+Traceback (most recent call last):
+  File "C:\Users\pc\Desktop\LANMANAGER\main.py", line 137, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\pc\Desktop\LANMANAGER\main.py", line 107, in main
+    main_window = MainWindow()
+  File "C:\Users\pc\Desktop\LANMANAGER\gui\main_window.py", line 125, in __init__
+    self._setup_ui()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\Desktop\LANMANAGER\gui\main_window.py", line 396, in _setup_ui
+    self.scanner_tab = ScannerTab()
+                       ~~~~~~~~~~^^
+  File "C:\Users\pc\Desktop\LANMANAGER\gui\scanner_tab.py", line 54, in __init__
+    self.device_found_signal.connect(self._add_device_to_results)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ScannerTab' object has no attribute '_add_device_to_results'
+2025-06-06 23:41:29,568 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 23:41:29,647 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 23:41:29,677 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 23:41:29,677 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 23:41:29,678 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 23:41:29,679 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 23:41:29,680 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 23:41:29,683 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 23:41:30,227 - gui.devices_tab - INFO - Chargement de 268 appareils depuis devices.json
+2025-06-06 23:41:30,271 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 23:41:30,287 - gui.main_window - INFO - Main window initialized
+2025-06-06 23:41:30,287 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 23:41:46,145 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:41:46,145 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 23:41:46,145 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:41:55,618 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:41:55,619 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-06-06 23:41:55,619 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:42:05,076 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:42:05,076 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-06-06 23:42:05,076 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:42:14,522 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:42:14,523 - core.messaging.message_service - INFO - Device registered: 192.168.1.8
+2025-06-06 23:42:14,523 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:42:23,990 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:42:23,990 - core.messaging.message_service - INFO - Device registered: 192.168.1.12
+2025-06-06 23:42:23,990 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:42:30,241 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:42:33,459 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:42:33,459 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-06-06 23:42:33,460 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:42:43,457 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:42:43,458 - core.messaging.message_service - INFO - Device registered: 192.168.1.5
+2025-06-06 23:42:43,458 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:42:43,487 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:42:43,495 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 23:42:43,497 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 23:43:32,176 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:44:30,261 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:45:30,250 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:46:30,247 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:46:31,714 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 23:46:32,261 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 23:47:30,252 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:47:44,259 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 23:47:44,261 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 23:47:44,290 - root - INFO - Application exited with code 0
+2025-06-06 23:50:26,066 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 23:50:26,161 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 23:50:26,186 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 23:50:26,186 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 23:50:26,186 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 23:50:26,187 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 23:50:26,188 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 23:50:26,190 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 23:50:26,726 - gui.devices_tab - INFO - Chargement de 268 appareils depuis devices.json
+2025-06-06 23:50:26,770 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 23:50:26,787 - gui.main_window - INFO - Main window initialized
+2025-06-06 23:50:26,788 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 23:50:29,014 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-06-06 23:50:42,776 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:50:42,777 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 23:50:42,777 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:50:52,245 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:50:52,246 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-06-06 23:50:52,246 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:51:01,743 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:51:01,743 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-06-06 23:51:01,744 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:51:11,202 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:51:11,202 - core.messaging.message_service - INFO - Device registered: 192.168.1.5
+2025-06-06 23:51:11,202 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:51:20,651 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:51:20,651 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-06-06 23:51:20,651 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:51:26,738 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:51:30,119 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:51:30,119 - core.messaging.message_service - INFO - Device registered: 192.168.1.8
+2025-06-06 23:51:30,120 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:51:39,600 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:51:39,601 - core.messaging.message_service - INFO - Device registered: 192.168.1.12
+2025-06-06 23:51:39,601 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:51:49,057 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:51:49,059 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-06-06 23:51:49,060 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:51:49,445 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:51:49,445 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 23:51:49,446 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 23:52:38,334 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:53:31,084 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:54:26,751 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:55:26,733 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:55:28,231 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-06 23:55:28,233 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-06 23:55:28,233 - core.messaging.message_server - INFO - Message server stopped
+2025-06-06 23:55:28,251 - root - INFO - Application exited with code 0
+2025-06-06 23:55:48,023 - root - INFO - Starting Network Scanner & Management Tool
+2025-06-06 23:55:48,138 - root - INFO - Platform: Windows-11-10.0.26100-SP0, Python: 3.13.3
+2025-06-06 23:55:48,169 - core.messaging.message_service - INFO - MessageService initialized
+2025-06-06 23:55:48,170 - core.messaging.message_service - INFO - Username set to: ADMIN
+2025-06-06 23:55:48,171 - core.file_transfer.file_service - INFO - FileTransferService initialized
+2025-06-06 23:55:48,172 - core.messaging.message_service - INFO - MessageService started
+2025-06-06 23:55:48,173 - core.messaging.message_server - INFO - Message server started on port 9876
+2025-06-06 23:55:48,178 - core.messaging.message_server - INFO - Listening for client connections on port 9876
+2025-06-06 23:55:48,906 - gui.devices_tab - INFO - Chargement de 268 appareils depuis devices.json
+2025-06-06 23:55:48,948 - gui.files_tab - INFO - Files Tab initialized
+2025-06-06 23:55:48,963 - gui.main_window - INFO - Main window initialized
+2025-06-06 23:55:48,963 - core.messaging.message_service - INFO - Message sent to broadcast: Application started successful...
+2025-06-06 23:56:17,894 - core.messaging.message_service - INFO - Message sent to broadcast: Network scan started...
+2025-06-06 23:56:31,242 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:56:31,242 - core.messaging.message_service - INFO - Device registered: 192.168.1.1
+2025-06-06 23:56:31,242 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:56:40,754 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:56:40,754 - core.messaging.message_service - INFO - Device registered: 192.168.1.2
+2025-06-06 23:56:40,755 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:56:48,919 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:56:50,209 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:56:50,210 - core.messaging.message_service - INFO - Device registered: 192.168.1.4
+2025-06-06 23:56:50,210 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:56:59,650 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:56:59,651 - core.messaging.message_service - INFO - Device registered: 192.168.1.5
+2025-06-06 23:56:59,651 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:57:09,133 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:57:09,133 - core.messaging.message_service - INFO - Device registered: 192.168.1.7
+2025-06-06 23:57:09,134 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:57:18,583 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:57:18,584 - core.messaging.message_service - INFO - Device registered: 192.168.1.8
+2025-06-06 23:57:18,584 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:57:28,047 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:57:28,048 - core.messaging.message_service - INFO - Device registered: 192.168.1.12
+2025-06-06 23:57:28,048 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:57:37,512 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:57:37,513 - core.messaging.message_service - INFO - Device registered: 192.168.1.14
+2025-06-06 23:57:37,514 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered:  (192.1...
+2025-06-06 23:57:37,940 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:57:37,941 - core.messaging.message_service - INFO - Device registered: 192.168.1.15
+2025-06-06 23:57:37,941 - core.messaging.message_service - INFO - Message sent to broadcast: New device discovered: DESKTOP...
+2025-06-06 23:57:49,559 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:59:00,893 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-06 23:59:49,046 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-07 00:00:48,909 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-07 00:00:50,233 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-07 00:00:50,924 - core.remote.device_manager - INFO - Port 9877 closed on 192.168.1.15, error code: 10061
+2025-06-07 00:01:48,929 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-07 00:02:48,921 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-07 00:03:48,928 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-07 00:04:48,929 - gui.devices_tab - INFO - Sauvegarde de 268 appareils dans devices.json
+2025-06-07 00:04:59,032 - core.messaging.message_service - INFO - MessageService stopped
+2025-06-07 00:04:59,033 - core.messaging.message_server - INFO - Message server stopped
+2025-06-07 00:04:59,060 - root - INFO - Application exited with code 0
