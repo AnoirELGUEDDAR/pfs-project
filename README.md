@@ -12,7 +12,6 @@
 ## *Dashboard pour monitoring*:
 
 ![image](https://github.com/AnoirELGUEDDAR/pfs-project/blob/main/grafana_dash.png)
-![image](https://github.com/AnoirELGUEDDAR/pfs-project/blob/main/image.png)
 # ✨ Fonctionnalités Clés
 ### Scan Réseau Complet : 
 Découverte rapide de tous les appareils connectés sur le réseau local en utilisant des techniques comme les requêtes ARP.
