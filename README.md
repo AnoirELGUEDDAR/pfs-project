@@ -7,7 +7,7 @@ MyLanManager est un outil de gestion et de surveillance de réseau local dévelo
 📸 Captures d'écran
 &lt;table>
 &lt;tr>
-&lt;td>&lt;img src="file:///C:/Users/pc/Desktop/presentation/logo.png" alt="Interface Principale">&lt;/td>
+&lt;td>&lt;img src="[file:///C:/Users/pc/Desktop/presentation/logo.png](https://raw.githubusercontent.com/AnoirELGUEDDAR/pfs-project/refs/heads/main/image.png)" alt="Interface Principale">&lt;/td>
 &lt;td>&lt;img src="URL_VERS_FIGURE_3.2" alt="Interface de Scan">&lt;/td>
 &lt;td>&lt;img src="URL_VERS_FIGURE_3.3" alt="Liste des Appareils">&lt;/td>
 &lt;/tr>
