@@ -85,10 +85,9 @@ source venv/bin/activate
 *-Alertmanager sera accessible sur http://localhost:9093.* <br>
 ### Lancez l'application MyLanManager en exécutant le script principal Python.
 *python main.py*
-### 🧑‍💻 Auteurs
-Ce projet a été réalisé par :
-
-EL GUEDDAR Anoir
-LMEQDEM Asmaa
-KADA Otman
+## 🧑‍💻 Auteurs
+Ce projet a été réalisé par :<br>
+### EL GUEDDAR Anoir
+### LMEQDEM Asmaa
+### KADA Otman
 
